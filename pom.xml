@@ -12,7 +12,7 @@
 	<artifactId>grupo4</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>grupo4</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Sistema Ticketera</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -43,6 +43,23 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.32</version>
 		</dependency>
 	</dependencies>
 
