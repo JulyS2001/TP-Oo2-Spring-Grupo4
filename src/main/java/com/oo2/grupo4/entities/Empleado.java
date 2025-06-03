@@ -24,8 +24,7 @@ public class Empleado extends Persona{
 	@JoinColumn(name = "idArea")
 	private Area area;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idActualizacion")
+	@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL)
 	private List<Actualizacion> actualizaciones;
 	
 }

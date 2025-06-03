@@ -5,6 +5,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,8 +28,7 @@ public class Prioridad {
 	
 	private String tipo; 
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idTicket")
+	@OneToMany(mappedBy = "prioridad", fetch = FetchType.LAZY)
 	private List<Ticket> tickets;
 
 }

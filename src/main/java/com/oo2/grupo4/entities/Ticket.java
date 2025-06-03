@@ -47,8 +47,11 @@ public class Ticket {
 	@JoinColumn(name = "idEstado")
 	private Estado estado;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idActualizacion")
+	@OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
 	private List<Actualizacion> actualizaciones;
 	
+	/*
+	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+	private List<Actualizacion> actualizaciones;
+	*/
 }

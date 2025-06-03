@@ -26,7 +26,7 @@ public class Contacto {
 	private String email;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idPersona")
+	@JoinColumn(name = "idPersona", referencedColumnName = "idPersona")
 	private Persona persona;
 	
 
