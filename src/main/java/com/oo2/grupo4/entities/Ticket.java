@@ -50,8 +50,4 @@ public class Ticket {
 	@OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
 	private List<Actualizacion> actualizaciones;
 	
-	/*
-	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
-	private List<Actualizacion> actualizaciones;
-	*/
 }
