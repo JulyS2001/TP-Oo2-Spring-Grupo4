@@ -23,7 +23,7 @@ public class Actualizacion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idActualizacion")
-	private int id; 
+	private int idActualizacion; 
 	
 	private String contenido; 
 	private LocalDate fechaActualizacion; 
