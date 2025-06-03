@@ -21,9 +21,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter @Setter @AllArgsConstructor @ToString
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Persona {
+public abstract class Persona {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
