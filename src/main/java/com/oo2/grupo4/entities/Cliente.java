@@ -8,16 +8,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter @Setter @AllArgsConstructor @ToString
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class Cliente extends Persona{
 	
 	private String nroCliente;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idTicket")
-	private List<Ticket> lstTicket;
+	private List<Ticket> tickets;
 }
