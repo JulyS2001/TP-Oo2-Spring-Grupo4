@@ -21,6 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Persona {
