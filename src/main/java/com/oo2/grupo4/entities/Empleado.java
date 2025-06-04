@@ -7,12 +7,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@PrimaryKeyJoinColumn(name = "persona_idPersona") // Hereda la PK de Persona
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class Empleado extends Persona{
