@@ -28,7 +28,7 @@ public class TipoDeTicket {
 	
 	private String tipo; 
 	
-	@OneToMany(mappedBy = "tipodeticket", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "tipoDeTicket", fetch = FetchType.LAZY)
 	private List<Ticket> tickets;
 
 }
