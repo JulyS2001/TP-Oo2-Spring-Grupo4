@@ -19,8 +19,6 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer>{
 	
 	List<Ticket> findByClienteIdPersona(int idCliente);
 	
-	List<Ticket> findByEmpleadoIdPersona(int idEmpleado);
-	
 	@Query("SELECT t.actualizaciones FROM Ticket t WHERE t.idTicket = :idTicket")
 	List<Actualizacion> findActualizacionesByTicketId(@Param("idTicket") int idTicket);
 	

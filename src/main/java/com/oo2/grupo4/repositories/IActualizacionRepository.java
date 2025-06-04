@@ -13,5 +13,7 @@ public interface IActualizacionRepository extends JpaRepository<Actualizacion, I
 	List<Actualizacion> findByTicketIdTicket (int idTicket);
 	
 	List<Actualizacion> findByEmpleadoIdPersona(int idEmpleado);
+
+    
 	
 }
