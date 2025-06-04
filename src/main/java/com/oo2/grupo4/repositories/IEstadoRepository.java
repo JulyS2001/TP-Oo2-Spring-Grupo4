@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IEstadoRepository extends JpaRepository<Estado, Integer> {
 	
-	Optional<Estado> findfindByTipo(String tipo);
+	Optional<Estado> findById(Integer id);
+	Optional<Estado> findByTipo(String tipo);
 
 }
