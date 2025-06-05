@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IEmpleadoService {
 	
-    Empleado crearEmpleado(String nombre, String apellido, int dni, long legajo, int idArea, String rol);
+    Empleado crearEmpleado(String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol);
     
-    void completarEmpleado(int idPersona, long legajo, int idArea, String rol);
+    void completarEmpleado(int idPersona, Integer legajo, int idArea, String rol);
     
     List<Empleado> obtenerEmpleadosPorArea(int idArea);
     

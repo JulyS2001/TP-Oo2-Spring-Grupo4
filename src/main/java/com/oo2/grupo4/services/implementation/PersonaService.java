@@ -21,13 +21,13 @@ public class PersonaService implements IPersonaService{
     }
 
     @Override
-    public Persona traerPorDni(int dni) {
+    public Persona traerPorDni(Long dni) {
         return personaRepository.findByDni(dni)
                 .orElseThrow(() -> new IllegalArgumentException("Persona no encontrada con DNI: " + dni));
     }
 
     @Override
-    public int actualizarPersona(int idPersona, String nombre, String apellido, int dni) {
+    public int actualizarPersona(int idPersona, String nombre, String apellido, Long dni) {
         Persona persona = this.traerPorId(idPersona);
 
         persona.setNombre(nombre);
@@ -43,7 +43,7 @@ public class PersonaService implements IPersonaService{
     }
 
     @Override
-    public void validarDniNoExiste(int dni) {
+    public void validarDniNoExiste(Long dni) {
         if (personaRepository.existsByDni(dni)) {
             throw new IllegalArgumentException("Ya existe una persona con ese DNI");
         }

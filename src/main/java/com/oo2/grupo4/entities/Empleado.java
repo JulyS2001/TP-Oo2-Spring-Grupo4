@@ -22,7 +22,7 @@ import lombok.ToString;
 public class Empleado extends Persona{
 
 	private String rol;
-	private long legajo;
+	private int legajo;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "area_id_area")

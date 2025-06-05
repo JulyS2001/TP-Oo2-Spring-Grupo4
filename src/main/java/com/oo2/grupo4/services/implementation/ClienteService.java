@@ -16,7 +16,7 @@ public class ClienteService implements IClienteService {
     private final PersonaService personaService;
 
     @Override
-    public Cliente crearCliente(String nombre, String apellido, int dni, String nroCliente) {
+    public Cliente crearCliente(String nombre, String apellido, Long dni, String nroCliente) {
         personaService.validarDniNoExiste(dni);
 
         Cliente cliente = new Cliente();

@@ -10,8 +10,8 @@ import com.oo2.grupo4.entities.Persona;
 public interface IPersonaRepository extends JpaRepository<Persona,Integer> {
 	
 
-    boolean existsByDni (int dni);
+    boolean existsByDni (Long dni);
 
-    Optional<Persona> findByDni(int dni);
+    Optional<Persona> findByDni(Long dni);
 
 }

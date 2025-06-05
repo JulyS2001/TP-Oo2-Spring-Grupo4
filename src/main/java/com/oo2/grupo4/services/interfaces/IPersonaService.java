@@ -7,11 +7,11 @@ public interface IPersonaService {
 
     Persona traerPorId(int idPersona);
 
-    Persona traerPorDni(int dni);
+    Persona traerPorDni(Long dni);
 
-    int actualizarPersona(int idPersona, String nombre, String apellido, int dni);
+    int actualizarPersona(int idPersona, String nombre, String apellido, Long dni);
 
     void eliminarPersona(int idPersona);
 
-    void validarDniNoExiste(int dni);
+    void validarDniNoExiste(Long dni);
 }

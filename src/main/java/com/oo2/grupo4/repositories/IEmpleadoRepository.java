@@ -9,5 +9,5 @@ import com.oo2.grupo4.entities.Empleado;
 public interface IEmpleadoRepository extends JpaRepository<Empleado,Integer> {
 
 	  List<Empleado> findByAreaIdArea(int idArea); // Buscar empleados por id del área
-	  Empleado findByLegajo(String legajo);        // Buscar por legajo
+	  Empleado findByLegajo(Integer legajo);        // Buscar por legajo
 }

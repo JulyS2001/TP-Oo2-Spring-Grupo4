@@ -20,7 +20,7 @@ public class EmpleadoService implements IEmpleadoService {
     private final IEmpleadoRepository empleadoRepository;
 
     @Override
-    public Empleado crearEmpleado(String nombre, String apellido, int dni, long legajo, int idArea, String rol) {
+    public Empleado crearEmpleado(String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol) {
         personaService.validarDniNoExiste(dni);
 
         Area area = areaService.traerPorId(idArea);
@@ -37,7 +37,7 @@ public class EmpleadoService implements IEmpleadoService {
     }
 
     @Override
-    public void completarEmpleado(int idPersona, long legajo, int idArea, String rol) {
+    public void completarEmpleado(int idPersona, Integer legajo, int idArea, String rol) {
         Area area = areaService.traerPorId(idArea);
 
         Empleado empleado = empleadoRepository.findById(idPersona)
