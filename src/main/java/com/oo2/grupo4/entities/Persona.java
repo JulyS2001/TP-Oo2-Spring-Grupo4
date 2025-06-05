@@ -10,6 +10,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import lombok.ToString;
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
 public abstract class Persona {
 
 	@Id

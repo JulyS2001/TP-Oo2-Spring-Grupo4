@@ -1,0 +1,17 @@
+package com.oo2.grupo4.services.interfaces;
+
+import com.oo2.grupo4.entities.Persona;
+
+public interface IPersonaService {
+
+
+    Persona traerPorId(int idPersona);
+
+    Persona traerPorDni(int dni);
+
+    int actualizarPersona(int idPersona, String nombre, String apellido, int dni);
+
+    void eliminarPersona(int idPersona);
+
+    void validarDniNoExiste(int dni);
+}
