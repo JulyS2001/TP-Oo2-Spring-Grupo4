@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Ticket;
 
 @Repository
@@ -19,6 +18,4 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer>{
 	List<Ticket> findByTipoDeTicketTipo(String tipo);
 	
 	List<Ticket> findByTitulo(String titulo);
-	
-	List<Actualizacion> getAllActualizacions ();
 }

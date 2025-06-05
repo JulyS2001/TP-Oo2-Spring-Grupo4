@@ -1,5 +1,6 @@
 package com.oo2.grupo4.services.implementation;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,8 +76,9 @@ public class TicketService implements ITicketService{
 	}
 
 	@Override
-	public List<Actualizacion> getAllActualizacions() {
-		return ticketRepository.getAllActualizacions();
+	public List<Actualizacion> getAllActualizacions(int idTicket) {
+		Optional<Ticket> ticket = ticketRepository.findById(idTicket);
+	    return ticket.map(Ticket::getActualizaciones).orElse(Collections.emptyList());
 	}
-
+	
 }

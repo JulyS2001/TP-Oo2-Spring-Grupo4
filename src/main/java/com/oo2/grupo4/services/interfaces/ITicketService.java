@@ -25,6 +25,6 @@ public interface ITicketService {
 	
 	List<Ticket> findByTitulo(String titulo);
 	
-	List<Actualizacion> getAllActualizacions ();
+	List<Actualizacion> getAllActualizacions (int Ticket);
     
 }
