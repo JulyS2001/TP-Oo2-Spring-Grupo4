@@ -2,9 +2,7 @@ package com.oo2.grupo4.entities;
 
 import java.time.LocalDate;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,18 +20,17 @@ public class Actualizacion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idActualizacion")
 	private int idActualizacion; 
 	
 	private String contenido; 
 	private LocalDate fechaActualizacion; 
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idEmpleado")
+	@JoinColumn(name = "empleado_id_persona")
 	private Empleado empleado; 
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idTicket")
+	@JoinColumn(name = "ticket_id")
 	private Ticket ticket;
 	
 	

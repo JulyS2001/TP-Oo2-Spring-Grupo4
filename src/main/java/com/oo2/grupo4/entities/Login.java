@@ -1,7 +1,6 @@
 package com.oo2.grupo4.entities;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,13 +19,12 @@ public class Login {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idLogin")
 	private int idLogin;
 	private String correo;
 	private String contraseña;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idPersona", referencedColumnName = "idPersona")
+	@JoinColumn(name = "persona_id_persona")
 	private Persona persona;
 	
 }
