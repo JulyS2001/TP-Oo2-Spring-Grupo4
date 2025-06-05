@@ -23,7 +23,7 @@ public class Empleado extends Persona{
 	private long legajo;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "area_idArea")
+	@JoinColumn(name = "area_id_area")
 	private Area area;
 	
 	@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL)

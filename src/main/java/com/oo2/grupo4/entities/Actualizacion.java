@@ -22,18 +22,17 @@ public class Actualizacion {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idActualizacion")
 	private int idActualizacion; 
 	
 	private String contenido; 
 	private LocalDate fechaActualizacion; 
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "empleado_persona_idPersona")
+	@JoinColumn(name = "empleado_id_persona")
 	private Empleado empleado; 
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "ticket_idTicket")
+	@JoinColumn(name = "ticket_id")
 	private Ticket ticket;
 	
 	

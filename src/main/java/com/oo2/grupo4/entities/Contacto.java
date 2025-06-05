@@ -20,13 +20,12 @@ public class Contacto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idContacto")
 	private int idContacto;
 	private long telefono;
 	private String email;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "persona_idPersona", referencedColumnName = "idPersona")
+	@JoinColumn(name = "persona_id_persona", referencedColumnName = "idPersona")
 	private Persona persona;
 	
 

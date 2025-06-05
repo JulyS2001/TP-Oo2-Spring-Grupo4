@@ -20,12 +20,11 @@ import lombok.ToString;
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
-@Table(name = "tipodeticket")
+@Table(name = "tipo_de_ticket")
 public class TipoDeTicket {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idTipoDeTicket")
 	private int idTipoDeTicket;
 	
 	private String tipo; 

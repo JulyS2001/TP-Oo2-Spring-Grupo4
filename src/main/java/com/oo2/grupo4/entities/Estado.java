@@ -23,7 +23,6 @@ public class Estado {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idEstado")
 	private int idEstado;
 	
 	private String tipo; 

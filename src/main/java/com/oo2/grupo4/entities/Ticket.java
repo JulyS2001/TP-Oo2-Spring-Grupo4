@@ -24,7 +24,6 @@ public class Ticket {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idTicket")
 	private int idTicket;
 	private String titulo;
 	private String descripcion;
@@ -32,19 +31,19 @@ public class Ticket {
 	private LocalDate fechaCierre;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "tipoDeTicket_idTipoDeTicket")
+	@JoinColumn(name = "tipo_ticket_id")
 	private TipoDeTicket tipoDeTicket;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "prioridad_idPrioridad")
+	@JoinColumn(name = "prioridad_id")
 	private Prioridad prioridad;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cliente_persona_idPersona")
+	@JoinColumn(name = "cliente_id_persona")
 	private Cliente cliente;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "estado_idEstado")
+	@JoinColumn(name = "estado_id")
 	private Estado estado;
 	
 	@OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)

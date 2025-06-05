@@ -24,7 +24,6 @@ public abstract class Persona {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idPersona")
 	private int idPersona;
 	private String nombre;
 	private String apellido;
