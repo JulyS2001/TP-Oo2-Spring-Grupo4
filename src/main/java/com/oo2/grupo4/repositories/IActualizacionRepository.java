@@ -5,15 +5,20 @@ import org.springframework.stereotype.Repository;
 
 import com.oo2.grupo4.entities.Actualizacion;
 import java.util.List;
+import java.util.Optional;
+import java.time.LocalDate;
+
 
 
 @Repository
 public interface IActualizacionRepository extends JpaRepository<Actualizacion, Integer> {
 
+	Optional<Actualizacion> findByIdActualizacion(int idActualizacion);
+	
 	List<Actualizacion> findByTicketIdTicket (int idTicket);
 	
 	List<Actualizacion> findByEmpleadoIdPersona(int idEmpleado);
 
-    
+	List<Actualizacion> findByFechaActualizacion(LocalDate fechaActualizacion);
 	
 }
