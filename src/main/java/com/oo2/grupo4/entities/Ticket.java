@@ -32,19 +32,19 @@ public class Ticket {
 	private LocalDate fechaCierre;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idTipoDeTicket")
+	@JoinColumn(name = "tipoDeTicket_idTipoDeTicket")
 	private TipoDeTicket tipoDeTicket;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idPrioridad")
+	@JoinColumn(name = "prioridad_idPrioridad")
 	private Prioridad prioridad;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idCliente")
+	@JoinColumn(name = "cliente_persona_idPersona")
 	private Cliente cliente;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idEstado")
+	@JoinColumn(name = "estado_idEstado")
 	private Estado estado;
 	
 	@OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)

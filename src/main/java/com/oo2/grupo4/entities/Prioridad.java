@@ -23,7 +23,7 @@ public class Prioridad {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idPrioridad")
+	@Column(name = "id_prioridad")
 	private int idPrioridad; 
 	
 	private String tipo; 

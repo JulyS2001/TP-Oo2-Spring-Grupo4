@@ -29,11 +29,11 @@ public class Actualizacion {
 	private LocalDate fechaActualizacion; 
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idEmpleado")
+	@JoinColumn(name = "empleado_persona_idPersona")
 	private Empleado empleado; 
 	
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idTicket")
+	@JoinColumn(name = "ticket_idTicket")
 	private Ticket ticket;
 	
 	
