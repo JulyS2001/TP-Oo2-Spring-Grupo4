@@ -8,7 +8,6 @@ import com.oo2.grupo4.entities.Estado;
 import com.oo2.grupo4.repositories.IEstadoRepository;
 import com.oo2.grupo4.services.interfaces.IEstadoService;
 
-import lombok.AllArgsConstructor;
 
 @Service
 public class EstadoService implements IEstadoService {

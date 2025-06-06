@@ -1,7 +1,6 @@
 package com.oo2.grupo4.entities;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -9,9 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +19,7 @@ import lombok.ToString;
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 @Inheritance(strategy = InheritanceType.JOINED)
+@Data
 public abstract class Persona {
 
 	@Id
@@ -27,7 +27,7 @@ public abstract class Persona {
 	private int idPersona;
 	private String nombre;
 	private String apellido;
-	private long dni;	
+	private Long dni;	
 	
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private Contacto contacto;
