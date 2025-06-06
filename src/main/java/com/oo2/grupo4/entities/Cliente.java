@@ -19,7 +19,7 @@ import lombok.ToString;
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class Cliente extends Persona{
 	
-	private String nroCliente;
+	private int nroCliente;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
 	private List<Ticket> tickets;
