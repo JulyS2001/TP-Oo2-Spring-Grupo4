@@ -27,7 +27,7 @@ public abstract class Persona {
 	private int idPersona;
 	private String nombre;
 	private String apellido;
-	private long dni;	
+	private Long dni;	
 	
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private Contacto contacto;
