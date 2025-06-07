@@ -70,14 +70,16 @@
     <nav>
         <a href="#">Inicio</a>
         <a href="#">Mis Tickets</a>
-        <a href="#">Crear Ticket</a>
+        <a th:href="@{/crearTicket}">Crear nuevo ticket</a>
         <a href="#">Soporte</a>
     </nav>
 
     <main>
         <h2>Bienvenido al sistema de soporte UNLa</h2>
         <p>Desde aquí puedes reportar problemas, consultar el estado de tus tickets o comunicarte con nuestro equipo técnico.</p>
-        <button class="btn" onclick="alert('Redirigiendo a creación de ticket...')">Crear nuevo ticket</button>
+        <!--<button class="btn" onclick="alert('Redirigiendo a creación de ticket...')">Crear nuevo ticket</button>-->
+		<button type="button" class="btn" th:onclick="|window.location.href='@{/crearTicket}'|">Crear nuevo ticket</button>
+		
     </main>
 
     <footer>

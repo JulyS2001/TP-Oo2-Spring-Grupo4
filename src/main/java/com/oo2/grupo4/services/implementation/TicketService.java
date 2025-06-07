@@ -30,8 +30,7 @@ public class TicketService implements ITicketService{
 	
 	
 	@Override
-	public Ticket crearTicket(String titulo, String descripcion, LocalDate fechaCreacion, LocalDate fechaCierre,
-			Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado) {
+	public Ticket crearTicket(String titulo, String descripcion, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado) {
 		
 		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(idTipoDeTicket);
 		Estado estado = estadoService.findById(idEstado);
@@ -40,8 +39,8 @@ public class TicketService implements ITicketService{
 		Ticket ticket = new Ticket();
 		ticket.setTitulo(titulo);
 		ticket.setDescripcion(descripcion);
-		ticket.setFechaCreacion(fechaCreacion);
-		ticket.setFechaCierre(fechaCierre);
+		ticket.setFechaCreacion(LocalDate.now());
+		ticket.setFechaCierre(null);
 		ticket.setPrioridad(prioridad);
 		ticket.setEstado(estado);
 		ticket.setTipoDeTicket(tipoDeTicket);

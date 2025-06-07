@@ -8,8 +8,7 @@ import com.oo2.grupo4.entities.Ticket;
 
 public interface ITicketService {
 	
-	Ticket crearTicket(String titulo, String descripcion, LocalDate fechaCreacion, LocalDate fechaCierre,
-			Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado);
+	Ticket crearTicket(String titulo, String descripcion, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado);
 
 	List<Ticket> getAll();
     

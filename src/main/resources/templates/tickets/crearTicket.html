@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Soporte UNLa</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			background: #eef2f3;
+		}
+
+		header {
+			background-color: rgb(128, 0, 0);
+			color: white;
+			padding: 1rem;
+			text-align: center;
+		}
+
+		nav {
+			background-color: rgb(128, 0, 0);
+			display: flex;
+			justify-content: center;
+			gap: 2rem;
+			padding: 0.75rem;
+		}
+
+		nav a {
+			color: white;
+			text-decoration: none;
+			font-weight: bold;
+		}
+
+		nav a:hover {
+			text-decoration: underline;
+		}
+
+		main {
+			padding: 2rem;
+			text-align: center;
+		}
+
+		.btn {
+			background-color: rgb(128, 0, 0);
+			color: white;
+			padding: 0.75rem 1.5rem;
+			border: none;
+			border-radius: 5px;
+			font-size: 1rem;
+			cursor: pointer;
+			margin-top: 1rem;
+		}
+
+		.btn:hover {
+			background-color: rgb(128, 0, 0);
+		}
+
+		footer {
+			background-color: rgb(64, 0, 128);
+			color: white;
+			text-align: center;
+			padding: 1rem;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<h1>Ticketera Soporte UNLa</h1>
+		<p>Gestiona y da seguimiento a tus tickets de soporte técnico</p>
+	</header>
+
+	<nav>
+		<a href="/">Inicio</a>
+		<a href="#">Mis Tickets</a>
+		<a href="#">Crear Ticket</a>
+		<a href="#">Soporte</a>
+	</nav>
+
+	<main>
+		<h1>Creacion de Ticket</h1>
+		<p>Por favor completar todos los campos</p>
+
+		<form th:action="@{/crearTicket}" method="post">
+			<p>Titulo: <input type="text" name="titulo" required></p>
+			<p>Descripcion: <input type="text" name="descripcion" required></p>
+
+			<!-- Dropdown de Prioridad -->
+			<p>Prioridad:
+				<select name="idPrioridad" required>
+					<option value="" disabled selected>Seleccione una prioridad</option>
+					<option th:each="prioridad : ${prioridades}" th:value="${prioridad.idPrioridad}"
+						th:text="${prioridad.tipo}">
+					</option>
+				</select>
+			</p>
+
+			<!-- Dropdown de Estado -->
+			<p>Estado:
+				<select name="idEstado" required>
+					<option value="" disabled selected>Seleccione un estado</option>
+					<option th:each="estado : ${estados}" th:value="${estado.idEstado}"
+						th:text="${estado.tipo}">
+					</option>
+				</select>
+			</p>
+
+
+			<!-- Dropdown de Tipo -->
+			<p>Tipo de Ticket:
+				<select name="idTipoDeTicket" required>
+					<option value="" disabled selected>Seleccione un tipo de ticket</option>
+					<option th:each="tipoDeTicket : ${tipoDeTickets}" th:value="${tipoDeTicket.idTipoDeTicket}"
+						th:text="${tipoDeTicket.tipo}">
+					</option>
+				</select>
+			</p>
+
+			<button type="submit">Continuar</button>
+			
+			</form>
+
+						<p th:if="${mensaje}" th:text="${mensaje}" style="color: red;"></p>
+
+	</main>
+
+	<footer>
+		&copy; 2025 Ticketera Soporte UNLa. Todos los derechos reservados.
+	</footer>
+
+</body>
+
+</html>

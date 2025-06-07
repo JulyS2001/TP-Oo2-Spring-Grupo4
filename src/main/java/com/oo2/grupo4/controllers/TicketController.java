@@ -37,12 +37,17 @@ public class TicketController {
 	private final ActualizacionService actualizacionService; 
 	private final TicketService ticketService;
 	
-    @GetMapping("/crearTicket")
-    public ModelAndView vistaCrearTicket(@RequestParam(required = false) String mensaje) {
-        ModelAndView mav = new ModelAndView("crearTicket");
-        mav.addObject("error", mensaje);
-        return mav;
-    }
+	@GetMapping("/crearTicket")
+	public ModelAndView vistaCrearTicket(@RequestParam(required = false) String mensaje) {
+	    ModelAndView mav = new ModelAndView("tickets/crearTicket");
+	    mav.addObject("error", mensaje);
+
+	    mav.addObject("prioridades", prioridadService.getAll());
+	    mav.addObject("estados", estadoService.getAll());
+	    mav.addObject("tipoDeTickets", tipodeticketservice.getAll());
+	    
+	    return mav;
+	}
    
     @PostMapping("/crearTicket")
     public ModelAndView vistarCrearTicket(
@@ -56,12 +61,11 @@ public class TicketController {
     		@RequestParam Integer idCliente
     		) {
     	
-    	   ModelAndView mav = new ModelAndView("crearTicket");
+    	   ModelAndView mav = new ModelAndView("tickets/crearTicket");
     		
     		if(!(ticketService.existsByTitulo(titulo))) {
     		
-    		Ticket ticket = ticketService.crearTicket(titulo, descripcion, fechaCreacion, fechaCierre,
-    				idTipoDeTicket, idPrioridad, idEstado);
+    		Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket, idPrioridad, idEstado);
     		
     		return new ModelAndView("redirect:/listaTickets");
     		

@@ -1,9 +1,11 @@
 package com.oo2.grupo4.services.implementation;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
-
+import com.oo2.grupo4.entities.Estado;
 import com.oo2.grupo4.entities.TipoDeTicket;
 import com.oo2.grupo4.repositories.ITipoDeTicketRepository;
 import com.oo2.grupo4.services.interfaces.ITipoDeTicketService;
@@ -28,5 +30,10 @@ public class TipoDeTicketService implements ITipoDeTicketService {
 		return tipoDeTicketRepository.findByTipo(tipo)
 				.orElseThrow(() -> new IllegalArgumentException("TipoDeTicket no encontrada con ID: " + tipo));
 	}
+	
+	  @Override
+	    public List<TipoDeTicket> getAll() {
+	        return tipoDeTicketRepository.findAll();
+	    }
 
 }

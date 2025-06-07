@@ -1,5 +1,6 @@
 package com.oo2.grupo4.services.implementation;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class EstadoService implements IEstadoService {
 	        		.orElseThrow(() -> new IllegalArgumentException("Estado no encontrada con el tipo: " + tipo));
 	    }
 	
-	
+	    @Override
+	    public List<Estado> getAll() {
+	        return estadoRepository.findAll();
+	    }
 
 }
