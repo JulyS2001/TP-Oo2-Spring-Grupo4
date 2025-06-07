@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 public class LoginService implements ILoginService{
 	
     private final ILoginRepository loginRepository;
+    
+  
 
     @Override
     @Transactional

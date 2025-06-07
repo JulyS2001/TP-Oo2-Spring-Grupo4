@@ -16,10 +16,9 @@ import lombok.ToString;
 @PrimaryKeyJoinColumn(name = "persona_idPersona") // Hereda la PK de Persona
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
-@Data
 public class Cliente extends Persona{
 	
-	private int nroCliente;
+	private String nroCliente;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
 	private List<Ticket> tickets;

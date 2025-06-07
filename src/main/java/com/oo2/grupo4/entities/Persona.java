@@ -19,7 +19,7 @@ import lombok.ToString;
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 @Inheritance(strategy = InheritanceType.JOINED)
-@Data
+
 public abstract class Persona {
 
 	@Id

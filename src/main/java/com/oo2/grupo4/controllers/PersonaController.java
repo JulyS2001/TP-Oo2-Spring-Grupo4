@@ -28,6 +28,8 @@ public class PersonaController {
     private final ClienteService clienteService;
     private final EmpleadoService empleadoService;
     private final AreaService areaService;
+    
+    
 
     @GetMapping("/registro")
     public ModelAndView vistaRegistro(@RequestParam(required = false) String mensaje) {
