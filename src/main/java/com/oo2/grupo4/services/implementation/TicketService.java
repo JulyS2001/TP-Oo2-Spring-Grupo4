@@ -1,5 +1,6 @@
 package com.oo2.grupo4.services.implementation;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -7,20 +8,46 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.oo2.grupo4.entities.Actualizacion;
+import com.oo2.grupo4.entities.Estado;
+import com.oo2.grupo4.entities.Prioridad;
+import com.oo2.grupo4.entities.TipoDeTicket;
 import com.oo2.grupo4.entities.Ticket;
+import com.oo2.grupo4.repositories.IEmpleadoRepository;
 import com.oo2.grupo4.repositories.ITicketRepository;
 import com.oo2.grupo4.services.interfaces.ITicketService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class TicketService implements ITicketService{
 
 	private final ITicketRepository ticketRepository;
+	private final EstadoService estadoService; 
+	private final PrioridadService prioridadService; 
+	private final TipoDeTicketService tipoDeTicketService;
 	
 	
 	
-	public TicketService(ITicketRepository ticketRepository) {
-		super();
-		this.ticketRepository = ticketRepository;
+	@Override
+	public Ticket crearTicket(String titulo, String descripcion, LocalDate fechaCreacion, LocalDate fechaCierre,
+			Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado) {
+		
+		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(idTipoDeTicket);
+		Estado estado = estadoService.findById(idEstado);
+		Prioridad prioridad = prioridadService.findById(idPrioridad);
+		
+		Ticket ticket = new Ticket();
+		ticket.setTitulo(titulo);
+		ticket.setDescripcion(descripcion);
+		ticket.setFechaCreacion(fechaCreacion);
+		ticket.setFechaCierre(fechaCierre);
+		ticket.setPrioridad(prioridad);
+		ticket.setEstado(estado);
+		ticket.setTipoDeTicket(tipoDeTicket);
+		
+		return ticketRepository.save(ticket);
+		
 	}
 
 	@Override
@@ -40,6 +67,7 @@ public class TicketService implements ITicketService{
 	public Ticket save(Ticket ticket) {
 		return ticketRepository.save(ticket);
 	}
+	
 
 	@Override
 	public void delete(int id) {
@@ -74,6 +102,12 @@ public class TicketService implements ITicketService{
 	public List<Ticket> findByTitulo(String titulo) {
 		return ticketRepository.findByTitulo(titulo);
 	}
+	
+	public boolean existsByTitulo(String titulo) {
+		return ticketRepository.existsByTitulo(titulo);
+	}
+	
+	
 
 	@Override
 	public List<Actualizacion> getAllActualizacions(int idTicket) {

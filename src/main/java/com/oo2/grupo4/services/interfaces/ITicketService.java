@@ -1,11 +1,15 @@
 package com.oo2.grupo4.services.interfaces;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Ticket;
 
 public interface ITicketService {
+	
+	Ticket crearTicket(String titulo, String descripcion, LocalDate fechaCreacion, LocalDate fechaCierre,
+			Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado);
 
 	List<Ticket> getAll();
     
@@ -26,5 +30,7 @@ public interface ITicketService {
 	List<Ticket> findByTitulo(String titulo);
 	
 	List<Actualizacion> getAllActualizacions (int Ticket);
+	
+	boolean existsByTitulo(String titulo);
     
 }

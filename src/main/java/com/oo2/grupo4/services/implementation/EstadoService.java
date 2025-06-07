@@ -19,13 +19,15 @@ public class EstadoService implements IEstadoService {
 	}
 	
 	 @Override
-	    public Optional<Estado> findById(Integer id) {
-	        return estadoRepository.findById(id);
+	    public Estado findById(Integer id) {
+	        return estadoRepository.findById(id)
+	        		.orElseThrow(() -> new IllegalArgumentException("Estado no encontrada con ID: " + id));
 	    }
 
 	    @Override
-	    public Optional<Estado> findByTipo(String tipo) {
-	        return estadoRepository.findByTipo(tipo);
+	    public Estado findByTipo(String tipo) {
+	        return estadoRepository.findByTipo(tipo)
+	        		.orElseThrow(() -> new IllegalArgumentException("Estado no encontrada con el tipo: " + tipo));
 	    }
 	
 	

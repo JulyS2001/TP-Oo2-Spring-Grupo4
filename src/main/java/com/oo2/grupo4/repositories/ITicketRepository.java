@@ -18,4 +18,7 @@ public interface ITicketRepository extends JpaRepository<Ticket, Integer>{
 	List<Ticket> findByTipoDeTicketTipo(String tipo);
 	
 	List<Ticket> findByTitulo(String titulo);
+	
+	boolean existsByTitulo(String titulo);
+	
 }

@@ -6,6 +6,6 @@ import com.oo2.grupo4.entities.TipoDeTicket;
 
 public interface ITipoDeTicketService {
 
-	Optional<TipoDeTicket> findById(Integer id);
-	Optional<TipoDeTicket> findByTipo(String tipo);
+	TipoDeTicket findById(int id);
+	TipoDeTicket findByTipo(String tipo);
 }

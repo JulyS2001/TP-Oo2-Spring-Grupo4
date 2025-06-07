@@ -17,13 +17,15 @@ public class PrioridadService implements IPrioridadService {
 	}
 	
 	 @Override
-	    public Optional<Prioridad> findById(Integer id) {
-	        return prioridadRepository.findById(id);
+	    public Prioridad findById(Integer id) {
+	        return prioridadRepository.findById(id)
+	        		.orElseThrow(() -> new IllegalArgumentException("Prioridad no encontrada con ID: " + id));
 	    }
 
 	    @Override
-	    public Optional<Prioridad> findByTipo(String tipo) {
-	        return prioridadRepository.findByTipo(tipo);
+	    public Prioridad findByTipo(String tipo) {
+	        return prioridadRepository.findByTipo(tipo)
+	        		.orElseThrow(() -> new IllegalArgumentException("Prioridad no encontrada con el tipo: " + tipo));
 	    }
 
 }

@@ -18,13 +18,15 @@ public class TipoDeTicketService implements ITipoDeTicketService {
 	private final ITipoDeTicketRepository tipoDeTicketRepository;
 
 	@Override
-	public Optional<TipoDeTicket> findById(Integer id) {
-		return tipoDeTicketRepository.findById(id);
+	public TipoDeTicket findById(int id) {
+		return tipoDeTicketRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("TipoDeTicket no encontrada con ID: " + id));
 	}
 
 	@Override
-	public Optional<TipoDeTicket> findByTipo(String tipo) {
-		return tipoDeTicketRepository.findByTipo(tipo);
+	public TipoDeTicket findByTipo(String tipo) {
+		return tipoDeTicketRepository.findByTipo(tipo)
+				.orElseThrow(() -> new IllegalArgumentException("TipoDeTicket no encontrada con ID: " + tipo));
 	}
 
 }
