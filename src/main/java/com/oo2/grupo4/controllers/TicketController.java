@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.oo2.grupo4.entities.TipoDeTicket;
+import com.oo2.grupo4.exceptions.TicketYaExistente;
 import com.oo2.grupo4.entities.Estado;
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Cliente;
@@ -64,8 +65,7 @@ public class TicketController {
     		return new ModelAndView("redirect:/listaTickets");
     		
     		} else {
-    			mav.addObject("mensaje", "Ya existe un ticket con ese título.");
-                return mav;
+    			throw new TicketYaExistente("El ticket con el titulo: " + titulo + "Ya existe");
     		}
 }
     @GetMapping("/listaTickets")
