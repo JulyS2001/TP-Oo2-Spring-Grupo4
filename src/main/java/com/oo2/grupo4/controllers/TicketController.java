@@ -71,7 +71,7 @@ public class TicketController {
             
             return new ModelAndView("redirect:mail/mailEnvio");
     		} else {
-    			throw new TicketYaExistente("El ticket con el titulo: " + titulo + "Ya existe");
+    			throw new TicketYaExistente("El ticket con el titulo: " + titulo + " Ya existe");
     		}
 }
     @GetMapping("/listaTickets")
