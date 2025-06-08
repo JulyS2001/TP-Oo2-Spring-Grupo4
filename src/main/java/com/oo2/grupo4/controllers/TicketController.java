@@ -70,7 +70,7 @@ public class TicketController {
 }
     @GetMapping("/listaTickets")
     public ModelAndView vistaListaTickets(@RequestParam(required = false) String mensaje) {
-        ModelAndView mav = new ModelAndView("listaTickets");
+        ModelAndView mav = new ModelAndView("tickets/listaTickets");
         mav.addObject("tickets", ticketService.getAll());
         return mav;
     }

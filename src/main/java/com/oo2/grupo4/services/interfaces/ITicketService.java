@@ -9,6 +9,8 @@ import com.oo2.grupo4.entities.Ticket;
 public interface ITicketService {
 	
 	Ticket crearTicket(String titulo, String descripcion);
+	
+	public int modificarTicket (int idTicket, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado);
 
 	List<Ticket> getAll();
     

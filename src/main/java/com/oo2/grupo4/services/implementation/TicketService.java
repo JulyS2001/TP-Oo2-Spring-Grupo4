@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Estado;
+import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.entities.Prioridad;
 import com.oo2.grupo4.entities.TipoDeTicket;
 import com.oo2.grupo4.entities.Ticket;
@@ -44,22 +45,24 @@ public class TicketService implements ITicketService{
 		
 	}
 	
-	public Ticket modificarTicket(String titulo, String descripcion, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado) {
+	public int modificarTicket (int idTicket, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado) {
+	    Ticket ticket = this.getById(idTicket);
 		
 		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(idTipoDeTicket);
 		Estado estado = estadoService.findById(idEstado);
 		Prioridad prioridad = prioridadService.findById(idPrioridad);
 		
-		Ticket ticket = new Ticket();
-		ticket.setTitulo(titulo);
-		ticket.setDescripcion(descripcion);
-		ticket.setFechaCreacion(LocalDate.now());
-		ticket.setFechaCierre(null);
+		if (estado.getIdEstado() == 2) {
+			ticket.setFechaCierre(LocalDate.now());
+		} else {
+			ticket.setFechaCierre(null);
+		}
+
 		ticket.setPrioridad(prioridad);
 		ticket.setEstado(estado);
 		ticket.setTipoDeTicket(tipoDeTicket);
 		
-		return ticketRepository.save(ticket);
+		return ticketRepository.save(ticket).getIdTicket();
 		
 	}
 
