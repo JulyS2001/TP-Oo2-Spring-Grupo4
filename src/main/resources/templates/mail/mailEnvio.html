@@ -30,19 +30,8 @@
 	</nav>
 
 	<main>
-		<h1>Creacion de Ticket</h1>
-		<p>Por favor completar todos los campos</p>
-
-		<form th:action="@{/crearTicket}" method="post">
-			<p>Titulo: <input type="text" name="titulo" required></p>
-			<p>Descripcion: <input type="text" name="descripcion" required></p>
-
-			<button type="submit" th:href="@{/texto}">Continuar</button>
-
-		</form>
-
-		<p th:if="${mensaje}" th:text="${mensaje}" style="color: red;"></p>
-
+		<h1 th:text="${titulo}">El Mail ha sido enviado con exito</h1>
+		    <p th:text="${mensaje}">Revise su caja de correos</p>
 	</main>
 
 	<footer>

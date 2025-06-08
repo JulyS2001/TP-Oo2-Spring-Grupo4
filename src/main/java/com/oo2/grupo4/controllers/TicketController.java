@@ -20,6 +20,7 @@ import com.oo2.grupo4.entities.Ticket;
 
 import com.oo2.grupo4.services.implementation.ActualizacionService;
 import com.oo2.grupo4.services.implementation.ClienteService;
+import com.oo2.grupo4.services.implementation.EmailService;
 import com.oo2.grupo4.services.implementation.EstadoService;
 import com.oo2.grupo4.services.implementation.PrioridadService;
 import com.oo2.grupo4.services.implementation.TicketService;
@@ -37,6 +38,7 @@ public class TicketController {
 	private final ClienteService clienteService; 
 	private final ActualizacionService actualizacionService; 
 	private final TicketService ticketService;
+	private final EmailService emailService;
 	
 	@GetMapping("/crearTicket")
 	public ModelAndView vistaCrearTicket(@RequestParam(required = false) String mensaje) {
@@ -62,8 +64,12 @@ public class TicketController {
     		
     		Ticket ticket = ticketService.crearTicket(titulo, descripcion);
     		
-    		return new ModelAndView("redirect:/listaTickets");
-    		
+    		String destinatario = "axel.dp44@gmail.com";
+            String asunto = "Nuevo ticket creado: " + titulo;
+            String cuerpo = "Se ha creado un nuevo ticket:\n\nTítulo: " + titulo + "\nDescripción: " + descripcion;
+            emailService.enviarConfirmacionTicket(destinatario, asunto, cuerpo);
+            
+            return new ModelAndView("redirect:mail/mailEnvio");
     		} else {
     			throw new TicketYaExistente("El ticket con el titulo: " + titulo + "Ya existe");
     		}
