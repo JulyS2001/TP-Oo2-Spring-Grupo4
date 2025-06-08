@@ -22,10 +22,12 @@ header {
 .logo {
     position: absolute;
     left: 30px;
-    top: 10px; 
-	bottom: 10px;
-    width: 120px;
-    height: auto;
+    top: 10px;
+    bottom: 10px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Hace el logo redondo */
+    object-fit: cover;  /* Ajusta el recorte dentro del círculo */
 }
 
 
@@ -74,4 +76,77 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+form {
+    max-width: 500px;
+    margin: 2rem auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+   	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+form p {
+    margin-bottom: 1.5rem;
+}
+form input[type="text"] {
+    display: block;           
+    margin-top: 0.5rem;      
+    width: 100%;            
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form button {
+    background-color: #5C1623;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #9C7771;
+}
+
+table {
+    margin: 2rem auto;
+    width: 90%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    text-align: left;
+}
+
+thead {
+    background-color: #5C1623;
+    color: white;
+}
+
+thead th {
+    padding: 1rem;
+    font-size: 1rem;
+}
+
+tbody td {
+    padding: 1rem;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.95rem;
+}
+
+tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
 }
