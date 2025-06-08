@@ -93,37 +93,6 @@
 			<p>Titulo: <input type="text" name="titulo" required></p>
 			<p>Descripcion: <input type="text" name="descripcion" required></p>
 
-			<!-- Dropdown de Prioridad -->
-			<p>Prioridad:
-				<select name="idPrioridad" required>
-					<option value="" disabled selected>Seleccione una prioridad</option>
-					<option th:each="prioridad : ${prioridades}" th:value="${prioridad.idPrioridad}"
-						th:text="${prioridad.tipo}">
-					</option>
-				</select>
-			</p>
-
-			<!-- Dropdown de Estado -->
-			<p>Estado:
-				<select name="idEstado" required>
-					<option value="" disabled selected>Seleccione un estado</option>
-					<option th:each="estado : ${estados}" th:value="${estado.idEstado}"
-						th:text="${estado.tipo}">
-					</option>
-				</select>
-			</p>
-
-
-			<!-- Dropdown de Tipo -->
-			<p>Tipo de Ticket:
-				<select name="idTipoDeTicket" required>
-					<option value="" disabled selected>Seleccione un tipo de ticket</option>
-					<option th:each="tipoDeTicket : ${tipoDeTickets}" th:value="${tipoDeTicket.idTipoDeTicket}"
-						th:text="${tipoDeTicket.tipo}">
-					</option>
-				</select>
-			</p>
-
 			<button type="submit">Continuar</button>
 			
 			</form>

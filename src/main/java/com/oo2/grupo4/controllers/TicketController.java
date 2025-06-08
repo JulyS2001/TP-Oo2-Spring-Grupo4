@@ -52,20 +52,14 @@ public class TicketController {
     @PostMapping("/crearTicket")
     public ModelAndView vistarCrearTicket(
     		@RequestParam String titulo,
-    		@RequestParam String descripcion,
-    		@RequestParam LocalDate fechaCreacion,
-    		@RequestParam LocalDate fechaCierre,
-    		@RequestParam Integer idPrioridad,
-    		@RequestParam Integer idEstado, 
-    		@RequestParam Integer idTipoDeTicket,
-    		@RequestParam Integer idCliente
+    		@RequestParam String descripcion
     		) {
     	
     	   ModelAndView mav = new ModelAndView("tickets/crearTicket");
     		
     		if(!(ticketService.existsByTitulo(titulo))) {
     		
-    		Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket, idPrioridad, idEstado);
+    		Ticket ticket = ticketService.crearTicket(titulo, descripcion);
     		
     		return new ModelAndView("redirect:/listaTickets");
     		

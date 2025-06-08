@@ -30,7 +30,21 @@ public class TicketService implements ITicketService{
 	
 	
 	@Override
-	public Ticket crearTicket(String titulo, String descripcion, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado) {
+	public Ticket crearTicket(String titulo, String descripcion) {
+		
+		Estado estado = estadoService.findById(1);
+		
+		Ticket ticket = new Ticket();
+		ticket.setTitulo(titulo);
+		ticket.setDescripcion(descripcion);
+		ticket.setFechaCreacion(LocalDate.now());
+		ticket.setEstado(estado);
+		
+		return ticketRepository.save(ticket);
+		
+	}
+	
+	public Ticket modificarTicket(String titulo, String descripcion, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado) {
 		
 		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(idTipoDeTicket);
 		Estado estado = estadoService.findById(idEstado);
