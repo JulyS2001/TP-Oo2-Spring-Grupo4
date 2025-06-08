@@ -4,72 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soporte UNLa</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #eef2f3;
-        }
-        header {
-            background-color: rgb(128, 0, 0);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-        }
-        nav {
-            background-color: rgb(128, 0, 0);
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            padding: 0.75rem;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        main {
-            padding: 2rem;
-            text-align: center;
-        }
-        .btn {
-            background-color: rgb(128, 0, 0);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-        .btn:hover {
-            background-color: rgb(128, 0, 0);
-        }
-        footer {
-            background-color: rgb(64, 0, 128);
-            color: white;
-            text-align: center;
-            padding: 1rem;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+	<link rel="stylesheet" th:href="@{/estiloTicketera.css}">
+
 </head>
 <body>
 
-    <header>
-        <h1>Ticketera Soporte UNLa</h1>
-        <p>Gestiona y da seguimiento a tus tickets de soporte técnico</p>
-    </header>
+	<header>
+	    <div class="encabezado">
+			<img src="/logo.png" alt="Logo UNLa" class="logo">
+	        <div class="titulo">
+	            <h1>Ticketera Soporte UNLa</h1>
+	            <p>Gestiona y da seguimiento a tus tickets de soporte técnico</p>
+	        </div>
+	    </div>
+	</header>
 
     <nav>
         <a href="#">Inicio</a>
-        <a href="#">Mis Tickets</a>
+		<a th:href="@{/listaTickets}">Mis Tickets</a>
         <a th:href="@{/crearTicket}">Crear nuevo ticket</a>
         <a href="#">Soporte</a>
     </nav>
