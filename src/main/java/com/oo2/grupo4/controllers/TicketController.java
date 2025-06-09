@@ -45,7 +45,6 @@ public class TicketController {
 	    ModelAndView mav = new ModelAndView("tickets/crearTicket");
 	    mav.addObject("error", mensaje);
 
-	    mav.addObject("prioridades", prioridadService.getAll());
 	    mav.addObject("estados", estadoService.getAll());
 	    mav.addObject("tipoDeTickets", tipodeticketservice.getAll());
 	    
@@ -55,18 +54,19 @@ public class TicketController {
     @PostMapping("/crearTicket")
     public ModelAndView vistarCrearTicket(
     		@RequestParam String titulo,
-    		@RequestParam String descripcion
+    		@RequestParam String descripcion,
+    		@RequestParam int idTipoDeTicket
     		) {
     	
     	   ModelAndView mav = new ModelAndView("tickets/crearTicket");
     		
     		if(!(ticketService.existsByTitulo(titulo))) {
     		
-    		Ticket ticket = ticketService.crearTicket(titulo, descripcion);
+    		Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket);
     		
-    		String destinatario = "axel.dp44@gmail.com";
-            String asunto = "Nuevo ticket creado: " + titulo;
-            String cuerpo = "Se ha creado un nuevo ticket:\n\nTítulo: " + titulo + "\nDescripción: " + descripcion;
+    		String destinatario = "ticketerasoporte@gmail.com";
+            String asunto = "[Ticket #"+ ticket.getIdTicket() +"] " + titulo;
+            String cuerpo = "Ha ingresado un nuevo ticket:\n\nTipo de ticket: "+ ticket.getTipoDeTicket().getTipo() +"\nDescripción: " + descripcion;
             emailService.enviarConfirmacionTicket(destinatario, asunto, cuerpo);
             
             return new ModelAndView("redirect:mail/mailEnvio");
@@ -79,6 +79,11 @@ public class TicketController {
         ModelAndView mav = new ModelAndView("tickets/listaTickets");
         mav.addObject("tickets", ticketService.getAll());
         return mav;
+    }
+    
+    @GetMapping("/mail/mailEnvio")
+    public ModelAndView vistaMailEnviado() {
+        return new ModelAndView("mail/mailEnvio");
     }
     
     

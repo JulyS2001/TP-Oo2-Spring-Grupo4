@@ -25,7 +25,7 @@
 		<a th:href="@{/}">Inicio</a>
 		<a th:href="@{/listaTickets}">Mis Tickets</a>
 	    <a th:href="@{/crearTicket}">Crear nuevo ticket</a>
-	    <a href="#">Soporte</a>
+	    
 	</nav>
 
 	<main>
@@ -38,10 +38,10 @@
 		            <th>Título</th>
 		            <th>Descripción</th>
 		            <th>Fecha de Creación</th>
-					<th>Estado</th>
-		           <!--<th>Fecha de Cierre</th>
-		            <th>Prioridad</th>
-		            <th>Tipo de Ticket</th> --> 
+		           <th>Fecha de Cierre</th>
+				   <th>Estado</th>
+		           <!-- <th>Prioridad</th> --> 
+		            <th>Tipo de Ticket</th> 
 		        </tr>
 		    </thead>
 		    <tbody>
@@ -50,10 +50,10 @@
 		            <td th:text="${ticket.titulo}"></td>
 		            <td th:text="${ticket.descripcion}"></td>
 		            <td th:text="${ticket.fechaCreacion}"></td>
-		          <!-- <td th:text="${ticket.fechaCierre != null ? ticket.fechaCierre : '---'}">---</td>
-		            <td th:text="${ticket.prioridad.tipo}"></td> -->
+		           <td th:text="${ticket.fechaCierre != null ? ticket.fechaCierre : '---'}">---</td>
+		          <!---- <td th:text="${ticket.prioridad.tipo}"></td> -->
 		            <td th:text="${ticket.estado.tipo}"></td>
-		       <!--<td th:text="${ticket.tipoDeTicket.tipo}"></td> -->     
+		       <td th:text="${ticket.tipoDeTicket.tipo}"></td>     
 		        </tr>
 		    </tbody>
 		</table>

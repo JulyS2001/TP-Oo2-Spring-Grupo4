@@ -26,7 +26,7 @@
 		<a th:href="@{/}">Inicio</a>
 		<a th:href="@{/listaTickets}">Mis Tickets</a>
 		<a th:href="@{/crearTicket}">Crear nuevo ticket</a>
-		<a href="#">Soporte</a>
+		
 	</nav>
 
 	<main>
@@ -36,8 +36,18 @@
 		<form th:action="@{/crearTicket}" method="post">
 			<p>Titulo: <input type="text" name="titulo" required></p>
 			<p>Descripcion: <input type="text" name="descripcion" required></p>
+			
+			<!-- Dropdown de Tipo -->
+			            <p>Tipo de Ticket:
+			                <select name="idTipoDeTicket" required>
+			                    <option value="" disabled selected>Seleccione un tipo de ticket</option>
+			                    <option th:each="tipoDeTicket : ${tipoDeTickets}" th:value="${tipoDeTicket.idTipoDeTicket}"
+			                        th:text="${tipoDeTicket.tipo}">
+			                    </option>
+			                </select>
+			            </p>
 
-			<button type="submit" th:href="@{/texto}">Continuar</button>
+			<button type="submit">Continuar</button>
 
 		</form>
 
