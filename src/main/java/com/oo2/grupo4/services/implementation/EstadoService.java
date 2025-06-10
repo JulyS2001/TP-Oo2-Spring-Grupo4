@@ -32,7 +32,7 @@ public class EstadoService implements IEstadoService {
 	    }
 	
 	    @Override
-	    public List<Estado> getAll() {
+			public List<Estado> getAll() {
 	        return estadoRepository.findAll();
 	    }
 
