@@ -15,7 +15,7 @@ spring:
     cache: false
 
   mail:
-    host: ${MAIL_HOST}}
+    host: ${MAIL_HOST}
     port: ${MAIL_PORT}
     username: ${MAIL_USER}
     password: ${MAIL_PASSWORD}
