@@ -1,7 +1,10 @@
 package com.oo2.grupo4.services.implementation;
 
 import org.springframework.stereotype.Service;
+
+import com.oo2.grupo4.entities.Cliente;
 import com.oo2.grupo4.entities.Persona;
+import com.oo2.grupo4.repositories.IClienteRepository;
 import com.oo2.grupo4.repositories.IPersonaRepository;
 import com.oo2.grupo4.services.interfaces.IPersonaService;
 
@@ -13,6 +16,15 @@ public class PersonaService implements IPersonaService{
 
 
     private final IPersonaRepository personaRepository;
+    private final IClienteRepository clienteRepository;
+    
+    @Override
+    public Persona save(Persona persona) {
+    	if (persona instanceof Cliente) {
+            return clienteRepository.save((Cliente) persona);
+        }
+        throw new IllegalArgumentException("Tipo de persona no soportado.");
+    }
 
     @Override
     public Persona traerPorId(int idPersona) {

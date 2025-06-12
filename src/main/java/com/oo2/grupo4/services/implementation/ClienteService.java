@@ -41,5 +41,6 @@ public class ClienteService implements IClienteService {
     public Cliente traerPorId(int idPersona) {
         return clienteRepository.findById(idPersona)
                 .orElseThrow(() -> new RuntimeException("Cliente no encontrado con id " + idPersona));
-    }
+    }    
+    
 }

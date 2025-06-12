@@ -17,8 +17,23 @@ import lombok.RequiredArgsConstructor;
 public class LoginService implements ILoginService{
 	
     private final ILoginRepository loginRepository;
+
+    @Override
+    public boolean existsByCorreo(String correo) {
+        return loginRepository.existsByCorreo(correo);
+    }
+
+    @Override
+    public void save(Login login) {
+        loginRepository.save(login);
+    }
+
+    @Override
+    public Optional<Login> validarCredenciales(String correo) {
+        return loginRepository.findByCorreo(correo);
+    }
     
-  
+  /*
 
     @Override
     @Transactional
@@ -60,4 +75,8 @@ public class LoginService implements ILoginService{
         return loginRepository.existsByCorreo(correo);
     }
 
+   */
+    
+    
+    
 }

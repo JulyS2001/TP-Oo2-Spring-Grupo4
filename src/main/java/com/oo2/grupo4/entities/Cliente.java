@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@PrimaryKeyJoinColumn(name = "persona_idPersona") // Hereda la PK de Persona
+@PrimaryKeyJoinColumn(name = "persona_id_persona") // Hereda la PK de Persona
 @Entity
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
 public class Cliente extends Persona{
@@ -22,4 +22,6 @@ public class Cliente extends Persona{
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente")
 	private List<Ticket> tickets;
+	
+	
 }
