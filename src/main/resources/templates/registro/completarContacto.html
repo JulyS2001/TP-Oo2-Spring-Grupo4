@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Soporte UNLa</title>
-	<link rel="stylesheet" th:href="@{/estiloTicketera.css}">
+	<link rel="stylesheet" th:href="@{/css/estiloTicketera.css}">
 
 </head>
 
@@ -14,7 +14,7 @@
 
 	<header>
 		<div class="encabezado">
-			<img src="/logo.png" alt="Logo UNLa" class="logo">
+			<img src="/css/logo.png" alt="Logo UNLa" class="logo">
 			<div class="titulo">
 				<h1>Ticketera Soporte UNLa</h1>
 				<p>Gestiona y da seguimiento a tus tickets de soporte técnico</p>
@@ -24,19 +24,17 @@
 
 	<nav>
 		<a th:href="@{/}">Inicio</a>
-		<a th:href="@{/listaTickets}">Mis Tickets</a>
-		<a th:href="@{/crearTicket}">Crear nuevo ticket</a>
-		
 	</nav>
 
 	<main>
 		<h2>Complete su perfil</h2>
 
-		    <form action="#" th:action="@{/completar-registro}" method="post">
+		    <form action="#" th:action="@{/completarContacto}" method="post">
 		        <input type="hidden" name="idPersona" th:value="${idPersona}" />
 		        
 		        <p>Telefono <input type="text" name="telefono" required></p>
-		        <p>Correo Electronico <input type="email" name="email" required></p>
+		        <p>Correo Electronico <input type="text" name="correo" required></p>
+				<p>Contraseña<input type="text" name="contrasenia" required></p>
 		       
 		    
 

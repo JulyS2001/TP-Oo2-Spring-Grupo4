@@ -1,8 +1,10 @@
 package com.oo2.grupo4.controllers;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -24,6 +26,7 @@ public class AuthController {
     private final LoginService loginService;
     private final ClienteService clienteService;
     private final ContactoService contactoService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/registro")
     public ModelAndView vistaRegistro(@RequestParam(required = false) String mensaje) {
@@ -36,51 +39,32 @@ public class AuthController {
     public ModelAndView registrarCliente(@RequestParam String nombre,
                                          @RequestParam String apellido,
                                          @RequestParam long dni,
-                                         @RequestParam String correo,
-                                         @RequestParam String contrasenia,
-                                         @RequestParam String numCliente,
-                                         @RequestParam String telefono) {
-        if (loginService.existsByCorreo(correo)) {
-            return new ModelAndView("redirect:/registro?mensaje=Email ya registrado");
-        }
-
+                                         @RequestParam String nroCliente) {
         Cliente personaCliente = new Cliente();
         personaCliente.setNombre(nombre);
         personaCliente.setApellido(apellido);
         personaCliente.setDni(dni);
-        personaCliente.setNroCliente(numCliente);
+        personaCliente.setNroCliente(nroCliente);
         
         personaService.save(personaCliente);
 
-        Login login = new Login();
-        login.setCorreo(correo);
-        login.setContrasenia(contrasenia);
-        
-        login.setPersona(personaCliente);
-        loginService.save(login);
-        
-        Contacto contacto = new Contacto();
-        contacto.setEmail(correo);
-        contacto.setTelefono(telefono);
-        
-        contacto.setPersona(personaCliente);
-        contactoService.save(contacto);
-
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/completarContacto?idPersona=" + personaCliente.getIdPersona());
     }
     
 	
-    @GetMapping("/completar-registro")
-    public ModelAndView completarContacto(@RequestParam int idPersona) {
+    @GetMapping("/completarContacto")
+    public ModelAndView completarContacto(@RequestParam int idPersona, String mensaje) {
         ModelAndView mav = new ModelAndView("registro/completarContacto");
         mav.addObject("idPersona", idPersona);
+        mav.addObject("error",mensaje);
         return mav;
     }
-    @PostMapping("/completar-registro")
+    @PostMapping("/completarContacto")
     public ModelAndView completarRegistro(
             @RequestParam int idPersona,
             @RequestParam String telefono,
-            @RequestParam String email) {
+            @RequestParam String correo,
+            @RequestParam String contrasenia) {
 
         Persona persona = personaService.traerPorId(idPersona);
 
@@ -89,16 +73,43 @@ public class AuthController {
         redirect.addStaticAttribute("mensaje", "Persona no encontrada");
         return new ModelAndView(redirect);
         }
+        
+       
+        
+        Login login = new Login();
+        login.setCorreo(correo);
+        login.setContrasenia(passwordEncoder.encode(contrasenia));
+        login.setPersona(persona);
+        loginService.save(login);
 
-        if (contactoService.existeEmail(email)) {
-        RedirectView redirect = new RedirectView("/completar-registro");
+        if (contactoService.existeEmail(correo)) {
+        RedirectView redirect = new RedirectView("/completarContacto");
         redirect.addStaticAttribute("idPersona", idPersona);
         redirect.addStaticAttribute("mensaje", "El correo ya está en uso");
         return new ModelAndView(redirect);
         }
 
-        contactoService.crearContacto(telefono, email, persona);
+        Contacto contacto = new Contacto(); 
+        contacto.setEmail(correo);
+        contacto.setTelefono(telefono);
+        contacto.setPersona(persona);
+        contactoService.save(contacto);
 
-        return new ModelAndView("redirect:/inicio?idPersona=" + idPersona);
+        return new ModelAndView("redirect:/login");
+    }
+    
+    @GetMapping("/login")
+    public ModelAndView mostrarLogin(@RequestParam(required = false) String error,
+                                      @RequestParam(required = false) String logout) {
+        ModelAndView mav = new ModelAndView("registro/login");
+
+        if (error != null) {
+            mav.addObject("mensaje", "Credenciales incorrectas");
+        }
+        if (logout != null) {
+            mav.addObject("mensaje", "Sesión cerrada con éxito");
+        }
+
+        return mav;
     }
 }
