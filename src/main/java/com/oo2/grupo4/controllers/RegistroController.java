@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class RegistroController {
-
+/*
     private final ContactoService contactoService;
     private final LoginService loginService;
     private final PersonaService personaService;
@@ -67,5 +67,5 @@ public class RegistroController {
         loginService.registrarLogin(email, contrasenia, persona);
 
         return new ModelAndView("redirect:/inicio?idPersona=" + idPersona);
-    }
+    }*/
 }

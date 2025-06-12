@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 
 public class LoginController {
-	
+	/*
     private final LoginService loginService;
 
     @GetMapping("/login")
@@ -48,6 +48,6 @@ public class LoginController {
         session.invalidate();
         return "redirect:/login";
     }
-
+*/
 }
 

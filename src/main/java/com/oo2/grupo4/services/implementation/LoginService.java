@@ -33,8 +33,8 @@ public class LoginService implements ILoginService{
         return loginRepository.findByCorreo(correo);
     }
     
-  /*
-
+  
+/*
     @Override
     @Transactional
     public Optional<Login> registrarLogin(String correo, String contrasenia, Persona persona) {
@@ -74,8 +74,8 @@ public class LoginService implements ILoginService{
     public boolean existeCorreo(String correo) {
         return loginRepository.existsByCorreo(correo);
     }
-
-   */
+*/
+   
     
     
     

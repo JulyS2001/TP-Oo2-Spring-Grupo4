@@ -17,4 +17,7 @@ public interface IContactoService {
     boolean existeEmail(String email);
 
     void eliminarContacto(int idContacto);
+    
+    public void save(Contacto contacto);
+
 }

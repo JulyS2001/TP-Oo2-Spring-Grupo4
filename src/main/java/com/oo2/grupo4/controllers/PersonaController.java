@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class PersonaController {
-
+/*
     private final PersonaService personaService;
     private final ClienteService clienteService;
     private final EmpleadoService empleadoService;
@@ -139,7 +139,7 @@ public class PersonaController {
     public RedirectView eliminar(@PathVariable("id") int idPersona) {
         personaService.eliminarPersona(idPersona); // cascada borra login y contacto
         return new RedirectView("/");
-    }
+  }*/
 }
 
 

@@ -6,8 +6,8 @@ import com.oo2.grupo4.entities.Login;
 
 public interface ILoginService {
 	
-	/*
-    Optional<Login> registrarLogin(String correo, String contrasenia, Persona persona);
+	
+   /* Optional<Login> registrarLogin(String correo, String contrasenia, Persona persona);
 
     Login login(String correo, String contrasenia) throws Exception;
 
@@ -15,6 +15,7 @@ public interface ILoginService {
 
     boolean existeCorreo(String correo);
     */
+    
     
     boolean existsByCorreo(String correo);
     void save(Login login);

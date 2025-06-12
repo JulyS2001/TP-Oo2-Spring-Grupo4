@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.oo2.grupo4.entities.Contacto;
+import com.oo2.grupo4.entities.Login;
 import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.repositories.IContactoRepository;
 import com.oo2.grupo4.services.interfaces.IClienteService;
@@ -33,6 +34,11 @@ public class ContactoService implements IContactoService {
                 .build();
 
         return Optional.of(contactoRepository.save(contacto));
+    }
+    
+    @Override
+    public void save(Contacto contacto) {
+        contactoRepository.save(contacto);
     }
 
     @Override
