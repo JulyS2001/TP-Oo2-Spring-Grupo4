@@ -1,6 +1,6 @@
 package com.oo2.grupo4.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -15,25 +15,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity @Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString 
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Actualizacion {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idActualizacion; 
-	
-	private String contenido; 
-	private LocalDate fechaActualizacion; 
-	
+	private int idActualizacion;
+
+	private String contenido;
+	private LocalDateTime fechaActualizacion;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "empleado_id_persona")
-	private Empleado empleado; 
-	
+	private Empleado empleado;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ticket_id")
 	private Ticket ticket;
-	
-	
-	
 
 }

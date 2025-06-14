@@ -1,8 +1,7 @@
 package com.oo2.grupo4.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -19,7 +18,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Ticket {
 
 	@Id
@@ -27,26 +30,26 @@ public class Ticket {
 	private int idTicket;
 	private String titulo;
 	private String descripcion;
-	private LocalDate fechaCreacion;
-	private LocalDate fechaCierre;
-	
+	private LocalDateTime fechaCreacion;
+	private LocalDateTime fechaCierre;
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "tipo_ticket_id")
 	private TipoDeTicket tipoDeTicket;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "prioridad_id")
 	private Prioridad prioridad;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cliente_id_persona")
 	private Cliente cliente;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "estado_id")
 	private Estado estado;
-	
-	@OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
 	private List<Actualizacion> actualizaciones;
-	
+
 }

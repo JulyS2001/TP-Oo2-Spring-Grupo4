@@ -1,6 +1,6 @@
 package com.oo2.grupo4.services.implementation;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,17 +11,17 @@ import com.oo2.grupo4.repositories.IActualizacionRepository;
 import com.oo2.grupo4.services.interfaces.IActualizacionService;
 
 @Service
-public class ActualizacionService implements IActualizacionService{
+public class ActualizacionService implements IActualizacionService {
 
-    private final IActualizacionRepository actualizacionRepository ;
-    
+	private final IActualizacionRepository actualizacionRepository;
+
 	public ActualizacionService(IActualizacionRepository iActualizacionRepository) {
 		this.actualizacionRepository = iActualizacionRepository;
 	}
 
 	@Override
 	public List<Actualizacion> getAll() {
-		
+
 		return actualizacionRepository.findAll();
 	}
 
@@ -39,7 +39,7 @@ public class ActualizacionService implements IActualizacionService{
 	@Override
 	public void delete(int id) {
 		actualizacionRepository.deleteById(id);
-		}
+	}
 
 	///
 	@Override
@@ -58,9 +58,9 @@ public class ActualizacionService implements IActualizacionService{
 	}
 
 	@Override
-	public List<Actualizacion> findByFechaActualizacion(LocalDate fechaActualizacion) {
+	public List<Actualizacion> findByFechaActualizacion(LocalDateTime fechaActualizacion) {
 		return actualizacionRepository.findByFechaActualizacion(fechaActualizacion);
-		
-	}	
-	
+
+	}
+
 }

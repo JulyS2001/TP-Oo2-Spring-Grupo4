@@ -32,11 +32,19 @@
 		    <form action="#" th:action="@{/completarContacto}" method="post">
 		        <input type="hidden" name="idPersona" th:value="${idPersona}" />
 		        
-		        <p>Telefono <input type="text" name="telefono" required></p>
-		        <p>Correo Electronico <input type="text" name="correo" required></p>
-				<p>Contraseña<input type="text" name="contrasenia" required></p>
-		       
-		    
+				<p>
+				  <label for="telefono">Teléfono</label>
+				  <input type="number" id="telefono" name="telefono" required>
+				</p>
+				<p>
+				  <label for="correo">Correo Electronico</label>
+				  <input type="email" id="correo" name="correo" required>
+				</p>
+				<p>
+				  <label for="contrasenia">Contraseña</label>
+				  <input type="password" id="contrasenia" name="contrasenia" required>
+				</p>
+		        
 
 		        <button type="submit">Guardar datos</button>
 		    </form>

@@ -1,20 +1,17 @@
 <!DOCTYPE html>
-
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Soporte UNLa</title>
-	<link rel="stylesheet" th:href="@{/css/estiloTicketera.css}">
-
+	<link rel="stylesheet" th:href="@{/css/estiloTicketera.css}" />
 </head>
 
 <body>
-
 	<header>
 		<div class="encabezado">
-			<img src="/css/logo.png" alt="Logo UNLa" class="logo">
+			<img th:src="@{/css/logo.png}" alt="Logo UNLa" class="logo" />
 			<div class="titulo">
 				<h1>Ticketera Soporte UNLa</h1>
 				<p>Gestiona y da seguimiento a tus tickets de soporte técnico</p>
@@ -27,25 +24,48 @@
 	</nav>
 
 	<main>
-		<h2>REGISTRO DE USUARIO</h2>
+		<h2>Registro de usuario</h2>
 
 		<form th:action="@{/registro}" method="post">
-		    <p>Nombre: <input type="text" name="nombre" required></p>
-		    <p>Apellido: <input type="text" name="apellido" required></p>
-		    <p>DNI: <input type="text" name="dni" required></p>
-			<p>Numero de cliente <input type="text" name="nroCliente" required></p>
-			
-		    <button type="submit">Continuar a datos de contacto</button>
+			<p>
+				<label for="nombre">Nombre:</label>
+				<input type="text" id="nombre" name="nombre" required />
+			</p>
+			<p>
+				<label for="apellido">Apellido:</label>
+				<input type="text" id="apellido" name="apellido" required />
+			</p>
+			<p>
+				<label for="dni">DNI:</label>
+				<input
+					type="text"
+					id="dni"
+					name="dni"
+					pattern="\d{7,8}"
+					title="Solo números, 7 u 8 dígitos"
+					required
+				/>
+			</p>
+			<p>
+				<label for="nroCliente">Número de cliente:</label>
+				<input
+					type="text"
+					id="nroCliente"
+					name="nroCliente"
+					pattern="\d+"
+					title="Solo números"
+					required
+				/>
+			</p>
+
+			<button type="submit" class="btn">Continuar a datos de contacto</button>
 		</form>
 
 		<p th:if="${mensaje}" th:text="${mensaje}" style="color: red;"></p>
-
 	</main>
 
 	<footer>
 		&copy; 2025 Ticketera Soporte UNLa. Todos los derechos reservados.
 	</footer>
-
 </body>
-
 </html>

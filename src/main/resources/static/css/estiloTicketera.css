@@ -1,3 +1,8 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -37,11 +42,12 @@ header {
 }
 
 nav {
-    background-color: #5C1623;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 0.75rem;
+	background-color: #5C1623;
+	display: flex;
+	align-items: center;
+	justify-content: center; /* centra todo el nav */
+	padding: 0.75rem 1rem;
+	position: relative; /* para posicionar el logout */
 }
 nav a {
     color: rgb(255, 255, 255);
@@ -51,6 +57,61 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
+
+nav .nav-links {
+	display: flex;
+	gap: 2rem;
+	font-weight: bold;
+}
+
+nav form.logout-form {
+	position: absolute;
+	right: 1rem;
+	top: 50%;
+	transform: translateY(-50%);
+	margin: 0;
+	background: transparent; /* por si el form tiene fondo */
+	border: none;
+	padding: 0;
+}
+
+.logout-form .link-button {
+    background-color: #B08B85; /* color botón */
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: none;
+    text-decoration: none;
+    font-family: inherit;
+    line-height: 1;
+}
+
+.logout-form .link-button:hover,
+.logout-form .link-button:focus {
+    background-color: #9C7771; /* color más oscuro al hover */
+    outline: none;
+}
+
+.link-button {
+	background: none;
+	border: none;
+	color: white;
+	cursor: pointer;
+	font-weight: normal;
+	font-size: 0.9rem;
+	padding: 0;
+	text-decoration: underline;
+}
+
+.link-button:hover {
+    color: #ccc;
+}
+
 main {
     padding: 2rem;
     text-align: center;
@@ -151,4 +212,55 @@ tbody tr:last-child td {
     border-bottom: none;
 }
 
+.estado-abierto {
+    color: green;
+    font-weight: bold;
+}
 
+.estado-cerrado {
+    color: red;
+    font-weight: bold;
+}
+
+.estado-otro {
+    color: gray;
+    font-style: italic;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.password-container .password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+    width: 100%;
+    padding: 0.75rem;
+    padding-right: 2.5rem; /* deja espacio para el ojito */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-password img {
+    width: 20px;
+    height: 20px;
+    filter: invert(0.3); /* opcional: ajusta según fondo */
+}
