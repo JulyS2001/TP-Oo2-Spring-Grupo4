@@ -9,6 +9,8 @@ import com.oo2.grupo4.entities.TipoDeTicket;
 public interface ITipoDeTicketService {
 
 	TipoDeTicket findById(int id);
+
 	TipoDeTicket findByTipo(String tipo);
+
 	List<TipoDeTicket> getAll();
 }

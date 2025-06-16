@@ -30,10 +30,10 @@ public class TipoDeTicketService implements ITipoDeTicketService {
 		return tipoDeTicketRepository.findByTipo(tipo)
 				.orElseThrow(() -> new IllegalArgumentException("TipoDeTicket no encontrada con ID: " + tipo));
 	}
-	
-	  @Override
-	    public List<TipoDeTicket> getAll() {
-	        return tipoDeTicketRepository.findAll();
-	    }
+
+	@Override
+	public List<TipoDeTicket> getAll() {
+		return tipoDeTicketRepository.findAll();
+	}
 
 }

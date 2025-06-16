@@ -14,16 +14,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AreaService implements IAreaService {
 
-    private final IAreaRepository areaRepository;
+	private final IAreaRepository areaRepository;
 
-    @Override
-    public List<Area> traerTodas() {
-        return areaRepository.findAll();
-    }
+	@Override
+	public List<Area> traerTodas() {
+		return areaRepository.findAll();
+	}
 
-    @Override
-    public Area traerPorId(int idArea) {
-        return areaRepository.findById(idArea)
-                .orElseThrow(() -> new IllegalArgumentException("Area no encontrada con ID: " + idArea));
-    }
+	@Override
+	public Area traerPorId(int idArea) {
+		return areaRepository.findById(idArea)
+				.orElseThrow(() -> new IllegalArgumentException("Area no encontrada con ID: " + idArea));
+	}
 }

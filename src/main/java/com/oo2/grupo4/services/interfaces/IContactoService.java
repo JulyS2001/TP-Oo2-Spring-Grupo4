@@ -8,16 +8,16 @@ import com.oo2.grupo4.entities.Persona;
 
 public interface IContactoService {
 
-    Optional<Contacto> crearContacto(String telefono, String email, Persona persona);
+	Optional<Contacto> crearContacto(String telefono, String email, Persona persona);
 
-    Contacto traerPorId(int idContacto);
+	Contacto traerPorId(int idContacto);
 
-    int actualizarContacto(int idContacto, String telefono, String email);
+	int actualizarContacto(int idContacto, String telefono, String email);
 
-    boolean existeEmail(String email);
+	boolean existeEmail(String email);
 
-    void eliminarContacto(int idContacto);
-    
-    public void save(Contacto contacto);
+	void eliminarContacto(int idContacto);
+
+	public void save(Contacto contacto);
 
 }

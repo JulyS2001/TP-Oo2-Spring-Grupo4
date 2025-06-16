@@ -16,17 +16,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Data
 public class Area {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idArea; 
-	
-	private String nombre; 
-	
+	private int idArea;
+
+	private String nombre;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "area")
-	private List<Empleado> empleados; 
+	private List<Empleado> empleados;
 
 }

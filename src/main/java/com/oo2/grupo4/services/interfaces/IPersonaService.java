@@ -5,14 +5,14 @@ import com.oo2.grupo4.entities.Persona;
 public interface IPersonaService {
 
 	Persona save(Persona persona);
-	
-    Persona traerPorId(int idPersona);
 
-    Persona traerPorDni(Long dni);
+	Persona traerPorId(int idPersona);
 
-    int actualizarPersona(int idPersona, String nombre, String apellido, Long dni);
+	Persona traerPorDni(Long dni);
 
-    void eliminarPersona(int idPersona);
+	int actualizarPersona(int idPersona, String nombre, String apellido, Long dni);
 
-    void validarDniNoExiste(Long dni);
+	void eliminarPersona(int idPersona);
+
+	void validarDniNoExiste(Long dni);
 }

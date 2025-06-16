@@ -15,15 +15,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Prioridad {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idPrioridad; 
-	
-	private String tipo; 
-	
+	private int idPrioridad;
+
+	private String tipo;
+
 	@OneToMany(mappedBy = "prioridad", fetch = FetchType.LAZY)
 	private List<Ticket> tickets;
 

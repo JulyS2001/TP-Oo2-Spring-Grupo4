@@ -16,20 +16,23 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Data
 @Builder
 public class Contacto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idContacto;
 	private String telefono;
 	private String email;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "persona_idPersona", referencedColumnName = "idPersona")
 	private Persona persona;
-	
 
 }

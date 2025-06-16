@@ -17,18 +17,22 @@ import lombok.ToString;
 
 @PrimaryKeyJoinColumn(name = "persona_idPersona") // Hereda la PK de Persona
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Data
-public class Empleado extends Persona{
+public class Empleado extends Persona {
 
 	private String rol;
 	private int legajo;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "area_id_area")
 	private Area area;
-	
+
 	@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL)
 	private List<Actualizacion> actualizaciones;
-	
+
 }

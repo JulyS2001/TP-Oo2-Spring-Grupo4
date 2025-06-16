@@ -15,7 +15,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Setter @Getter @NoArgsConstructor @AllArgsConstructor @ToString
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Builder
 public class Login {
 
@@ -24,9 +28,9 @@ public class Login {
 	private int idLogin;
 	private String correo;
 	private String contrasenia;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "persona_id_persona")
 	private Persona persona;
-	
+
 }

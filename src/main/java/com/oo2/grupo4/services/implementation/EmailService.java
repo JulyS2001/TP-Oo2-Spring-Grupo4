@@ -13,16 +13,16 @@ import lombok.RequiredArgsConstructor;
 public class EmailService implements IEmailService {
 
 	@Autowired
-	private  JavaMailSender emailSender;
+	private JavaMailSender emailSender;
 
 	@Override
 	public void enviarConfirmacionTicket(String destinatario, String asunto, String cuerpo) {
 		SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setTo(destinatario);
-        mensaje.setSubject(asunto);
-        mensaje.setText(cuerpo);
+		mensaje.setTo(destinatario);
+		mensaje.setSubject(asunto);
+		mensaje.setText(cuerpo);
 
-        emailSender.send(mensaje);
-		
+		emailSender.send(mensaje);
+
 	}
 }

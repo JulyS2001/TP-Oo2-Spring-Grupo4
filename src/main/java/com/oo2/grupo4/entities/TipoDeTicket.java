@@ -16,16 +16,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Table(name = "tipo_de_ticket")
 public class TipoDeTicket {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idTipoDeTicket;
-	
-	private String tipo; 
-	
+
+	private String tipo;
+
 	@OneToMany(mappedBy = "tipoDeTicket", fetch = FetchType.LAZY)
 	private List<Ticket> tickets;
 

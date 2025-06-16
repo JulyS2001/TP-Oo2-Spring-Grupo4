@@ -15,15 +15,19 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter @Setter @AllArgsConstructor @NoArgsConstructor @ToString
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Estado {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEstado;
-	
-	private String tipo; 
-	
+
+	private String tipo;
+
 	@OneToMany(mappedBy = "estado", fetch = FetchType.LAZY)
 	private List<Ticket> tickets;
 

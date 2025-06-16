@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ITipoDeTicketRepository extends JpaRepository<TipoDeTicket, Integer> {
-	
+
 	Optional<TipoDeTicket> findByTipo(String tipo);
 
 }

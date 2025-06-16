@@ -17,7 +17,11 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Inheritance(strategy = InheritanceType.JOINED)
 
 public abstract class Persona {
@@ -27,13 +31,12 @@ public abstract class Persona {
 	private int idPersona;
 	private String nombre;
 	private String apellido;
-	private Long dni;	
-	
+	private Long dni;
+
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private Contacto contacto;
-	
+
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private Login login;
-	
-	
+
 }

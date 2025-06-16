@@ -15,48 +15,48 @@ import lombok.RequiredArgsConstructor;
 
 public class EmpleadoService implements IEmpleadoService {
 
-    private final PersonaService personaService;
-    private final AreaService areaService;
-    private final IEmpleadoRepository empleadoRepository;
+	private final PersonaService personaService;
+	private final AreaService areaService;
+	private final IEmpleadoRepository empleadoRepository;
 
-    @Override
-    public Empleado crearEmpleado(String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol) {
-        personaService.validarDniNoExiste(dni);
+	@Override
+	public Empleado crearEmpleado(String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol) {
+		personaService.validarDniNoExiste(dni);
 
-        Area area = areaService.traerPorId(idArea);
+		Area area = areaService.traerPorId(idArea);
 
-        Empleado empleado = new Empleado();
-        empleado.setNombre(nombre);
-        empleado.setApellido(apellido);
-        empleado.setDni(dni);
-        empleado.setLegajo(legajo);
-        empleado.setRol(rol);
-        empleado.setArea(area);
+		Empleado empleado = new Empleado();
+		empleado.setNombre(nombre);
+		empleado.setApellido(apellido);
+		empleado.setDni(dni);
+		empleado.setLegajo(legajo);
+		empleado.setRol(rol);
+		empleado.setArea(area);
 
-        return empleadoRepository.save(empleado);
-    }
+		return empleadoRepository.save(empleado);
+	}
 
-    @Override
-    public void completarEmpleado(int idPersona, Integer legajo, int idArea, String rol) {
-        Area area = areaService.traerPorId(idArea);
+	@Override
+	public void completarEmpleado(int idPersona, Integer legajo, int idArea, String rol) {
+		Area area = areaService.traerPorId(idArea);
 
-        Empleado empleado = empleadoRepository.findById(idPersona)
-                .orElseThrow(() -> new RuntimeException("Empleado no encontrado con id " + idPersona));
+		Empleado empleado = empleadoRepository.findById(idPersona)
+				.orElseThrow(() -> new RuntimeException("Empleado no encontrado con id " + idPersona));
 
-        empleado.setLegajo(legajo);
-        empleado.setArea(area);
-        empleado.setRol(rol);
-        empleadoRepository.save(empleado);
-    }
+		empleado.setLegajo(legajo);
+		empleado.setArea(area);
+		empleado.setRol(rol);
+		empleadoRepository.save(empleado);
+	}
 
-    @Override
-    public List<Empleado> obtenerEmpleadosPorArea(int idArea) {
-        return empleadoRepository.findByAreaIdArea(idArea);
-    }
+	@Override
+	public List<Empleado> obtenerEmpleadosPorArea(int idArea) {
+		return empleadoRepository.findByAreaIdArea(idArea);
+	}
 
-    @Override
-    public Empleado traerPorId(int idPersona) {
-        return empleadoRepository.findById(idPersona)
-                .orElseThrow(() -> new RuntimeException("Empleado no encontrado con id " + idPersona));
-    }
+	@Override
+	public Empleado traerPorId(int idPersona) {
+		return empleadoRepository.findById(idPersona)
+				.orElseThrow(() -> new RuntimeException("Empleado no encontrado con id " + idPersona));
+	}
 }

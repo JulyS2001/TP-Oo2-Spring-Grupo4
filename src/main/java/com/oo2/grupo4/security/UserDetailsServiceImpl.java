@@ -13,18 +13,18 @@ import com.oo2.grupo4.repositories.ILoginRepository;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final ILoginRepository loginRepository;
+	private final ILoginRepository loginRepository;
 
-    public UserDetailsServiceImpl(ILoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
-    }
+	public UserDetailsServiceImpl(ILoginRepository loginRepository) {
+		this.loginRepository = loginRepository;
+	}
 
-    @Override
-    public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
-        Optional<Login> loginOpt = loginRepository.findByCorreo(correo);
-        if (loginOpt.isEmpty()) {
-            throw new UsernameNotFoundException("Usuario no encontrado con correo: " + correo);
-        }
-        return new UserDetailsImpl(loginOpt.get());
-    }
+	@Override
+	public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
+		Optional<Login> loginOpt = loginRepository.findByCorreo(correo);
+		if (loginOpt.isEmpty()) {
+			throw new UsernameNotFoundException("Usuario no encontrado con correo: " + correo);
+		}
+		return new UserDetailsImpl(loginOpt.get());
+	}
 }

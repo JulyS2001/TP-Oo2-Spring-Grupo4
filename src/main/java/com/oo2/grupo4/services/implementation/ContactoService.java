@@ -20,50 +20,46 @@ public class ContactoService implements IContactoService {
 
 	private final IContactoRepository contactoRepository;
 
-    @Override
-    @Transactional
-    public Optional<Contacto> crearContacto(String telefono, String email, Persona persona) {
-        if (contactoRepository.existsByEmail(email)) {
-            return Optional.empty();
-        }
+	@Override
+	@Transactional
+	public Optional<Contacto> crearContacto(String telefono, String email, Persona persona) {
+		if (contactoRepository.existsByEmail(email)) {
+			return Optional.empty();
+		}
 
-        Contacto contacto = Contacto.builder()
-                .telefono(telefono)
-                .email(email)
-                .persona(persona)
-                .build();
+		Contacto contacto = Contacto.builder().telefono(telefono).email(email).persona(persona).build();
 
-        return Optional.of(contactoRepository.save(contacto));
-    }
-    
-    @Override
-    public void save(Contacto contacto) {
-        contactoRepository.save(contacto);
-    }
+		return Optional.of(contactoRepository.save(contacto));
+	}
 
-    @Override
-    public Contacto traerPorId(int idContacto) {
-        return contactoRepository.findById(idContacto)
-                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ID: " + idContacto));
-    }
+	@Override
+	public void save(Contacto contacto) {
+		contactoRepository.save(contacto);
+	}
 
-    @Override
-    public int actualizarContacto(int idContacto, String telefono, String email) {
-        Contacto contacto = this.traerPorId(idContacto);
+	@Override
+	public Contacto traerPorId(int idContacto) {
+		return contactoRepository.findById(idContacto)
+				.orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado con ID: " + idContacto));
+	}
 
-        contacto.setTelefono(telefono);
-        contacto.setEmail(email);
+	@Override
+	public int actualizarContacto(int idContacto, String telefono, String email) {
+		Contacto contacto = this.traerPorId(idContacto);
 
-        return contactoRepository.save(contacto).getIdContacto();
-    }
+		contacto.setTelefono(telefono);
+		contacto.setEmail(email);
 
-    @Override
-    public boolean existeEmail(String email) {
-        return contactoRepository.existsByEmail(email);
-    }
+		return contactoRepository.save(contacto).getIdContacto();
+	}
 
-    @Override
-    public void eliminarContacto(int idContacto) {
-        contactoRepository.deleteById(idContacto);
-    }
+	@Override
+	public boolean existeEmail(String email) {
+		return contactoRepository.existsByEmail(email);
+	}
+
+	@Override
+	public void eliminarContacto(int idContacto) {
+		contactoRepository.deleteById(idContacto);
+	}
 }
