@@ -57,8 +57,8 @@ public class TicketController {
 	            Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket);
 
 	            String destinatario = userDetails.getLogin().getCorreo();
-	            String asunto = "[Ticket #" + ticket.getIdTicket() + "] " + titulo;
-	            String cuerpo = "Ha ingresado un nuevo ticket:\n\nTipo de ticket: " + ticket.getTipoDeTicket().getTipo()
+	            String asunto = "[Ticket #" + ticket.getIdTicket() + "] ✅" + titulo;
+	            String cuerpo = "👌 Has creado con exito un nuevo ticket:\n\nTipo de ticket: " + ticket.getTipoDeTicket().getTipo()
 	                    + "\nDescripción: " + descripcion;
 	            emailService.enviarConfirmacionTicket(destinatario, asunto, cuerpo);
 
