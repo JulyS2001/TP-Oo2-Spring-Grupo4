@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.oo2.grupo4.exceptions.DescripcionMuyCortaException;
 import com.oo2.grupo4.exceptions.TicketYaExistente;
 import com.oo2.grupo4.entities.Ticket;
 
@@ -40,25 +41,35 @@ public class TicketController {
 
 	@PostMapping("/crearTicket")
 	public ModelAndView vistaCrearTicket(@RequestParam String titulo, @RequestParam String descripcion,
-			@RequestParam int idTipoDeTicket) {
+	                                     @RequestParam int idTipoDeTicket) {
 
-		ModelAndView mav = new ModelAndView("tickets/crearTicket");
+	    ModelAndView mav = new ModelAndView("tickets/crearTicket");
 
-		if (!(ticketService.existsByTitulo(titulo))) {
+	    try {
+	        if (!ticketService.existsByTitulo(titulo)) {
+	            Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket);
 
-			Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket);
+	            String destinatario = "ticketerasoporte@gmail.com";
+	            String asunto = "[Ticket #" + ticket.getIdTicket() + "] " + titulo;
+	            String cuerpo = "Ha ingresado un nuevo ticket:\n\nTipo de ticket: " + ticket.getTipoDeTicket().getTipo()
+	                    + "\nDescripción: " + descripcion;
+	            emailService.enviarConfirmacionTicket(destinatario, asunto, cuerpo);
 
-			String destinatario = "ticketerasoporte@gmail.com";
-			String asunto = "[Ticket #" + ticket.getIdTicket() + "] " + titulo;
-			String cuerpo = "Ha ingresado un nuevo ticket:\n\nTipo de ticket: " + ticket.getTipoDeTicket().getTipo()
-					+ "\nDescripción: " + descripcion;
-			emailService.enviarConfirmacionTicket(destinatario, asunto, cuerpo);
+	            return new ModelAndView("redirect:/mail/mailEnvio");
+	        } else {
+	            throw new TicketYaExistente("El ticket con el título: " + titulo + " ya existe");
+	        }
+	    } catch (DescripcionMuyCortaException e) {
+	        return new ModelAndView("error/descripcionMuycorta");
+	    }
 
-			return new ModelAndView("redirect:mail/mailEnvio");
-		} else {
-			throw new TicketYaExistente("El ticket con el titulo: " + titulo + " Ya existe");
-		}
+	    // Siempre cargar los datos necesarios para la vista
+	  //  mav.addObject("estados", estadoService.getAll());
+	   // mav.addObject("tipoDeTickets", tipodeticketservice.getAll());
+
+	   // return mav;
 	}
+
 
 	@GetMapping("/listaTickets")
 	public ModelAndView vistaListaTickets(@RequestParam(required = false) String mensaje) {

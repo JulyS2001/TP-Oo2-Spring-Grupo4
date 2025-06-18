@@ -12,6 +12,7 @@ import com.oo2.grupo4.entities.Estado;
 import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.entities.Prioridad;
 import com.oo2.grupo4.entities.TipoDeTicket;
+import com.oo2.grupo4.exceptions.DescripcionMuyCortaException;
 import com.oo2.grupo4.entities.Ticket;
 import com.oo2.grupo4.repositories.IEmpleadoRepository;
 import com.oo2.grupo4.repositories.ITicketRepository;
@@ -30,9 +31,15 @@ public class TicketService implements ITicketService {
 
 	@Override
 	public Ticket crearTicket(String titulo, String descripcion, int idTipoDeTicket) {
+		
+
+		if (descripcion == null || descripcion.length() < 30) {
+		    throw new DescripcionMuyCortaException("La descripción debe tener al menos 30 caracteres.");
+		}
 
 		Estado estado = estadoService.findById(1);
 		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(idTipoDeTicket);
+
 
 		Ticket ticket = new Ticket();
 		ticket.setTitulo(titulo);
