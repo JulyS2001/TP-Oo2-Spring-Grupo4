@@ -33,19 +33,19 @@ public class Ticket {
 	private LocalDateTime fechaCreacion;
 	private LocalDateTime fechaCierre;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "tipo_ticket_id")
 	private TipoDeTicket tipoDeTicket;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "prioridad_id")
 	private Prioridad prioridad;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "cliente_id_persona")
 	private Cliente cliente;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "estado_id")
 	private Estado estado;
 

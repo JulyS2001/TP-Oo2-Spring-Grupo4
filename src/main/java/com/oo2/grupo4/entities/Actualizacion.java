@@ -30,11 +30,11 @@ public class Actualizacion {
 	private String contenido;
 	private LocalDateTime fechaActualizacion;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "empleado_id_persona")
 	private Empleado empleado;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "ticket_id")
 	private Ticket ticket;
 

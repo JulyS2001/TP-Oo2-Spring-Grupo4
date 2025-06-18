@@ -2,6 +2,7 @@ package com.oo2.grupo4.controllers;
 
 import java.time.LocalDateTime;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,10 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.oo2.grupo4.exceptions.DescripcionMuyCortaException;
 import com.oo2.grupo4.exceptions.TicketYaExistente;
+import com.oo2.grupo4.security.UserDetailsImpl;
+import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.entities.Ticket;
 
 import com.oo2.grupo4.services.implementation.EmailService;
 import com.oo2.grupo4.services.implementation.EstadoService;
+import com.oo2.grupo4.services.implementation.PersonaService;
 import com.oo2.grupo4.services.implementation.TicketService;
 import com.oo2.grupo4.services.implementation.TipoDeTicketService;
 
@@ -27,6 +31,7 @@ public class TicketController {
 	private final EstadoService estadoService;
 	private final TicketService ticketService;
 	private final EmailService emailService;
+	private final PersonaService personaService;
 
 	@GetMapping("/crearTicket")
 	public ModelAndView vistaCrearTicket(@RequestParam(required = false) String mensaje) {
@@ -35,13 +40,15 @@ public class TicketController {
 
 		mav.addObject("estados", estadoService.getAll());
 		mav.addObject("tipoDeTickets", tipodeticketservice.getAll());
+		
+		
 
 		return mav;
 	}
 
 	@PostMapping("/crearTicket")
 	public ModelAndView vistaCrearTicket(@RequestParam String titulo, @RequestParam String descripcion,
-	                                     @RequestParam int idTipoDeTicket) {
+	                                     @RequestParam int idTipoDeTicket,@AuthenticationPrincipal UserDetailsImpl userDetails) {
 
 	    ModelAndView mav = new ModelAndView("tickets/crearTicket");
 
@@ -49,11 +56,12 @@ public class TicketController {
 	        if (!ticketService.existsByTitulo(titulo)) {
 	            Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket);
 
-	            String destinatario = "ticketerasoporte@gmail.com";
+	            String destinatario = userDetails.getLogin().getCorreo();
 	            String asunto = "[Ticket #" + ticket.getIdTicket() + "] " + titulo;
 	            String cuerpo = "Ha ingresado un nuevo ticket:\n\nTipo de ticket: " + ticket.getTipoDeTicket().getTipo()
 	                    + "\nDescripción: " + descripcion;
 	            emailService.enviarConfirmacionTicket(destinatario, asunto, cuerpo);
+
 
 	            return new ModelAndView("redirect:/mail/mailEnvio");
 	        } else {
@@ -62,6 +70,7 @@ public class TicketController {
 	    } catch (DescripcionMuyCortaException e) {
 	        return new ModelAndView("error/descripcionMuycorta");
 	    }
+
 
 	    // Siempre cargar los datos necesarios para la vista
 	  //  mav.addObject("estados", estadoService.getAll());
@@ -83,4 +92,17 @@ public class TicketController {
 		return new ModelAndView("mail/mailEnvio");
 	}
 
+	@PostMapping("/eliminarTicket")
+	public ModelAndView eliminarTicket(@RequestParam int idTicket) {
+		Ticket ticket  = ticketService.getById(idTicket);
+		ticketService.delete(idTicket);
+		
+		ModelAndView mav = new ModelAndView("tickets/listaTickets");
+	    //mav.addObject("ticket", ticket);
+	    
+	    return mav;
+		
+	}
+
+	
 }

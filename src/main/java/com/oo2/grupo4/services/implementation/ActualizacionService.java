@@ -1,12 +1,14 @@
 package com.oo2.grupo4.services.implementation;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.oo2.grupo4.entities.Actualizacion;
+import com.oo2.grupo4.entities.Empleado;
 import com.oo2.grupo4.repositories.IActualizacionRepository;
 import com.oo2.grupo4.services.interfaces.IActualizacionService;
 
@@ -36,12 +38,9 @@ public class ActualizacionService implements IActualizacionService {
 		return actualizacionRepository.save(actualizacion);
 	}
 
-	@Override
-	public void delete(int id) {
-		actualizacionRepository.deleteById(id);
-	}
-
 	///
+	
+	
 	@Override
 	public Optional<Actualizacion> findByIdActualizacion(int idActualizacion) {
 		return actualizacionRepository.findByIdActualizacion(idActualizacion);
@@ -62,5 +61,28 @@ public class ActualizacionService implements IActualizacionService {
 		return actualizacionRepository.findByFechaActualizacion(fechaActualizacion);
 
 	}
+	@Override
+	public List<Actualizacion> getAllByTicketId(int idTicket){
+		List<Actualizacion> actualizaciones = new ArrayList<>();
+		
+		for(Actualizacion a : actualizacionRepository.findAll()) {
+			if(a.getTicket().getIdTicket()==idTicket) {
+				actualizaciones.add(a);
+			}
+		}
+		return actualizaciones;
+	}
 
+	@Override
+	public void delete(int idTicket, int idActualizacion) {
+		Actualizacion actualizacion = null;
+		for(Actualizacion a : actualizacionRepository.findAll()) {
+			if(a.getTicket().getIdTicket()==idTicket && a.getIdActualizacion()==idActualizacion) {
+				actualizacion = a;
+			}
+		}
+		
+		actualizacionRepository.delete(actualizacion);
+	}
+	
 }

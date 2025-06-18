@@ -32,7 +32,7 @@ public class Empleado extends Persona {
 	@JoinColumn(name = "area_id_area")
 	private Area area;
 
-	@OneToMany(mappedBy = "empleado", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "empleado")
 	private List<Actualizacion> actualizaciones;
 
 }
