@@ -48,7 +48,7 @@ public class TicketController {
 
 			Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket);
 
-			String destinatario = "ticketerasoporte@gmail.com";
+			String destinatario = "axel.dp44@gmail.com";
 			String asunto = "[Ticket #" + ticket.getIdTicket() + "] " + titulo;
 			String cuerpo = "Ha ingresado un nuevo ticket:\n\nTipo de ticket: " + ticket.getTipoDeTicket().getTipo()
 					+ "\nDescripción: " + descripcion;
@@ -72,4 +72,17 @@ public class TicketController {
 		return new ModelAndView("mail/mailEnvio");
 	}
 
+	@PostMapping("/eliminarTicket")
+	public ModelAndView eliminarTicket(@RequestParam int idTicket) {
+		Ticket ticket  = ticketService.getById(idTicket);
+		ticketService.delete(idTicket);
+		
+		ModelAndView mav = new ModelAndView("tickets/listaTickets");
+	    //mav.addObject("ticket", ticket);
+	    
+	    return mav;
+		
+	}
+
+	
 }

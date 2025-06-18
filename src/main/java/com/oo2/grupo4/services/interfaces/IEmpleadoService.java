@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface IEmpleadoService {
 
+	List<Empleado> getAll();
+	
 	Empleado crearEmpleado(String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol);
 
 	void completarEmpleado(int idPersona, Integer legajo, int idArea, String rol);

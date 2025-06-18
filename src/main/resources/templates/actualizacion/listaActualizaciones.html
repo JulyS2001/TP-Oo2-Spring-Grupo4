@@ -7,7 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Soporte UNLa</title>
 	<link rel="stylesheet" th:href="@{/css/estiloTicketera.css}">
-
 </head>
 
 <body>
@@ -35,33 +34,39 @@
 		</form>
 	</nav>
 
+
 	<main>
-		<h1>Creacion de Ticket</h1>
-		<p>Por favor completar todos los campos</p>
+		<h1 th:text="${'Lista de Actualizaciones del Ticket ' + idTicket}"></h1>
 
-		<form th:action="@{/crearTicket}" method="post">
-			<p>
-				<label for="titulo">Título:</label>
-				<input type="text" id="titulo" name="titulo" required>
-			</p>
-			<p>
-				<label for="descripcion">Descripción:</label>
-				<input type="text" id="descripcion" name="descripcion" rows="4" required></input>
-			</p>
-			<p> <!-- Dropdown de tipo de ticket -->
-				<label for="idTipoDeTicket">Tipo de Ticket:</label>
-				<select id="idTipoDeTicket" name="idTipoDeTicket" required>
-					<option value="" disabled selected>Seleccione un tipo de ticket</option>
-					<option th:each="tipoDeTicket : ${tipoDeTickets}" th:value="${tipoDeTicket.idTipoDeTicket}"
-						th:text="${tipoDeTicket.tipo}">
-					</option>
-				</select>
-			</p>
-			<button type="submit" class="btn">Continuar</button>
-		</form>
-
-		<p th:if="${mensaje}" th:text="${mensaje}" style="color: red;"></p>
-
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Contenido</th>
+					<th>Fecha de Creación</th>
+					<th>Empleado</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="actualizacion : ${actualizaciones}">
+					<td th:text="${actualizacion.idActualizacion}"></td>
+					<td th:text="${actualizacion.contenido}"></td>
+					<td th:text="${#temporals.format(actualizacion.fechaActualizacion, 'dd/MM/yyyy HH:mm')}"></td>
+					<td
+						th:text="${actualizacion.empleado.nombre  + ' ' + actualizacion.empleado.apellido + ' id:(' + actualizacion.empleado.idPersona + ')'}">
+					</td>
+					<td>
+						<form
+							th:action="@{/eliminarActualizacion(idTicket=${idTicket},idActualizacion=${actualizacion.idActualizacion})}"
+							method="post">
+							<button type="submit"
+								th:onclick="'return confirm(\'Desea elimar la actualizacion ' + ${actualizacion.idActualizacion} + '?\')'">Eliminar</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</main>
 
 	<footer>

@@ -19,6 +19,12 @@ public class EmpleadoService implements IEmpleadoService {
 	private final AreaService areaService;
 	private final IEmpleadoRepository empleadoRepository;
 
+	
+	@Override
+	public List<Empleado> getAll() {
+		return empleadoRepository.findAll();
+	}
+	
 	@Override
 	public Empleado crearEmpleado(String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol) {
 		personaService.validarDniNoExiste(dni);
