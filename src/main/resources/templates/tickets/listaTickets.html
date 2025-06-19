@@ -7,6 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Soporte UNLa</title>
 	<link rel="stylesheet" th:href="@{/css/estiloTicketera.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
 </head>
 
@@ -33,7 +35,6 @@
 			<button type="submit" class="link-button">Cerrar sesión</button>
 		</form>
 	</nav>
-
 	<main>
 		<h1>Listado de Tickets</h1>
 
@@ -45,51 +46,62 @@
 					<th>Descripción</th>
 					<th>Fecha de Creación</th>
 					<th>Fecha de Cierre</th>
+					<th>Prioridad</th>
 					<th>Tipo de Ticket</th>
 					<th>Estado</th>
+					<th>Empleado</th>
 					<th>Acciones</th>
-					<!-- <th>Prioridad</th> -->
+					
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="ticket : ${tickets}">
-					<td th:text="${ticket.idTicket}"></td>
-					<td th:text="${ticket.titulo}"></td>
-					<td th:text="${ticket.descripcion}"></td>
-					<td th:text="${#temporals.format(ticket.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></td>
-					<td
-						th:text="${ticket.fechaCierre != null ? #temporals.format(ticket.fechaCierre, 'dd/MM/yyyy HH:mm') : '---'}">
-					</td>
-					<!---- <td th:text="${ticket.prioridad.tipo}"></td> -->
-					<td th:text="${ticket.tipoDeTicket.tipo}"></td>
-					<td th:text="${ticket.estado.tipo}" th:classappend="${ 
-				        (ticket.estado.tipo == 'Abierto') ? 'estado-abierto' : 
-				        (ticket.estado.tipo == 'Cerrado') ? 'estado-cerrado' : 
-				        'estado-otro' 
-				      }">
-					</td>
-					<td>
-						<form th:action="@{/eliminarTicket(idTicket=${ticket.idTicket})}" method="post">
-							<button type="submit"
-								th:onclick="'return confirm(\'Desea elimar el ticket ' + ${ticket.idTicket} + '?\')'">Eliminar</button>
-						</form>
-						<form th:action="@{/crearActualizacion}" method="get">
-							<input type="hidden" name="idTicket" th:value="${ticket.idTicket}" />
-							<button type="submit">Crear Actualizacion</button>
-						</form>
-
-						<form th:action="@{/listaActualizaciones}" method="get">
-							<input type="hidden" name="idTicket" th:value="${ticket.idTicket}" />
-							<button type="submit">Lista de Actualizaciones</button>
-						</form>
-					</td>
-					<td>
-						<!--<a th:href="@{|/tickets/editar/${ticket.idTicket}|}">Editar</a> |
-					    <a th:href="@{|/tickets/ver/${ticket.idTicket}|}">Ver</a> -->
-					</td>
-
-				</tr>
+			    <tr th:each="ticket : ${tickets}">
+			        <td th:text="${ticket.idTicket}"></td>
+			        <td>
+			            <a th:href="@{/verTicket(idTicket=${ticket.idTicket})}" th:text="${ticket.titulo}" class="link-titulo"></a>
+			        </td>
+			        <td th:text="${ticket.descripcion}"></td>
+			        <td th:text="${#temporals.format(ticket.fechaCreacion, 'dd/MM/yyyy HH:mm')}"></td>
+			        <td th:text="${ticket.fechaCierre != null ? #temporals.format(ticket.fechaCierre, 'dd/MM/yyyy HH:mm') : '---'}"></td>
+			        <td th:text="${ticket.prioridad.tipo}"></td>
+			        <td th:text="${ticket.tipoDeTicket.tipo}"></td>
+			        <td th:text="${ticket.estado.tipo}"
+			            th:classappend="${
+			                (ticket.estado.tipo == 'Abierto') ? 'estado-abierto' :
+			                (ticket.estado.tipo == 'Cerrado') ? 'estado-cerrado' :
+			                'estado-otro'
+			            }">
+			        </td>
+			        <td th:text="${ticket.empleado != null ? ticket.empleado.nombre : 'No asignado'}"></td>
+			        <td>
+			            <!-- Acciones -->
+			            <form th:action="@{/eliminarTicket(idTicket=${ticket.idTicket})}" method="post" class="inline-form" style="display:inline;">
+			                <button type="submit" th:onclick="'return confirm(\'Desea eliminar el ticket ' + ${ticket.idTicket} + '?\')'" class="icon-action rojo" title="Eliminar">
+			                    <i class="fas fa-trash"></i>
+			                </button>
+			            </form>
+			            <form th:action="@{/crearActualizacion}" sec:authorize="hasRole('ROLE_ADMIN')" method="get" class="inline-form" style="display:inline;">
+			                <input type="hidden" name="idTicket" th:value="${ticket.idTicket}" />
+			                <button type="submit" class="icon-action verde" title="Crear Actualización">
+			                    <i class="fas fa-pen-to-square"></i>
+			                </button>
+			            </form>
+			            <form th:action="@{/listaActualizaciones}" method="get" class="inline-form" style="display:inline;">
+			                <input type="hidden" name="idTicket" th:value="${ticket.idTicket}" />
+			                <button type="submit" class="icon-action azul" title="Ver Actualizaciones">
+			                    <i class="fas fa-list"></i>
+			                </button>
+			            </form>
+			            <form th:action="@{/asignarEmpleado}" sec:authorize="hasRole('ROLE_ADMIN')" method="get" class="inline-form" style="display:inline;">
+			                <input type="hidden" name="idTicket" th:value="${ticket.idTicket}" />
+			                <button type="submit" class="icon-action amarillo" title="Asignar Empleado">
+			                    <i class="fas fa-user-plus"></i>
+			                </button>
+			            </form>
+			        </td>
+			    </tr>
 			</tbody>
+
 		</table>
 
 		<p th:if="${mensaje}" th:text="${mensaje}" style="color: red;"></p>

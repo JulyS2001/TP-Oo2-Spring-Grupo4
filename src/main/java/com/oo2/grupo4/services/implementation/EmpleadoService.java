@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.oo2.grupo4.entities.Empleado;
+import com.oo2.grupo4.entities.Prioridad;
 import com.oo2.grupo4.entities.Area;
 import com.oo2.grupo4.repositories.IEmpleadoRepository;
 import com.oo2.grupo4.services.interfaces.IEmpleadoService;
@@ -60,6 +61,14 @@ public class EmpleadoService implements IEmpleadoService {
 		return empleadoRepository.findByAreaIdArea(idArea);
 	}
 
+	@Override 
+	public List <Empleado> traerNoAdmi (String rol){
+	    if (rol.equalsIgnoreCase("admin")) {
+	        return empleadoRepository.findByRolNot("ADMIN");
+	    }
+	    return empleadoRepository.findByRol(rol);
+	}
+	
 	@Override
 	public Empleado traerPorId(int idPersona) {
 		return empleadoRepository.findById(idPersona)

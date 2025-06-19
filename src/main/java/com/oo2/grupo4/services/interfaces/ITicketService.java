@@ -6,10 +6,13 @@ import java.util.List;
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Ticket;
 
+
 public interface ITicketService {
 
-	Ticket crearTicket(String titulo, String descripcion, int idTipoDeTicket);
+	Ticket crearTicket(String titulo, String descripcion, int idTipoDeTicket, Integer idCliente);
 
+	public Ticket cambiarEmpleado(int idTicket, int idEmpleado);
+	
 	public int modificarTicket(int idTicket, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado);
 
 	List<Ticket> getAll();

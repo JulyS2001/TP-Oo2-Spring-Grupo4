@@ -45,6 +45,10 @@ public class Ticket {
 	@JoinColumn(name = "cliente_id_persona")
 	private Cliente cliente;
 
+	@ManyToOne 
+	@JoinColumn(name = "empleado_id_persona")
+	private Empleado empleado;
+	
 	@ManyToOne
 	@JoinColumn(name = "estado_id")
 	private Estado estado;

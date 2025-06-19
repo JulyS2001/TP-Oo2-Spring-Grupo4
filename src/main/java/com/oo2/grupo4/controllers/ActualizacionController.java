@@ -16,7 +16,6 @@ import com.oo2.grupo4.services.implementation.EmpleadoService;
 import com.oo2.grupo4.services.implementation.PersonaService;
 import com.oo2.grupo4.services.implementation.TicketService;
 
-import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -29,7 +28,7 @@ public class ActualizacionController {
 	private final TicketService ticketService;
 
 	@GetMapping("/crearActualizacion")
-	public ModelAndView crearAcualizacionVista(@RequestParam int idTicket) {
+	public ModelAndView crearActualizacionVista(@RequestParam int idTicket) {
 		ModelAndView mav = new ModelAndView("actualizacion/crearActualizacion");
 		mav.addObject("empleados", empleadoService.getAll());
 		mav.addObject("idTicket", idTicket);
@@ -42,12 +41,10 @@ public class ActualizacionController {
 		ModelAndView mav = new ModelAndView("actualizacion/listaActualizaciones");
 		
 		Ticket ticket = ticketService.getById(idTicket);
-		Empleado empleado = empleadoService.traerPorId(1);
 		
 		Actualizacion actualizacion = new Actualizacion();
 		actualizacion.setTicket(ticket);
 		actualizacion.setContenido(contenido);
-		actualizacion.setEmpleado(empleado);
 		actualizacion.setFechaActualizacion(LocalDateTime.now());
 		
 		actualizacionService.save(actualizacion);

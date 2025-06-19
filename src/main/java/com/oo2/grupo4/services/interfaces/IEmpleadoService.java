@@ -13,6 +13,8 @@ public interface IEmpleadoService {
 	void completarEmpleado(int idPersona, Integer legajo, int idArea, String rol);
 
 	List<Empleado> obtenerEmpleadosPorArea(int idArea);
+	
+	List <Empleado> traerNoAdmi (String rol);
 
 	Empleado traerPorId(int idPersona);
 }

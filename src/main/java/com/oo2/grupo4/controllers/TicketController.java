@@ -40,8 +40,6 @@ public class TicketController {
 
 		mav.addObject("estados", estadoService.getAll());
 		mav.addObject("tipoDeTickets", tipodeticketservice.getAll());
-		
-		
 
 		return mav;
 	}
@@ -54,7 +52,8 @@ public class TicketController {
 
 	    try {
 	        if (!ticketService.existsByTitulo(titulo)) {
-	            Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket);
+	        	int idPersona = userDetails.getLogin().getPersona().getIdPersona();
+	            Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket, idPersona);
 
 	            String destinatario = userDetails.getLogin().getCorreo();
 	            String asunto = "[Ticket #" + ticket.getIdTicket() + "] ✅" + titulo;
@@ -91,6 +90,22 @@ public class TicketController {
 	public ModelAndView vistaMailEnviado() {
 		return new ModelAndView("mail/mailEnvio");
 	}
+	
+	@GetMapping("/verTicket")
+	public ModelAndView verTicket(@RequestParam int idTicket) {
+	    ModelAndView mav = new ModelAndView("tickets/verTicket");
+	    Ticket ticket = ticketService.getById(idTicket);
+	    
+	    if (ticket == null) {
+	        mav.setViewName("redirect:/listaTickets");
+	        mav.addObject("mensaje", "El ticket no existe.");
+	        return mav;
+	    }
+
+	    mav.addObject("ticket", ticket);
+	    return mav;
+	}
+
 
 	@PostMapping("/eliminarTicket")
 	public ModelAndView eliminarTicket(@RequestParam int idTicket) {

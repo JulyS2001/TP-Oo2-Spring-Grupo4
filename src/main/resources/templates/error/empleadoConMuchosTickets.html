@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error: Ticket ya existente</title>
+    <title>Error: Descripción muy corta</title>
     <link rel="stylesheet" th:href="@{/css/estiloTicketera.css}">
 </head>
 <body>
@@ -33,9 +33,9 @@
 </nav>
 
 <main>
-    <h2 style="color: red;">Error: El ticket ya existe</h2>
-    <p th:text="${mensaje}">Ya existe un ticket con ese título.</p>
-	<button class="btn" onclick="history.back()">Volver a crear ticket</button>
+    <h2 style="color: red;">Error: El empleado no puede aceptar más tickets</h2>
+    <p>Asigne el ticket a otro empleado por favor</p>
+	<button class="btn" onclick="history.back()">Volver a la lista de tickets</button>
 </main>
 
 <footer>

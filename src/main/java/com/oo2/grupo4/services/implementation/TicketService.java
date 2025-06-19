@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.oo2.grupo4.entities.Actualizacion;
+import com.oo2.grupo4.entities.Cliente;
+import com.oo2.grupo4.entities.Empleado;
 import com.oo2.grupo4.entities.Estado;
 import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.entities.Prioridad;
@@ -28,9 +30,12 @@ public class TicketService implements ITicketService {
 	private final EstadoService estadoService;
 	private final PrioridadService prioridadService;
 	private final TipoDeTicketService tipoDeTicketService;
+	private final EmpleadoService empleadoService;
+	private final ClienteService clienteService;
+
 
 	@Override
-	public Ticket crearTicket(String titulo, String descripcion, int idTipoDeTicket) {
+	public Ticket crearTicket(String titulo, String descripcion, int idTipoDeTicket, Integer idCliente) {
 		
 
 		if (descripcion == null || descripcion.length() < 30) {
@@ -38,6 +43,9 @@ public class TicketService implements ITicketService {
 		}
 
 		Estado estado = estadoService.findById(1);
+		Prioridad prioridad = prioridadService.findById(2);
+		Empleado empleado = empleadoService.traerPorId(1);
+		Cliente cliente = clienteService.traerPorId(idCliente);
 		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(idTipoDeTicket);
 
 
@@ -46,6 +54,9 @@ public class TicketService implements ITicketService {
 		ticket.setDescripcion(descripcion);
 		ticket.setFechaCreacion(LocalDateTime.now());
 		ticket.setEstado(estado);
+		ticket.setPrioridad(prioridad);
+		ticket.setEmpleado(empleado);
+		ticket.setCliente(cliente);
 		ticket.setTipoDeTicket(tipoDeTicket);
 
 		return ticketRepository.save(ticket);
@@ -73,6 +84,16 @@ public class TicketService implements ITicketService {
 
 	}
 
+	@Override
+	public Ticket cambiarEmpleado(int idTicket, int idEmpleado) {
+	    Ticket ticket = this.getById(idTicket);
+	    Empleado nuevoEmpleado = empleadoService.traerPorId(idEmpleado);
+
+	    ticket.setEmpleado(nuevoEmpleado);
+
+	    return ticketRepository.save(ticket);
+	}
+	
 	@Override
 	public List<Ticket> getAll() {
 		return ticketRepository.findAll();

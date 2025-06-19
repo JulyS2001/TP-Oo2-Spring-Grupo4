@@ -161,6 +161,18 @@ form input[type="text"] {
     font-size: 1rem;
 }
 
+form input[type="number"],
+form input[type="email"] {
+    display: block;
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
 form button {
     background-color: #5C1623;
     color: white;
@@ -263,4 +275,161 @@ tbody tr:last-child td {
     width: 20px;
     height: 20px;
     filter: invert(0.3); /* opcional: ajusta según fondo */
+}
+
+.inline-form {
+    all: unset;
+    display: inline;
+}
+
+.icon-action {
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 0.3rem;
+	margin: 0 0.2rem;
+	border-radius: 5px;
+	color: #5C1623; /* color base si no se especifica */
+	font-size: 1.2rem;
+	transition: transform 0.2s ease, filter 0.2s ease;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.icon-action:hover {
+	transform: scale(1.2);
+	filter: brightness(1.4);
+}
+
+.icon-action i {
+	pointer-events: none;
+}
+
+/* Colores individuales */
+.icon-action.rojo { color: #c0392b; }
+.icon-action.rojo:hover { color: #e74c3c; }
+
+.icon-action.amarillo { color: #f39c12; }
+.icon-action.amarillo:hover { color: #f1c40f; }
+
+.icon-action.azul { color: #2980b9; }
+.icon-action.azul:hover { color: #3498db; }
+
+.icon-action.verde { color: #27ae60; }
+.icon-action.verde:hover { color: #2ecc71; }
+
+.contenedor-flex {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.columna {
+    flex: 1 1 45%;
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* Estilo general para el formulario en la columna derecha */
+.columna form {
+    background: linear-gradient(135deg, #5C1623 0%, #B08B85 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(92, 22, 35, 0.4);
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Etiquetas y texto */
+.columna form label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+}
+
+/* Select */
+.columna form select {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5C1623;
+}
+
+/* Botón */
+.columna form button.btn {
+    background-color: #fff;
+    color: #5C1623;
+    font-weight: 700;
+    padding: 0.9rem 2rem;
+    border-radius: 30px;
+    border: none;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.5);
+}
+
+.columna form button.btn:hover {
+    background-color: #9C7771;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(156, 119, 113, 0.8);
+}
+
+.link-titulo {
+    color: rgb(128, 0, 0);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link-titulo:hover {
+    text-decoration: underline;
+}
+
+.acciones {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: nowrap;
+}
+
+.acciones form {
+    margin: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+}
+
+.acciones form button.btn,
+.acciones a.btn {
+    background-color: #5C1623;
+    color: white;
+    border-radius: 5px;
+    padding: 0.75rem 1.5rem;
+    min-width: 180px;
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+
+.acciones form button.btn:hover,
+.acciones a.btn:hover {
+    background-color: #9C7771;
+}
+
+.acciones form button.btn:focus {
+    outline: none;
+    box-shadow: none;
 }

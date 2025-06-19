@@ -4,6 +4,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -28,11 +29,13 @@ public class Empleado extends Persona {
 	private String rol;
 	private int legajo;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "area_id_area")
 	private Area area;
 
 	@OneToMany(mappedBy = "empleado")
 	private List<Actualizacion> actualizaciones;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empleado")
+	private List<Ticket> tickets;
 }
