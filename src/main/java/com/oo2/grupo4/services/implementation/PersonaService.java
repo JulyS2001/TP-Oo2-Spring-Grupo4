@@ -7,6 +7,7 @@ import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.repositories.IClienteRepository;
 import com.oo2.grupo4.repositories.IPersonaRepository;
 import com.oo2.grupo4.services.interfaces.IPersonaService;
+import java.util.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,14 +17,6 @@ public class PersonaService implements IPersonaService {
 
 	private final IPersonaRepository personaRepository;
 	private final IClienteRepository clienteRepository;
-
-	@Override
-	public Persona save(Persona persona) {
-		if (persona instanceof Cliente) {
-			return clienteRepository.save((Cliente) persona);
-		}
-		throw new IllegalArgumentException("Tipo de persona no soportado.");
-	}
 
 	@Override
 	public Persona traerPorId(int idPersona) {
@@ -58,5 +51,13 @@ public class PersonaService implements IPersonaService {
 		if (personaRepository.existsByDni(dni)) {
 			throw new IllegalArgumentException("Ya existe una persona con ese DNI");
 		}
+	}
+	@Override
+	public boolean existsByDni(Long dni) {
+		return personaRepository.existsByDni(dni);
+	}
+	
+	public List<Persona> getAll(){
+		return personaRepository.findAll();
 	}
 }
