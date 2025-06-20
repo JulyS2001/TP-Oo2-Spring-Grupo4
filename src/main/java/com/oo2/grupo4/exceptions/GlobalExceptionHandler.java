@@ -13,11 +13,17 @@ public class GlobalExceptionHandler {
 		model.addAttribute("mensaje", ex.getMessage());
 		return "error/ticketYaExistente";
 	}
-
-	@ExceptionHandler(NoAutorizado.class)
-	public String manejarNoAutorizado(NoAutorizado ex, Model model) {
+	
+	@ExceptionHandler(MailExistente.class)
+	public String manejarMailExistente(MailExistente ex, Model model) {
 		model.addAttribute("mensaje", ex.getMessage());
-		return "error/noAutorizado";
+		return "error/mailExistente";
+	}
+	
+	@ExceptionHandler(DniExistente.class)
+	public String manejarDniExistente(DniExistente ex, Model model) {
+		model.addAttribute("mensaje", ex.getMessage());
+		return "error/dniExistente";
 	}
 	
 	@ExceptionHandler(TicketSinActualizaciones.class)

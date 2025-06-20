@@ -15,8 +15,8 @@ import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.entities.Prioridad;
 import com.oo2.grupo4.entities.TipoDeTicket;
 import com.oo2.grupo4.exceptions.DescripcionMuyCortaException;
+import com.oo2.grupo4.exceptions.EmpleadoConMuchosTicketsException;
 import com.oo2.grupo4.entities.Ticket;
-import com.oo2.grupo4.repositories.IEmpleadoRepository;
 import com.oo2.grupo4.repositories.ITicketRepository;
 import com.oo2.grupo4.services.interfaces.ITicketService;
 
@@ -86,8 +86,19 @@ public class TicketService implements ITicketService {
 
 	@Override
 	public Ticket cambiarEmpleado(int idTicket, int idEmpleado) {
-	    Ticket ticket = this.getById(idTicket);
+		
 	    Empleado nuevoEmpleado = empleadoService.traerPorId(idEmpleado);
+		
+	    // Contar los tickets abiertos (estado id = 1) del nuevo empleado
+	    long ticketsAbiertos = nuevoEmpleado.getTickets().stream()
+	        .filter(ticket -> ticket.getEstado().getIdEstado() == 1)
+	        .count();
+	    
+		if (ticketsAbiertos >= 4 ) {
+			throw new EmpleadoConMuchosTicketsException ("El empleado no puede recibir más tickets en este momento");
+		}
+		
+	    Ticket ticket = this.getById(idTicket);
 
 	    ticket.setEmpleado(nuevoEmpleado);
 

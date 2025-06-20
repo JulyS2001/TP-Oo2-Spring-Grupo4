@@ -11,7 +11,6 @@ import com.oo2.grupo4.repositories.IContactoRepository;
 import com.oo2.grupo4.services.interfaces.IClienteService;
 import com.oo2.grupo4.services.interfaces.IContactoService;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,16 +19,15 @@ public class ContactoService implements IContactoService {
 
 	private final IContactoRepository contactoRepository;
 
-	@Override
-	@Transactional
-	public Optional<Contacto> crearContacto(String telefono, String email, Persona persona) {
-		if (contactoRepository.existsByEmail(email)) {
-			return Optional.empty();
-		}
-
-		Contacto contacto = Contacto.builder().telefono(telefono).email(email).persona(persona).build();
-
-		return Optional.of(contactoRepository.save(contacto));
+	
+	public Contacto crearContacto(String telefono, String email, Persona persona) {
+		
+		Contacto contacto = new Contacto();
+		contacto.setTelefono(telefono);
+		contacto.setEmail(email);
+		contacto.setPersona(persona);
+		
+		return contactoRepository.save(contacto);
 	}
 
 	@Override

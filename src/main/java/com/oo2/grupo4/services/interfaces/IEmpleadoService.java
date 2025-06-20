@@ -10,11 +10,13 @@ public interface IEmpleadoService {
 	
 	Empleado crearEmpleado(String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol);
 
-	void completarEmpleado(int idPersona, Integer legajo, int idArea, String rol);
+	public int modificarEmpleado(int idPersona, String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol);
 
 	List<Empleado> obtenerEmpleadosPorArea(int idArea);
 	
 	List <Empleado> traerNoAdmi (String rol);
 
 	Empleado traerPorId(int idPersona);
+	
+	public void delete(int idPersona);
 }

@@ -8,7 +8,7 @@ import com.oo2.grupo4.entities.Persona;
 
 public interface IContactoService {
 
-	Optional<Contacto> crearContacto(String telefono, String email, Persona persona);
+	Contacto crearContacto(String telefono, String email, Persona persona);
 
 	Contacto traerPorId(int idContacto);
 

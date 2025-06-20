@@ -44,16 +44,19 @@ public class EmpleadoService implements IEmpleadoService {
 	}
 
 	@Override
-	public void completarEmpleado(int idPersona, Integer legajo, int idArea, String rol) {
+	public int modificarEmpleado(int idPersona, String nombre, String apellido, Long dni, Integer legajo, int idArea, String rol) {
+		
+		Empleado empleado = this.traerPorId(idPersona);
 		Area area = areaService.traerPorId(idArea);
 
-		Empleado empleado = empleadoRepository.findById(idPersona)
-				.orElseThrow(() -> new RuntimeException("Empleado no encontrado con id " + idPersona));
-
+		empleado.setNombre(nombre);
+		empleado.setApellido(apellido);
+		empleado.setDni(dni);
 		empleado.setLegajo(legajo);
 		empleado.setArea(area);
 		empleado.setRol(rol);
-		empleadoRepository.save(empleado);
+
+		return empleadoRepository.save(empleado).getIdPersona();
 	}
 
 	@Override
@@ -73,5 +76,11 @@ public class EmpleadoService implements IEmpleadoService {
 	public Empleado traerPorId(int idPersona) {
 		return empleadoRepository.findById(idPersona)
 				.orElseThrow(() -> new RuntimeException("Empleado no encontrado con id " + idPersona));
+	}
+	
+
+	@Override
+	public void delete(int idPersona) {
+		empleadoRepository.deleteById(idPersona);
 	}
 }

@@ -1,5 +1,7 @@
 package com.oo2.grupo4.services.implementation;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.oo2.grupo4.entities.Cliente;
@@ -41,6 +43,10 @@ public class ClienteService implements IClienteService {
 	public Cliente traerPorId(int idPersona) {
 		return clienteRepository.findById(idPersona)
 				.orElseThrow(() -> new RuntimeException("Cliente no encontrado con id " + idPersona));
+	}
+	@Override
+	public List<Cliente> getAll(){
+		return clienteRepository.findAll();
 	}
 
 }
