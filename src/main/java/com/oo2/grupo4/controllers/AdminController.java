@@ -86,7 +86,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/editarTicket")
-	public ModelAndView VistaEditarTicket(@RequestParam int idTicket, @RequestParam int idTipoDeTicket, @RequestParam int idPrioridad, @RequestParam int idEstado) {
+	public ModelAndView VistaEditarTicket(@RequestParam  int idTicket, @RequestParam int idTipoDeTicket, @RequestParam int idPrioridad, @RequestParam int idEstado) {
 	    
 	    ticketService.modificarTicket(idTicket, idTipoDeTicket, idPrioridad, idEstado);
 	    

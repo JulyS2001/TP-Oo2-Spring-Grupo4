@@ -98,6 +98,18 @@ public class TicketController {
 		
 		return mav;
 	}
+	
+	@GetMapping("/misTicketsEmpleado")
+	public ModelAndView vistaListaTicketsEmpleado(@RequestParam(required = false) String mensaje,@AuthenticationPrincipal UserDetailsImpl userDetails) {
+		
+		int idPersona = userDetails.getLogin().getPersona().getIdPersona();
+		
+		ModelAndView mav = new ModelAndView("tickets/listaTickets");
+		
+		mav.addObject("tickets", empleadoService.getAllByEmpleadoId(idPersona));
+		
+		return mav;
+	}
 
 	@GetMapping("/mail/mailEnvio")
 	public ModelAndView vistaMailEnviado() {

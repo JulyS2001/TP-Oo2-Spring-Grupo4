@@ -1,12 +1,15 @@
 package com.oo2.grupo4.services.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import com.oo2.grupo4.entities.Empleado;
 import com.oo2.grupo4.entities.Prioridad;
+import com.oo2.grupo4.entities.Ticket;
 import com.oo2.grupo4.entities.Area;
 import com.oo2.grupo4.repositories.IEmpleadoRepository;
+import com.oo2.grupo4.repositories.ITicketRepository;
 import com.oo2.grupo4.services.interfaces.IEmpleadoService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,6 +22,7 @@ public class EmpleadoService implements IEmpleadoService {
 	private final PersonaService personaService;
 	private final AreaService areaService;
 	private final IEmpleadoRepository empleadoRepository;
+	private final ITicketRepository ticketRepository;
 
 	
 	@Override
@@ -76,6 +80,20 @@ public class EmpleadoService implements IEmpleadoService {
 	public Empleado traerPorId(int idPersona) {
 		return empleadoRepository.findById(idPersona)
 				.orElseThrow(() -> new RuntimeException("Empleado no encontrado con id " + idPersona));
+	}
+	
+	
+	@Override
+	public List<Ticket> getAllByEmpleadoId(int idEmpleado){
+		List<Ticket> tickets = new ArrayList<>();
+		
+		for(Ticket t : ticketRepository.findAll()) {
+			if(t.getEmpleado().getIdPersona()==idEmpleado) {
+				tickets.add(t);
+			}
+		}
+		
+		return tickets;
 	}
 	
 

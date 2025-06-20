@@ -23,15 +23,28 @@
 	</header>
 
 	<nav>
-		<a th:href="@{/}">Inicio</a>
-		
+		<div class="nav-links">
+			<a th:href="@{/}">Inicio</a>
+			<a th:href="@{/misTickets}" sec:authorize="hasRole('ROLE_CLIENTE')">Mis Tickets</a>
+			<a th:href="@{/crearTicket}" sec:authorize="hasRole('ROLE_CLIENTE')">Crear nuevo ticket</a>
+			<a th:href="@{/listaTickets}" sec:authorize="hasRole('ROLE_ADMIN')">Lista de Tickets</a>
+			<a th:href="@{/misTicketsEmpleado}" sec:authorize="hasAnyRole('SENIOR', 'TRAINEE', 'QA','JUNIOR')">Lista de
+				Tickets</a>
+			<a th:href="@{/listaUsuarios}" sec:authorize="hasRole('ROLE_ADMIN')">Administrar Usuarios</a>
+			<a th:href="@{/altaEmpleado}" sec:authorize="hasRole('ROLE_ADMIN')">Incorporar Empleado</a>
+			<a th:href="@{/registro}" sec:authorize="!isAuthenticated()">Registrarse</a>
+			<a th:href="@{/login}" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
+		</div>
+		<form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()" class="logout-form">
+			<button type="submit" class="link-button">Cerrar sesión</button>
+		</form>
 	</nav>
 
 	<main>
 		<h2>Login</h2>
 
-		<p th:if="${mensaje}" th:text="${mensaje}" 
-		   style="color: red; font-size: 1.2em; font-weight: bold; margin-bottom: 1em;">
+		<p th:if="${mensaje}" th:text="${mensaje}"   
+			style="color: red; font-size: 1.2em; font-weight: bold; margin-bottom: 1em;">
 		</p>
 
 		<form th:action="@{/login}" method="post" class="form-login">
@@ -45,16 +58,16 @@
 				<div class="password-wrapper">
 					<input type="password" id="password" name="password" required>
 					<button type="button" class="toggle-password">
-					    <img id="eye-icon" src="css/ojo-cerrado.svg" alt="Mostrar contraseña">
+						<img id="eye-icon" src="css/ojo-cerrado.svg" alt="Mostrar contraseña">
 					</button>
 				</div>
 			</div>
 			<div class="acciones">
-			    <!-- Botón enviar formulario -->
-			    <button type="submit" class="btn">Iniciar Sesión</button>
+				<!-- Botón enviar formulario -->
+				<button type="submit" class="btn">Iniciar Sesión</button>
 
-			    <!-- Botón para ir a registro, tipo button con onclick -->
-			    <button type="button" class="btn" onclick="window.location.href='registro'">Registrarse</button>
+				<!-- Botón para ir a registro, tipo button con onclick -->
+				<button type="button" class="btn" onclick="window.location.href='registro'">Registrarse</button>
 			</div>
 		</form>
 
@@ -63,7 +76,7 @@
 	<footer>
 		&copy; 2025 Ticketera Soporte UNLa. Todos los derechos reservados.
 	</footer>
-	
+
 	<script src="/js/login.js"></script>
 </body>
 
