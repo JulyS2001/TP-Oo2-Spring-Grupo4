@@ -39,6 +39,7 @@ public class AuthController {
 	@PostMapping("/registro")
 	public ModelAndView registrarCliente(@RequestParam String nombre, @RequestParam String apellido,
 			@RequestParam long dni, @RequestParam String nroCliente) {
+
 		
 		if(personaService.existsByDni(dni)) {
 			throw new DniExistente("El dni ingresado ya existe.");
@@ -46,7 +47,6 @@ public class AuthController {
 		
 		Cliente cliente = clienteService.crearCliente(nombre, apellido, dni, nroCliente);
 		
-
 		return new ModelAndView("redirect:/completarContacto?idPersona=" + cliente.getIdPersona());
 	}
 
