@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Empleado;
+import com.oo2.grupo4.exceptions.TicketSinActualizaciones;
 import com.oo2.grupo4.repositories.IActualizacionRepository;
 import com.oo2.grupo4.services.interfaces.IActualizacionService;
 
@@ -70,6 +71,10 @@ public class ActualizacionService implements IActualizacionService {
 				actualizaciones.add(a);
 			}
 		}
+		if(actualizaciones.isEmpty()) {
+			throw new TicketSinActualizaciones(idTicket);
+		}
+		
 		return actualizaciones;
 	}
 

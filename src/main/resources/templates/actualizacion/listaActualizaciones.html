@@ -7,6 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Soporte UNLa</title>
 	<link rel="stylesheet" th:href="@{/css/estiloTicketera.css}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -54,14 +55,16 @@
 					<td th:text="${actualizacion.contenido}"></td>
 					<td th:text="${#temporals.format(actualizacion.fechaActualizacion, 'dd/MM/yyyy HH:mm')}"></td>
 					<td
-						th:text="${actualizacion.empleado.nombre  + ' ' + actualizacion.empleado.apellido + ' id:(' + actualizacion.empleado.idPersona + ')'}">
+						th:text="${actualizacion.empleado.nombre + ' ' + actualizacion.empleado.apellido + ' id:(' + actualizacion.empleado.idPersona + ')' }">
 					</td>
 					<td>
-						<form
-							th:action="@{/eliminarActualizacion(idTicket=${idTicket},idActualizacion=${actualizacion.idActualizacion})}"
-							method="post">
+						<form th:action="@{/eliminarActualizacion(idTicket=${idTicket},idActualizacion=${actualizacion.idActualizacion})}"
+							method="post" class="inline-form" style="display:inline;">
 							<button type="submit"
-								th:onclick="'return confirm(\'Desea elimar la actualizacion ' + ${actualizacion.idActualizacion} + '?\')'">Eliminar</button>
+								th:onclick="'return confirm(\'Desea elimar la actualizacion ' + ${actualizacion.idActualizacion} + '?\')'"
+								class="icon-action rojo" title="Eliminar">
+								<i class="fas fa-trash"></i>
+							</button>
 						</form>
 					</td>
 				</tr>

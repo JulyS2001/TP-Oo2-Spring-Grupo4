@@ -15,17 +15,14 @@ import com.oo2.grupo4.security.UserDetailsImpl;
 import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.entities.Ticket;
 
-import com.oo2.grupo4.services.implementation.EmailService;
-import com.oo2.grupo4.services.implementation.EstadoService;
-import com.oo2.grupo4.services.implementation.PersonaService;
-import com.oo2.grupo4.services.implementation.TicketService;
-import com.oo2.grupo4.services.implementation.TipoDeTicketService;
-
+import com.oo2.grupo4.services.implementation.*;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
 public class TicketController {
+
+    private final EmpleadoService empleadoService;
 
 	private final TipoDeTicketService tipodeticketservice;
 	private final EstadoService estadoService;
@@ -81,8 +78,11 @@ public class TicketController {
 
 	@GetMapping("/listaTickets")
 	public ModelAndView vistaListaTickets(@RequestParam(required = false) String mensaje) {
+		
 		ModelAndView mav = new ModelAndView("tickets/listaTickets");
+		
 		mav.addObject("tickets", ticketService.getAll());
+		
 		return mav;
 	}
 
@@ -109,12 +109,15 @@ public class TicketController {
 
 	@PostMapping("/eliminarTicket")
 	public ModelAndView eliminarTicket(@RequestParam int idTicket) {
-		Ticket ticket  = ticketService.getById(idTicket);
-		ticketService.delete(idTicket);
-		
+
 		ModelAndView mav = new ModelAndView("tickets/listaTickets");
-	    //mav.addObject("ticket", ticket);
+		
+		//Ticket ticket  = ticketService.getById(idTicket);
+		ticketService.delete(idTicket);
+		//mav.addObject("ticket", ticket);
 	    
+		mav.addObject("tickets", ticketService.getAll());
+		
 	    return mav;
 		
 	}

@@ -19,5 +19,11 @@ public class GlobalExceptionHandler {
 		model.addAttribute("mensaje", ex.getMessage());
 		return "error/noAutorizado";
 	}
-
+	
+	@ExceptionHandler(TicketSinActualizaciones.class)
+	public String manejarTicketSinActualizaciones(TicketSinActualizaciones ex, Model model) {
+		model.addAttribute("mensaje", ex.getMessage());
+		return "error/ticketSinActualizaciones";
+	}
+	
 }

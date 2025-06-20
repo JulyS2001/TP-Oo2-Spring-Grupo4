@@ -86,7 +86,7 @@
 			                    <i class="fas fa-pen-to-square"></i>
 			                </button>
 			            </form>
-			            <form th:action="@{/listaActualizaciones}" method="get" class="inline-form" style="display:inline;">
+			            <form th:action="@{/listaActualizaciones(idTicket=${ticket.idTicket})}" method="get" class="inline-form" style="display:inline;">
 			                <input type="hidden" name="idTicket" th:value="${ticket.idTicket}" />
 			                <button type="submit" class="icon-action azul" title="Ver Actualizaciones">
 			                    <i class="fas fa-list"></i>
