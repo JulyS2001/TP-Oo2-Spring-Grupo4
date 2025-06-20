@@ -157,6 +157,9 @@ public class AdminController {
 		
 		empleadoService.delete(idPersona);
 		
+	    mav.addObject("empleados", empleadoService.getAll());
+	    mav.addObject("clientes", clienteService.getAll());
+		
 	    return mav;
 	}
 	
