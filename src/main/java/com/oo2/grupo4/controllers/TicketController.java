@@ -28,7 +28,8 @@ public class TicketController {
 	private final EstadoService estadoService;
 	private final TicketService ticketService;
 	private final EmailService emailService;
-	private final PersonaService personaService;
+	private final ClienteService clienteService;
+	
 
 	@GetMapping("/crearTicket")
 	public ModelAndView vistaCrearTicket(@RequestParam(required = false) String mensaje) {
@@ -82,6 +83,18 @@ public class TicketController {
 		ModelAndView mav = new ModelAndView("tickets/listaTickets");
 		
 		mav.addObject("tickets", ticketService.getAll());
+		
+		return mav;
+	}
+	
+	@GetMapping("/misTickets")
+	public ModelAndView vistaListaTickets(@RequestParam(required = false) String mensaje,@AuthenticationPrincipal UserDetailsImpl userDetails) {
+		
+		int idPersona = userDetails.getLogin().getPersona().getIdPersona();
+		
+		ModelAndView mav = new ModelAndView("tickets/listaTickets");
+		
+		mav.addObject("tickets", clienteService.getAllByClienteId(idPersona));
 		
 		return mav;
 	}

@@ -1,16 +1,12 @@
 package com.oo2.grupo4.controllers;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.oo2.grupo4.entities.Cliente;
-import com.oo2.grupo4.entities.Contacto;
-import com.oo2.grupo4.entities.Login;
 import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.exceptions.DniExistente;
 import com.oo2.grupo4.exceptions.MailExistente;
@@ -69,9 +65,9 @@ public class AuthController {
 			throw new MailExistente("El correo ingresado ya esta en uso.");
 		}
 		
-		Login login = loginService.crearLogin(correo, contrasenia, persona);
+		loginService.crearLogin(correo, contrasenia, persona);
 
-		Contacto contacto = contactoService.crearContacto(telefono, contrasenia, persona);
+		contactoService.crearContacto(telefono, contrasenia, persona);
 
 		return new ModelAndView("redirect:/login");
 	}
