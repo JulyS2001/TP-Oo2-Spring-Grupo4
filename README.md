@@ -7,22 +7,15 @@ Proyecto realizado para la materia **Orientación a Objetos 2**
 Antes de ejecutar el proyecto, asegúrate de tener instalado y configurado lo siguiente:
 
 - **Java JDK 21**  
-  Puedes descargarlo desde: https://www.oracle.com/ar/java/technologies/downloads/#java21
+  Puedes descargarlo desde: [aqui](https://www.oracle.com/ar/java/technologies/downloads/#java21)
 
 - **Maven** (para compilar y correr el proyecto)  
-  https://maven.apache.org/install.html
+  [Maven](https://maven.apache.org/install.html)
 
 - **SQL Server** (o el gestor de base de datos que uses)  
   Debes tenerlo instalado y funcionando.
 
-- **Plugin Lombok** en tu IDE (En este caso se utilizó Spring Tool Suite)
-
-## Configuración de la base de datos
-
-1. Descarga el script SQL para crear la base de datos y las tablas desde este enlace:  
-   [Script SQL](https://drive.google.com/file/d/10oYaoCrtMw4JJfOxrbc5AggqWKmE421_/view?usp=drive_link)
-
-2. Ejecuta el script en tu servidor SQL Server para crear la base de datos y las tablas necesarias.
+- **Plugin Lombok** en tu IDE
 
 ## 🛠️ Clonar y configurar el proyecto
 
@@ -32,24 +25,46 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado y configurado lo si
 git clone https://github.com/JulyS2001/TP-Oo2-Spring-Grupo4.git
 cd TP-Oo2-Spring-Grupo4
 ```
+## Importar el proyecto en tu IDE
+En este caso fue realizado con el IDE Spring Tool Suite.
 
-## Modificá las credenciales en el archivo application.yml
+## Configuración de la base de datos
 
-Ubicación: src/main/resources/application.yml
+1. Descarga el script SQL para crear la base de datos y las tablas desde este enlace:  
+   [Script SQL](https://drive.google.com/file/d/1swvsM6oDdQlNV0rw5CZutqBWOQunID0N/view?usp=drive_link)
 
-yaml
-Copiar
-Editar
+2. Ejecuta el script en tu servidor SQL Server para crear la base de datos y las tablas necesarias.
+
+
+## 🛠️ Modificar las variables de entorno
+Ubicación del archivo: [src/main/resources/application.yml](src/main/resources/application.yml)
+
+```yaml
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/bd-ticketera
-    username: TU_USUARIO
-    password: TU_CONTRASEÑA
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: update
+
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USER}
+    password: ${MAIL_PASSWORD}
     properties:
-      dialect: org.hibernate.dialect.MySQL8Dialect
-  thymeleaf:
-    cache: false
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+```
+## Luego de compilar el proyecto accede a la aplicación
+
+```yaml
+Abrí tu navegador en:
+http://localhost:8080
+```
