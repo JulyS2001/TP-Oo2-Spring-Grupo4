@@ -1,3 +1,4 @@
+
 package com.oo2.grupo4.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,7 @@ public class AuthController {
 		
 		loginService.crearLogin(correo, contrasenia, persona);
 
-		contactoService.crearContacto(telefono, contrasenia, persona);
+		contactoService.crearContacto(telefono, correo, persona);
 
 		return new ModelAndView("redirect:/login");
 	}
