@@ -24,7 +24,7 @@ public class GlobalControllerAdvice {
         if (userDetails != null) {
             return userDetails.getAuthorities().stream()
                     .findFirst()
-                    .map(auth -> auth.getAuthority()) // Ej: ROLE_ADMIN
+                    .map(auth -> auth.getAuthority()) 
                     .orElse("ROLE_CLIENTE");
         }
         return null;

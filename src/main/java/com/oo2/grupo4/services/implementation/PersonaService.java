@@ -16,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class PersonaService implements IPersonaService {
 
 	private final IPersonaRepository personaRepository;
-	private final IClienteRepository clienteRepository;
 
 	@Override
 	public Persona traerPorId(int idPersona) {
