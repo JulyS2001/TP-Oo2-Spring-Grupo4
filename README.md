@@ -68,3 +68,13 @@ spring:
 Abrí tu navegador en:
 http://localhost:8080
 ```
+
+## Credenciales de los perfiles ya guardados en la base de datos:
+
+```yaml
+mail: admin@gmail.com contraseña: admin123
+mail: anahi@gmail.com contraseña: anahi123
+mail: axel@gmail.com contraseña: axel123
+mail: julian@gmail.com contraseña: julian123
+mail: marcos@gmail.com contraseña: marcos123
+```
