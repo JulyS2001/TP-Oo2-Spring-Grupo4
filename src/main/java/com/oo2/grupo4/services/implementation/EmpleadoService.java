@@ -88,9 +88,9 @@ public class EmpleadoService implements IEmpleadoService {
 		List<Ticket> tickets = new ArrayList<>();
 		
 		for(Ticket t : ticketRepository.findAll()) {
-			if(t.getEmpleado().getIdPersona()==idEmpleado) {
-				tickets.add(t);
-			}
+			 if(t.getEmpleado() != null && t.getEmpleado().getIdPersona() == idEmpleado) {
+			        tickets.add(t);
+			    }
 		}
 		
 		return tickets;

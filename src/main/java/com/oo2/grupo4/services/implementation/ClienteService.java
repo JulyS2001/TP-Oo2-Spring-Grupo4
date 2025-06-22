@@ -61,9 +61,9 @@ public class ClienteService implements IClienteService {
 		List<Ticket> tickets = new ArrayList<>();
 		
 		for(Ticket t : ticketRepository.findAll()) {
-			if(t.getCliente().getIdPersona()==idCliente) {
-				tickets.add(t);
-			}
+			 if (t.getCliente() != null && t.getCliente().getIdPersona() == idCliente) {
+			        tickets.add(t);
+			    }
 		}
 		
 		return tickets;
