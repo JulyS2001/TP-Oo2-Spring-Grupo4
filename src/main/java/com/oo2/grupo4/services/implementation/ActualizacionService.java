@@ -38,9 +38,6 @@ public class ActualizacionService implements IActualizacionService {
 	public Actualizacion save(Actualizacion actualizacion) {
 		return actualizacionRepository.save(actualizacion);
 	}
-
-	///
-	
 	
 	@Override
 	public Optional<Actualizacion> findByIdActualizacion(int idActualizacion) {
@@ -71,6 +68,7 @@ public class ActualizacionService implements IActualizacionService {
 				actualizaciones.add(a);
 			}
 		}
+		
 		if(actualizaciones.isEmpty()) {
 			throw new TicketSinActualizaciones(idTicket);
 		}

@@ -23,7 +23,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Data
 public class Empleado extends Persona {
 
 	private String rol;
