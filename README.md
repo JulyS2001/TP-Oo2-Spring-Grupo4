@@ -62,6 +62,13 @@ spring:
           starttls:
             enable: true
 ```
+```dotenv
+MAIL_HOST=smtp.gmail.com
+MAIL_PASSWORD=qejmqnizhzxzqqkn
+MAIL_PORT=587
+MAIL_USER=ticketerasoporte@gmail.com
+```
+
 ## Luego de compilar el proyecto accede a la aplicación
 
 ```yaml
