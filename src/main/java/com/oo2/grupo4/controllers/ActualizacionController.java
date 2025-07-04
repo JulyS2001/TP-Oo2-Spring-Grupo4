@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oo2.grupo4.entities.Actualizacion;
@@ -17,7 +18,7 @@ import com.oo2.grupo4.security.UserDetailsServiceImpl;
 import com.oo2.grupo4.services.implementation.*;
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController("/")
 @RequiredArgsConstructor
 public class ActualizacionController {
 

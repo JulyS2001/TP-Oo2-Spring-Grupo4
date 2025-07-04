@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Empleado;
 import com.oo2.grupo4.exceptions.TicketSinActualizaciones;
+import com.oo2.grupo4.mapper.ActualizacionMapper;
 import com.oo2.grupo4.repositories.IActualizacionRepository;
 import com.oo2.grupo4.services.interfaces.IActualizacionService;
 
@@ -17,6 +18,8 @@ import com.oo2.grupo4.services.interfaces.IActualizacionService;
 public class ActualizacionService implements IActualizacionService {
 
 	private final IActualizacionRepository actualizacionRepository;
+	
+	private final ActualizacionMapper mapper;
 
 	public ActualizacionService(IActualizacionRepository iActualizacionRepository) {
 		this.actualizacionRepository = iActualizacionRepository;
