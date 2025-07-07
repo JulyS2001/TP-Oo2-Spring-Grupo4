@@ -43,6 +43,7 @@
 		<h1>Creacion de Actualizacion</h1>
 		<p>Por favor completar todos los campos</p>
 
+		<!--
 		<form th:action="@{/crearActualizacion}" method="post">
 			<p>
 				<input type="hidden" name="idTicket" th:value="${idTicket}">
@@ -55,7 +56,22 @@
 
 			<button type="submit" class="btn">Continuar</button>
 		</form>
+		-->
+		
+		<form th:action="@{/crearActualizacion}" th:object="${actualizacion}" method="post">
 
+			<input type="hidden" th:field="*{idTicket}" />
+
+			<p>ID Ticket: [[${actualizacion.idTicket}]]</p>
+
+			<p>
+				<label for="contenido">Contenido:</label>
+				<input type="text" th:field="*{contenido}" id="contenido" required />
+			</p>
+
+			<button type="submit" class="btn">Continuar</button>
+		</form>
+		
 		<p th:if="${mensaje}" th:text="${mensaje}" style="color: red;"></p>
 
 	</main>

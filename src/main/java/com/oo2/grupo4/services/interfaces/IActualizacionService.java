@@ -9,12 +9,6 @@ import com.oo2.grupo4.entities.Empleado;
 
 public interface IActualizacionService {
 
-	List<Actualizacion> getAll();
-
-	Actualizacion getById(int id);
-
-	Actualizacion save(Actualizacion actualizacion);
-
 	void delete(int idTicket, int idActualizacion);
 
 	// en interface

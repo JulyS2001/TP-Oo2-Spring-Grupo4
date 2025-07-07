@@ -41,9 +41,11 @@
 
 
 	<main>
+		
 		<h1 th:text="${'Lista de Actualizaciones del Ticket ' + idTicket}"></h1>
 
 		<table>
+			
 			<thead>
 				<tr>
 					<th>ID</th>
@@ -53,14 +55,18 @@
 					<th>Acciones</th>
 				</tr>
 			</thead>
+			
 			<tbody>
+				
 				<tr th:each="actualizacion : ${actualizaciones}">
+					
 					<td th:text="${actualizacion.idActualizacion}"></td>
 					<td th:text="${actualizacion.contenido}"></td>
 					<td th:text="${#temporals.format(actualizacion.fechaActualizacion, 'dd/MM/yyyy HH:mm')}"></td>
-					<td
-						th:text="${actualizacion.empleado.nombre + ' ' + actualizacion.empleado.apellido + ' id:(' + actualizacion.empleado.idPersona + ')' }">
-					</td>
+					<!--
+					<td th:text="${actualizacion.empleado.nombre + ' ' + actualizacion.empleado.apellido + ' id:(' + actualizacion.empleado.idPersona + ')' }"></td>
+					-->
+					<td th:text="${actualizacion.nombreEmpleado + ' ' + actualizacion.apellidoEmpleado}"></td>
 					<td>
 						<form th:action="@{/eliminarActualizacion(idTicket=${idTicket},idActualizacion=${actualizacion.idActualizacion})}"
 						sec:authorize="hasAnyRole('SENIOR', 'TRAINEE', 'QA','JUNIOR','ADMIN')"
@@ -72,9 +78,13 @@
 							</button>
 						</form>
 					</td>
+					
 				</tr>
+				
 			</tbody>
+			
 		</table>
+		
 	</main>
 
 	<footer>
