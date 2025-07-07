@@ -31,7 +31,7 @@
 			<a th:href="@{/registro}" sec:authorize="!isAuthenticated()">Registrarse</a>
 			<a th:href="@{/login}" sec:authorize="!isAuthenticated()">Iniciar sesión</a>
 		</div>
-		<form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()" class="logout-form">
+		<form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()" class="formulario-card">
 			<button type="submit" class="link-button">Cerrar sesión</button>
 		</form>
 	</nav>
@@ -39,7 +39,7 @@
 	<main>
 		<h2>Registro de usuario</h2>
 
-		<form th:action="@{/registro}" method="post">
+		<form th:action="@{/registro}" method="post" class="formulario-card">
 			<p>
 				<label for="nombre">Nombre:</label>
 				<input type="text" id="nombre" name="nombre" required />
