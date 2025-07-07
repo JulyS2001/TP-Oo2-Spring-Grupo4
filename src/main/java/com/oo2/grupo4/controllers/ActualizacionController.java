@@ -1,7 +1,5 @@
 package com.oo2.grupo4.controllers;
 
-import java.time.LocalDateTime;
-
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +18,13 @@ import com.oo2.grupo4.security.UserDetailsImpl;
 import com.oo2.grupo4.security.UserDetailsServiceImpl;
 import com.oo2.grupo4.services.implementation.*;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 
-@Controller
 @RequestMapping
+@RestController
 @RequiredArgsConstructor
 public class ActualizacionController {
 
