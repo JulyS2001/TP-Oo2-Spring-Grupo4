@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" 
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soporte UNLa</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Soporte UNLa</title>
 	<link rel="stylesheet" th:href="@{/css/estiloTicketera.css}">
 
 </head>
+
 <body>
 
 	<header>
-	    <div class="encabezado">
+		<div class="encabezado">
 			<img th:src="@{/css/logo.png}" alt="Logo UNLa" class="logo">
-	        <div class="titulo">
-	            <h1>Ticketera Soporte UNLa</h1>
-	            <p>Gestiona y da seguimiento a tus tickets de soporte técnico</p>
-	        </div>
-	    </div>
+			<div class="titulo">
+				<h1>Ticketera Soporte UNLa</h1>
+				<p>Gestiona y da seguimiento a tus tickets de soporte técnico</p>
+			</div>
+		</div>
 	</header>
 
 	<nav>
@@ -26,7 +27,8 @@
 			<a th:href="@{/misTickets}" sec:authorize="hasRole('ROLE_CLIENTE')">Mis Tickets</a>
 			<a th:href="@{/crearTicket}" sec:authorize="hasRole('ROLE_CLIENTE')">Crear nuevo ticket</a>
 			<a th:href="@{/listaTickets}" sec:authorize="hasRole('ROLE_ADMIN')">Lista de Tickets</a>
-			<a th:href="@{/misTicketsEmpleado}" sec:authorize="hasAnyRole('SENIOR', 'TRAINEE', 'QA','JUNIOR')">Lista de Tickets</a>
+			<a th:href="@{/misTicketsEmpleado}" sec:authorize="hasAnyRole('SENIOR', 'TRAINEE', 'QA','JUNIOR')">Lista de
+				Tickets</a>
 			<a th:href="@{/listaUsuarios}" sec:authorize="hasRole('ROLE_ADMIN')">Administrar Usuarios</a>
 			<a th:href="@{/altaEmpleado}" sec:authorize="hasRole('ROLE_ADMIN')">Incorporar Empleado</a>
 			<a th:href="@{/registro}" sec:authorize="!isAuthenticated()">Registrarse</a>
@@ -38,72 +40,47 @@
 	</nav>
 
 	<main>
-	       <h2>Datos del empleado</h2>
+		<h2>Editar empleado</h2>
+		<form th:action="@{/editarEmpleado}" method="post" class="formulario-card">
+			<p>
+				<label for="nombre">Nombre:</label>
+				<input type="text" id="nombre" name="nombre" required th:value="${empleado.nombre}" />
+			</p>
+			<p>
+				<label for="apellido">Apellido:</label>
+				<input type="text" id="apellido" name="apellido" required th:value="${empleado.apellido}" />
+			</p>
+			<p>
+				<label for="dni">DNI:</label>
+				<input type="text" id="dni" name="dni" pattern="\d{7,8}" title="Solo números, 7 u 8 dígitos" required
+					th:value="${empleado.dni}" />
+			</p>
+			<p>
+				<label for="rol">Rol:</label>
+				<input type="text" id="rol" name="rol" required th:value="${empleado.rol}" />
+			</p>
+			<p>
+				<label for="legajo">Legajo:</label>
+				<input type="text" id="legajo" name="legajo" required th:value="${empleado.legajo}" />
+			</p>
 
-	       <div class="contenedor-flex">
-	           <!-- Columna izquierda: Info del ticket -->
-	           <div class="columna">
-	               <h3>Empleado a editar</h3>
-	               <p><strong>ID:</strong> <span th:text="${empleado.idPersona}"></span></p>
-	               <p><strong>Nombre:</strong> <span th:text="${empleado.nombre}"></span></p>
-	               <p><strong>Apellido:</strong> <span th:text="${empleado.apellido}"></span></p>
-	               <p><strong>DNI:</strong> <span th:text="${empleado.dni}"></span></p>
-	               <p><strong>Rol:</strong> <span th:text="${empleado.rol}"></span></p>
-	               <p><strong>Legajo:</strong> <span th:text="${empleado.legajo}"></span></p>
-	               <p><strong>Area:</strong> <span th:text="${empleado.area.nombre}"></span></p>
-	           </div>
+			<p>
+				<label for="idArea">Área a la que pertenece:</label>
+				<select name="idArea" id="idArea" required>
+					<option value="" disabled selected>-- Seleccionar --</option>
+					<option th:each="area : ${areas}" th:value="${area.idArea}" th:text="${area.nombre}"
+						th:selected="${area.idArea == empleado.area.idArea}">
+					</option>
+				</select>
+			</p>
+			<button type="submit" class="btn">Guardar cambios</button>
+		</form>
+	</main>
 
-	           <!-- Columna derecha: Formulario -->
-	           <div class="columna">
-	               <h3>Editar empleado</h3>
-	               <form th:action="@{/editarEmpleado}" method="post">
-					<p>
-						<label for="nombre">Nombre:</label>
-						<input type="text" id="nombre" name="nombre" required />
-					</p>
-					<p>
-						<label for="apellido">Apellido:</label>
-						<input type="text" id="apellido" name="apellido" required />
-					</p>
-					<p>
-						<label for="dni">DNI:</label>
-						<input
-							type="text"
-							id="dni"
-							name="dni"
-							pattern="\d{7,8}"
-							title="Solo números, 7 u 8 dígitos"
-							required
-						/>
-					</p>
-					<p>
-						<label for= "rol">Rol:</label>
-						<input type="text" id="rol" name="rol" required />
-					</p>
-					<p>
-						<label for= "legajo">Legajo:</label>
-						<input type="text" id="legajo" name="legajo" required />
-					</p>
-	                       <label for="idArea">Area a la que pertenece:</label>
-	                       <select name="idArea" id="idArea" required>
-	                           <option value="" disabled selected>-- Seleccionar --</option>
-							   <option th:each="area : ${areas}" 
-							           th:value="${area.idArea}" 
-							           th:text="${area.nombre}"
-							           th:selected="${area.idArea == empleado.area.idArea}">
-							   </option>
-	                       </select>
-	                   </div>
-					  
-	                   <button type="submit" class="btn">Guardar cambios</button>
-	               </form>
-	           </div>
-	       </div>
-	   </main>
-
-    <footer>
-        &copy; 2025 Ticketera Soporte UNLa. Todos los derechos reservados.
-    </footer>
+	<footer>
+		&copy; 2025 Ticketera Soporte UNLa. Todos los derechos reservados.
+	</footer>
 
 </body>
+
 </html>

@@ -4,10 +4,13 @@
 
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #eef2f3;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background: #eef2f3;
 }
 header {
     background-color:#B08B85;
@@ -113,6 +116,7 @@ nav form.logout-form {
 }
 
 main {
+	flex: 1 0 auto;
     padding: 2rem;
     text-align: center;
 }
@@ -134,58 +138,9 @@ footer {
     color: white;
     text-align: center;
     padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    flex-shrink: 0;
 }
 
-form {
-    max-width: 500px;
-    margin: 2rem auto;
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-   	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    text-align: left;
-}
-form p {
-    margin-bottom: 1.5rem;
-}
-form input[type="text"] {
-    display: block;           
-    margin-top: 0.5rem;      
-    width: 100%;            
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-form input[type="number"],
-form input[type="email"] {
-    display: block;
-    margin-top: 0.5rem;
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
-form button {
-    background-color: #5C1623;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #9C7771;
-}
 
 table {
     margin: 2rem auto;
@@ -241,40 +196,6 @@ tbody tr:last-child td {
 
 .form-group {
     margin-bottom: 1.5rem;
-}
-
-.password-container .password-wrapper {
-    position: relative;
-}
-
-.password-wrapper input[type="password"],
-.password-wrapper input[type="text"] {
-    width: 100%;
-    padding: 0.75rem;
-    padding-right: 2.5rem; /* deja espacio para el ojito */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-}
-
-.toggle-password {
-    position: absolute;
-    top: 50%;
-    right: 0.75rem;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.toggle-password img {
-    width: 20px;
-    height: 20px;
-    filter: invert(0.3); /* opcional: ajusta según fondo */
 }
 
 .inline-form {
@@ -335,53 +256,6 @@ tbody tr:last-child td {
     text-align: left;
 }
 
-/* Estilo general para el formulario en la columna derecha */
-.columna form {
-    background: linear-gradient(135deg, #5C1623 0%, #B08B85 100%);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(92, 22, 35, 0.4);
-    color: #fff;
-    font-weight: 600;
-}
-
-/* Etiquetas y texto */
-.columna form label {
-    display: block;
-    margin-bottom: 0.8rem;
-    font-size: 1.1rem;
-}
-
-/* Select */
-.columna form select {
-    width: 100%;
-    padding: 0.75rem;
-    border-radius: 8px;
-    border: none;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #5C1623;
-}
-
-/* Botón */
-.columna form button.btn {
-    background-color: #fff;
-    color: #5C1623;
-    font-weight: 700;
-    padding: 0.9rem 2rem;
-    border-radius: 30px;
-    border: none;
-    margin-top: 1.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.5);
-}
-
-.columna form button.btn:hover {
-    background-color: #9C7771;
-    color: #fff;
-    box-shadow: 0 6px 18px rgba(156, 119, 113, 0.8);
-}
 
 .link-titulo {
     color: rgb(128, 0, 0);
@@ -432,4 +306,210 @@ tbody tr:last-child td {
 .acciones form button.btn:focus {
     outline: none;
     box-shadow: none;
+}
+
+/* -------------------------------
+   Estilos reutilizables para formularios
+---------------------------------*/
+
+/* Estilo general para formularios simples (sin columna) */
+.formulario-card {
+    background: linear-gradient(135deg, #5C1623 0%, #B08B85 100%);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(92, 22, 35, 0.4);
+    color: #fff;
+    font-weight: 600;
+    max-width: 700px;
+	width: 95%;
+    margin: 2rem auto;
+    text-align: left;
+}
+
+.formulario-card label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.formulario-card select {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5C1623;
+}
+
+.formulario-card input[type="text"],
+.formulario-card input[type="number"],
+.formulario-card input[type="email"],
+.formulario-card input[type="password"] {
+    display: block;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.formulario-card button,
+.formulario-card input[type="submit"] {
+    background-color: #fff;
+    color: #5C1623;
+    font-weight: 700;
+    padding: 0.9rem 2rem;
+    border-radius: 30px;
+    border: none;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.5);
+}
+
+.formulario-card button:hover,
+.formulario-card input[type="submit"]:hover {
+    background-color: #9C7771;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(156, 119, 113, 0.8);
+}
+
+/* Ajuste específico para el input de contraseña con icono en formularios .formulario-card */
+.formulario-card .form-group.password-container {
+    position: relative;
+}
+
+.formulario-card .password-wrapper {
+	position: relative;
+	width: 100%;
+}
+
+.formulario-card .password-wrapper input[type="password"],
+.formulario-card .password-wrapper input[type="text"] {
+    width: 100%;
+    padding: 0.75rem 2.5rem 0.75rem 0.75rem; 
+    border-radius: 5px;
+    border: none;
+    font-size: 1rem;
+    box-sizing: border-box;
+    color: #5C1623;
+}
+
+.formulario-card .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+	margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	z-index: 10;
+	height: 100%;
+}
+
+.formulario-card .toggle-password img {
+    width: 20px;
+    height: 20px;
+    filter: invert(0.3); /* o eliminá esta línea si ya no hace falta */
+	user-select: none;
+	pointer-events: none;
+}
+
+/* Estilo para formularios dentro de columnas con paleta personalizada */
+.columna.formulario-card {
+    background: linear-gradient(135deg, #5C1623 0%, #B08B85 100%);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(92, 22, 35, 0.4);
+    color: #fff;
+    font-weight: 600;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+/* Etiquetas dentro del formulario */
+.columna.formulario-card label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+/* Inputs y selects */
+.columna.formulario-card input[type="text"],
+.columna.formulario-card input[type="number"],
+.columna.formulario-card input[type="email"],
+.columna.formulario-card input[type="password"],
+.columna.formulario-card select {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    box-sizing: border-box;
+    color: #5C1623;
+}
+
+/* Botones */
+.columna.formulario-card button,
+.columna.formulario-card input[type="submit"] {
+    background-color: #fff;
+    color: #5C1623;
+    font-weight: 700;
+    padding: 0.9rem 2rem;
+    border-radius: 30px;
+    border: none;
+    margin-top: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.5);
+    width: 100%;
+    font-size: 1rem;
+}
+
+.columna.formulario-card button:hover,
+.columna.formulario-card input[type="submit"]:hover {
+    background-color: #9C7771;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(156, 119, 113, 0.8);
+}
+
+.formulario-dos-columnas {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+	padding: 20px;
+	max-width: 900px;
+	width: 90%;
+	margin: 0 auto;
+	background-color: #f9f9f9;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Para evitar que los <p> tengan márgenes innecesarios */
+.formulario-dos-columnas p,
+.formulario-dos-columnas .form-group {
+	margin: 0;
+}
+
+/* Centrar botón en el pie del formulario */
+.formulario-dos-columnas button[type="submit"] {
+	grid-column: span 2;
+	width: 50%;
+	margin: 0 auto;
 }

@@ -45,7 +45,7 @@
 		<p th:text="${mensaje}"></p>
 		
 		<div>
-			<form th:action="@{/listaTickes}" sec:authorize="hasRole('ROLE_ADMIN')">
+			<form th:action="@{/listaTickets}" sec:authorize="hasRole('ROLE_ADMIN')">
 				<button type="submit" class="icon-action rojo" title="Eliminar">Volver a lista de Tickets</button>
 			</form>
 			<form th:action="@{/misTickets}" sec:authorize="hasRole('ROLE_CLIENTE')">
