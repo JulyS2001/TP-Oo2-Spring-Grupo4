@@ -1,7 +1,6 @@
 package com.oo2.grupo4.controllers;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,16 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.oo2.grupo4.dto.ActualizacionCreateDTO;
-import com.oo2.grupo4.entities.Actualizacion;
-import com.oo2.grupo4.entities.Empleado;
-import com.oo2.grupo4.entities.Ticket;
 import com.oo2.grupo4.security.UserDetailsImpl;
-import com.oo2.grupo4.security.UserDetailsServiceImpl;
-import com.oo2.grupo4.services.implementation.*;
+import com.oo2.grupo4.services.implementation.ActualizacionService;
+import com.oo2.grupo4.services.implementation.ContactoService;
+import com.oo2.grupo4.services.implementation.EmpleadoService;
+import com.oo2.grupo4.services.implementation.PersonaService;
+import com.oo2.grupo4.services.implementation.TicketService;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping
@@ -39,6 +35,7 @@ public class ActualizacionController {
 
 	@GetMapping("/crearActualizacion")
 	public ModelAndView crearActualizacionVista(@RequestParam int idTicket) {
+		
 		ModelAndView mav = new ModelAndView("actualizacion/crearActualizacion");
 		mav.addObject("empleados", empleadoService.getAll());
 		mav.addObject("actualizacion", new ActualizacionCreateDTO("", 0, idTicket));
@@ -96,23 +93,21 @@ public class ActualizacionController {
 
 	@GetMapping("/listaActualizaciones")
 	public ModelAndView listaActualizaciones(@RequestParam int idTicket) {
+		
 		ModelAndView mav = new ModelAndView("actualizacion/listaActualizaciones");
-
 		mav.addObject("actualizaciones", actualizacionService.listaActualizacionesDTOporTicket(idTicket));
 		mav.addObject("idTicket", idTicket);
-		
 		return mav;
 	}
 
 	@PostMapping("/eliminarActualizacion")
 	public ModelAndView eliminarActualizacion(@RequestParam int idTicket, @RequestParam int idActualizacion) {
-		ModelAndView mav = new ModelAndView("actualizacion/listaActualizaciones");
-
+		
 		actualizacionService.delete(idTicket, idActualizacion);
-
+		
+		ModelAndView mav = new ModelAndView("actualizacion/listaActualizaciones");
 		mav.addObject("actualizaciones", actualizacionService.listaActualizacionesDTOporTicket(idTicket));
 		mav.addObject("idTicket", idTicket);
-
 		return mav;
 	}
 

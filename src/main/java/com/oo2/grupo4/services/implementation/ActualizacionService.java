@@ -35,7 +35,7 @@ public class ActualizacionService implements IActualizacionService {
 
 	// mapper / dto
 
-	public Actualizacion crearActualizacion(ActualizacionCreateDTO dto) {
+	public ActualizacionResponseDTO crearActualizacion(ActualizacionCreateDTO dto) {
 		Actualizacion actualizacion = mapper.toEntity(dto);
 
 		Empleado empleado = empleadoRepository.findById(dto.idEmpleado()).orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
@@ -45,7 +45,9 @@ public class ActualizacionService implements IActualizacionService {
 		actualizacion.setTicket(ticket);
 		actualizacion.setFechaActualizacion(LocalDateTime.now());
 
-		return actualizacionRepository.save(actualizacion);
+		actualizacionRepository.save(actualizacion);
+		
+		return mapper.toDTO(actualizacion);
 	}
 
 	public List<ActualizacionResponseDTO> listaActualizacionesDTOporTicket(int idTicket) {
