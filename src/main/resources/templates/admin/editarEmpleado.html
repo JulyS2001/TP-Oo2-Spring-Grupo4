@@ -42,6 +42,8 @@
 	<main>
 		<h2>Editar empleado</h2>
 		<form th:action="@{/editarEmpleado}" method="post" class="formulario-card">
+			<input type="hidden" name="idPersona" th:value="${empleado.idPersona}" />
+
 			<p>
 				<label for="nombre">Nombre:</label>
 				<input type="text" id="nombre" name="nombre" required th:value="${empleado.nombre}" />
@@ -69,7 +71,7 @@
 				<select name="idArea" id="idArea" required>
 					<option value="" disabled selected>-- Seleccionar --</option>
 					<option th:each="area : ${areas}" th:value="${area.idArea}" th:text="${area.nombre}"
-						th:selected="${area.idArea == empleado.area.idArea}">
+						th:selected="${area.idArea == empleado.idArea}">
 					</option>
 				</select>
 			</p>

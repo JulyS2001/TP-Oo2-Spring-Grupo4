@@ -26,4 +26,10 @@ public class AreaService implements IAreaService {
 		return areaRepository.findById(idArea)
 				.orElseThrow(() -> new IllegalArgumentException("Area no encontrada con ID: " + idArea));
 	}
+	
+	@Override
+	public Area traerPorNombre (String nombre) {
+		return areaRepository.findByNombre(nombre)
+				.orElseThrow(() -> new IllegalArgumentException("Area no encontrada con nombre: " + nombre));
+	}
 }

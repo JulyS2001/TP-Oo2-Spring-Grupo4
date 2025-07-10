@@ -43,7 +43,7 @@
 		<h1>Creacion de Actualizacion</h1>
 		<p>Por favor completar todos los campos</p>
 		
-		<form th:action="@{/crearActualizacion}" th:object="${actualizacion}" method="post">
+		<form th:action="@{/crearActualizacion}" th:object="${actualizacion}" method="post" class="formulario-card">
 
 			<input type="hidden" th:field="*{idTicket}" />
 

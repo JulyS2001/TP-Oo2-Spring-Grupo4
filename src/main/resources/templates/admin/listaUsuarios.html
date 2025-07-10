@@ -62,7 +62,7 @@
 				<td th:text="${empleado.dni}"></td>
 				<td th:text="${empleado.legajo}"></td>
 				<td th:text="${empleado.rol}"></td>
-				<td th:text="${empleado.area.nombre}"></td>
+				<td th:text="${empleado.area}"></td>
 				<td>
 				  <form th:action="@{/eliminarEmpleado(idPersona=${empleado.idPersona})}" method="post" class="inline-form" style="display:inline;">
 				    <button type="submit" th:onclick="'return confirm(\'Desea eliminar el empleado ' + ${empleado.idPersona} + '?\')'" class="icon-action rojo" title="Eliminar">

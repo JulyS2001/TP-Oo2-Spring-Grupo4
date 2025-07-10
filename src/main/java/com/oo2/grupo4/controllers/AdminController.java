@@ -3,6 +3,7 @@ package com.oo2.grupo4.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.oo2.grupo4.dto.EmpleadoCreateDTO;
+import com.oo2.grupo4.dto.EmpleadoUpdateDTO;
+import com.oo2.grupo4.dto.EmpleadoDTO;
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Contacto;
 import com.oo2.grupo4.entities.Empleado;
@@ -24,6 +28,7 @@ import com.oo2.grupo4.exceptions.DescripcionMuyCortaException;
 import com.oo2.grupo4.exceptions.DniExistente;
 import com.oo2.grupo4.exceptions.EmpleadoConMuchosTicketsException;
 import com.oo2.grupo4.exceptions.MailExistente;
+import com.oo2.grupo4.mapper.IEmpleadoMapper;
 import com.oo2.grupo4.services.implementation.ActualizacionService;
 import com.oo2.grupo4.services.implementation.AreaService;
 import com.oo2.grupo4.services.implementation.ClienteService;
@@ -52,6 +57,7 @@ public class AdminController {
 	private final ContactoService contactoService;
 	private final LoginService loginService;
 	private final AreaService areaService;
+    private final IEmpleadoMapper empleadoMapper;
 	private final PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/asignarEmpleado")
@@ -110,14 +116,18 @@ public class AdminController {
 		if(personaService.existsByDni(dni)) {
 			throw new DniExistente("El dni ingresado ya existe.");
 		}
-		Empleado empleado = empleadoService.crearEmpleado(nombre, apellido, dni, legajo, idArea, rol);
+		//Empleado empleado = empleadoService.crearEmpleado(nombre, apellido, dni, legajo, idArea, rol);
+		EmpleadoCreateDTO dto = new EmpleadoCreateDTO(nombre, apellido, dni, legajo, idArea, rol);
+		Empleado empleado = empleadoService.crearEmpleado(dto);
+
 
 	    // Verificar y crear el Contacto
 		if(loginService.existsByCorreo(correo)) {
 			throw new MailExistente("El correo ingresado ya esta en uso.");
 		}
-		Contacto contacto = contactoService.crearContacto(telefono, contrasenia, empleado);
-		Login login = loginService.crearLogin(correo, contrasenia, empleado);
+		loginService.crearLogin(correo, contrasenia, empleado);
+		contactoService.crearContacto(telefono, correo, empleado);
+		
 		
 		return new ModelAndView("redirect:/listaUsuarios");
 	}
@@ -125,7 +135,8 @@ public class AdminController {
 	@GetMapping("/listaUsuarios")
 	public ModelAndView vistaListaUsuarios(@RequestParam(required = false) String mensaje) {
 		ModelAndView mav = new ModelAndView("admin/listaUsuarios");
-	    mav.addObject("empleados", empleadoService.getAll());
+	    //mav.addObject("empleados", empleadoService.getAll());
+	    mav.addObject("empleados", empleadoService.getAllDTOs());
 	    mav.addObject("clientes", clienteService.getAll());
 		return mav;
 	}
@@ -134,21 +145,31 @@ public class AdminController {
 	public ModelAndView VistaEditarEmpleado(@RequestParam int idPersona, @RequestParam(required = false) String mensaje) {
 		ModelAndView mav = new ModelAndView("admin/editarEmpleado");
 		Empleado empleado = empleadoService.traerPorId(idPersona);
-		mav.addObject("empleado", empleado);
-		mav.addObject("areas", areaService.traerTodas());
-		mav.addObject("error", mensaje);
-		return mav;
+	    EmpleadoDTO empleadoDTO = empleadoMapper.toDTO(empleado); // convertir entidad a DTO
+	    mav.addObject("empleado", empleadoDTO);
+	    mav.addObject("areas", areaService.traerTodas());
+	    mav.addObject("error", mensaje);
+	    return mav;
 	}
 	
 	@PostMapping("/editarEmpleado")
+	public ModelAndView VistaEditarEmpleado(@ModelAttribute EmpleadoUpdateDTO dto) {
+	    empleadoService.actualizarEmpleado(dto);
+	    return new ModelAndView("redirect:/listaUsuarios");
+	}
+
+	
+	/*@PostMapping("/editarEmpleado")
 	public ModelAndView VistaEditarEmpleado(@RequestParam int idPersona, @RequestParam String nombre, @RequestParam String apellido,
 			@RequestParam long dni, @RequestParam String rol, @RequestParam int legajo, 
 			@RequestParam int idArea) {
 	    
-	    empleadoService.modificarEmpleado(idPersona, nombre, apellido, dni, legajo, idArea, rol);
-	    
+	    //empleadoService.modificarEmpleado(idPersona, nombre, apellido, dni, legajo, idArea, rol);
+	    EmpleadoUpdateDTO dto = new EmpleadoUpdateDTO(idPersona, nombre, apellido, dni, legajo, idArea, rol);
+	    empleadoService.actualizarEmpleado(dto);
+
 		return new ModelAndView("redirect:/listaUsuarios");
-	}
+	}*/
 	
 	@PostMapping("/eliminarEmpleado")
 	public ModelAndView eliminarEmpleado(@RequestParam int idPersona) {
