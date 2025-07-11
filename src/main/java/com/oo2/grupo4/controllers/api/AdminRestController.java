@@ -2,6 +2,8 @@ package com.oo2.grupo4.controllers.api;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.oo2.grupo4.dto.EmpleadoCreateDTO;
@@ -11,10 +13,10 @@ import com.oo2.grupo4.dto.EmpleadoDTO;
 import com.oo2.grupo4.services.implementation.EmpleadoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -26,34 +28,29 @@ public class AdminRestController {
     private final EmpleadoService empleadoService;
     private final IEmpleadoMapper empleadoMapper;
 
- 
     @Operation(summary = "Obtener todos los empleados")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Lista de empleados obtenida correctamente")
-    })
+    @ApiResponse(responseCode = "200", description = "Lista de empleados obtenida correctamente")
     @GetMapping
-    public List<EmpleadoDTO> getAllEmpleados() {
-        return empleadoService.getAllDTOs();
+    public ResponseEntity<List<EmpleadoDTO>> getAllEmpleados() {
+        return ResponseEntity.ok(empleadoService.getAllDTOs());
     }
 
-  
     @Operation(summary = "Crear un nuevo empleado")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "Empleado creado exitosamente")
-    })
-    @PostMapping
-    public EmpleadoDTO crearEmpleado(@Valid @RequestBody EmpleadoCreateDTO dto) {
-    	return empleadoMapper.toDTO(empleadoService.crearEmpleado(dto));
+    @ApiResponse(responseCode = "201", description = "Empleado creado exitosamente")
+    @PostMapping("/crear")
+    public ResponseEntity<EmpleadoDTO> crearEmpleado(@Valid @RequestBody EmpleadoCreateDTO dto) {
+        EmpleadoDTO creado = empleadoMapper.toDTO(empleadoService.crearEmpleado(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
 
-   
     @Operation(summary = "Actualizar un empleado existente")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Empleado actualizado exitosamente")
-    })
-    @PostMapping("/actualizar")
-    public EmpleadoDTO actualizarEmpleado(@RequestBody EmpleadoUpdateDTO dto) {
-    	return empleadoMapper.toDTO(empleadoService.actualizarEmpleado(dto));
-
+    @ApiResponse(responseCode = "200", description = "Empleado actualizado exitosamente")
+    @PutMapping("/actualizar/{idEmpleado}")
+    public ResponseEntity<EmpleadoDTO> actualizarEmpleado(@PathVariable int idEmpleado, @RequestBody EmpleadoUpdateDTO dto) {
+        if (dto.idPersona() != idEmpleado) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // Validación opcional
+        }
+        EmpleadoDTO actualizado = empleadoMapper.toDTO(empleadoService.actualizarEmpleado(dto));
+        return ResponseEntity.ok(actualizado);
     }
 }
