@@ -1,5 +1,6 @@
 package com.oo2.grupo4.services.interfaces;
 
+import com.oo2.grupo4.dto.TicketResponseDTO;
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Cliente;
 import com.oo2.grupo4.entities.Ticket;
@@ -17,6 +18,7 @@ public interface IClienteService {
 	
 	public List<Cliente> getAll();
 	
-	List<Ticket> getAllByClienteId(int idCliente);
+	public List<TicketResponseDTO> getAllByClienteId(int idCliente);
+
 
 }

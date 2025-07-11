@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.oo2.grupo4.exceptions.DescripcionMuyCortaException;
 import com.oo2.grupo4.exceptions.TicketYaExistente;
 import com.oo2.grupo4.security.UserDetailsImpl;
+import com.oo2.grupo4.dto.TicketCreateDTO;
 import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.entities.Ticket;
 
@@ -34,6 +36,7 @@ public class TicketController {
 	public ModelAndView vistaCrearTicket(@RequestParam(required = false) String mensaje) {
 		ModelAndView mav = new ModelAndView("tickets/crearTicket");
 		mav.addObject("error", mensaje);
+		mav.addObject("ticket", new TicketCreateDTO("", "", 0, 0));
 
 		mav.addObject("estados", estadoService.getAll());
 		mav.addObject("tipoDeTickets", tipodeticketservice.getAll());
@@ -42,25 +45,33 @@ public class TicketController {
 	}
 
 	@PostMapping("/crearTicket")
-	public ModelAndView vistaCrearTicket(@RequestParam String titulo, @RequestParam String descripcion,
-			@RequestParam int idTipoDeTicket, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+	public ModelAndView vistaCrearTicket(@ModelAttribute("ticket") TicketCreateDTO dto,
+			@AuthenticationPrincipal UserDetailsImpl userDetails) {
 
 		ModelAndView mav = new ModelAndView("tickets/crearTicket");
 
 		try {
-			if (!ticketService.existsByTitulo(titulo)) {
+			if (!ticketService.existsByTitulo(dto.titulo())) {
+
+				// CREACION DE TICKET
+
 				int idPersona = userDetails.getLogin().getPersona().getIdPersona();
-				Ticket ticket = ticketService.crearTicket(titulo, descripcion, idTipoDeTicket, idPersona);
+				TicketCreateDTO nuevoDto = new TicketCreateDTO(dto.titulo(), dto.descripcion(), dto.idTipoDeTicket(),
+						idPersona);
+
+				Ticket ticket = ticketService.crearTicket(nuevoDto);
+
+				// CORREO
 
 				String destinatario = userDetails.getLogin().getCorreo();
-				String asunto = "[Ticket #" + ticket.getIdTicket() + "] ✅" + titulo;
+				String asunto = "[Ticket #" + ticket.getIdTicket() + "] ✅" + dto.titulo();
 				String cuerpo = "👌 Has creado con exito un nuevo ticket:\n\nTipo de ticket: "
-						+ ticket.getTipoDeTicket().getTipo() + "\nDescripción: " + descripcion;
+						+ ticket.getTipoDeTicket().getTipo() + "\nDescripción: " + dto.descripcion();
 				emailService.enviarConfirmacionTicket(destinatario, asunto, cuerpo);
 
 				return new ModelAndView("redirect:/mail/mailEnvio");
 			} else {
-				throw new TicketYaExistente("El ticket con el título: " + titulo + " ya existe");
+				throw new TicketYaExistente("El ticket con el título: " + dto.titulo() + " ya existe");
 			}
 		} catch (DescripcionMuyCortaException e) {
 			return new ModelAndView("error/descripcionMuycorta");
@@ -73,7 +84,7 @@ public class TicketController {
 
 		ModelAndView mav = new ModelAndView("tickets/listaTickets");
 
-		mav.addObject("tickets", ticketService.getAll());
+		mav.addObject("tickets", ticketService.mostrarTickets());
 
 		return mav;
 	}
@@ -120,7 +131,7 @@ public class TicketController {
 			return mav;
 		}
 
-		mav.addObject("ticket", ticket);
+		mav.addObject("ticket", ticketService.convertirADTO(ticket));
 		return mav;
 	}
 
@@ -131,7 +142,7 @@ public class TicketController {
 
 		ticketService.delete(idTicket);
 
-		mav.addObject("tickets", ticketService.getAll());
+		mav.addObject("tickets", ticketService.mostrarTickets());
 
 		return mav;
 

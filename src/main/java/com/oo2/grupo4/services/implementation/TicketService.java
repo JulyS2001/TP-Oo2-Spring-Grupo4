@@ -1,22 +1,26 @@
 package com.oo2.grupo4.services.implementation;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.oo2.grupo4.dto.TicketCreateDTO;
+import com.oo2.grupo4.dto.TicketModificarDTO;
+import com.oo2.grupo4.dto.TicketResponseDTO;
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Cliente;
 import com.oo2.grupo4.entities.Empleado;
 import com.oo2.grupo4.entities.Estado;
-import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.entities.Prioridad;
+import com.oo2.grupo4.entities.Ticket;
 import com.oo2.grupo4.entities.TipoDeTicket;
 import com.oo2.grupo4.exceptions.DescripcionMuyCortaException;
 import com.oo2.grupo4.exceptions.EmpleadoConMuchosTicketsException;
-import com.oo2.grupo4.entities.Ticket;
+import com.oo2.grupo4.mapper.ITicketMapper;
 import com.oo2.grupo4.repositories.ITicketRepository;
 import com.oo2.grupo4.services.interfaces.ITicketService;
 
@@ -32,26 +36,23 @@ public class TicketService implements ITicketService {
 	private final TipoDeTicketService tipoDeTicketService;
 	private final EmpleadoService empleadoService;
 	private final ClienteService clienteService;
+	private final ITicketMapper mapper;
 
+	public Ticket crearTicket(TicketCreateDTO dto) {
 
-	@Override
-	public Ticket crearTicket(String titulo, String descripcion, int idTipoDeTicket, Integer idCliente) {
-		
-
-		if (descripcion == null || descripcion.length() < 30) {
-		    throw new DescripcionMuyCortaException("La descripción debe tener al menos 30 caracteres.");
+		if (dto.descripcion() == null || dto.descripcion().length() < 30) {
+			throw new DescripcionMuyCortaException("La descripción debe tener al menos 30 caracteres.");
 		}
 
 		Estado estado = estadoService.findById(1);
 		Prioridad prioridad = prioridadService.findById(2);
 		Empleado empleado = empleadoService.traerPorId(1);
-		Cliente cliente = clienteService.traerPorId(idCliente);
-		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(idTipoDeTicket);
-
+		Cliente cliente = clienteService.traerPorId(dto.idCliente());
+		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(dto.idTipoDeTicket());
 
 		Ticket ticket = new Ticket();
-		ticket.setTitulo(titulo);
-		ticket.setDescripcion(descripcion);
+		ticket.setTitulo(dto.titulo());
+		ticket.setDescripcion(dto.descripcion());
 		ticket.setFechaCreacion(LocalDateTime.now());
 		ticket.setEstado(estado);
 		ticket.setPrioridad(prioridad);
@@ -63,12 +64,12 @@ public class TicketService implements ITicketService {
 
 	}
 
-	public int modificarTicket(int idTicket, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado) {
-		Ticket ticket = this.getById(idTicket);
+	public int modificarTicket(TicketModificarDTO dto) {
+		Ticket ticket = this.getById(dto.idTicket());
 
-		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(idTipoDeTicket);
-		Estado estado = estadoService.findById(idEstado);
-		Prioridad prioridad = prioridadService.findById(idPrioridad);
+		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(dto.idTipoDeTicket());
+		Estado estado = estadoService.findById(dto.idEstado());
+		Prioridad prioridad = prioridadService.findById(dto.idPrioridad());
 
 		if (estado.getIdEstado() == 2) {
 			ticket.setFechaCierre(LocalDateTime.now());
@@ -76,6 +77,8 @@ public class TicketService implements ITicketService {
 			ticket.setFechaCierre(null);
 		}
 
+		ticket.setTitulo(ticket.getTitulo());
+		ticket.setDescripcion(ticket.getDescripcion());
 		ticket.setPrioridad(prioridad);
 		ticket.setEstado(estado);
 		ticket.setTipoDeTicket(tipoDeTicket);
@@ -86,28 +89,36 @@ public class TicketService implements ITicketService {
 
 	@Override
 	public Ticket cambiarEmpleado(int idTicket, int idEmpleado) {
-		
-	    Empleado nuevoEmpleado = empleadoService.traerPorId(idEmpleado);
-		
-	    // Contar los tickets abiertos (estado id = 1) del nuevo empleado
-	    long ticketsAbiertos = nuevoEmpleado.getTickets().stream()
-	        .filter(ticket -> ticket.getEstado().getIdEstado() == 1)
-	        .count();
-	    
-		if (ticketsAbiertos >= 4 ) {
-			throw new EmpleadoConMuchosTicketsException ("El empleado no puede recibir más tickets en este momento");
+
+		Empleado nuevoEmpleado = empleadoService.traerPorId(idEmpleado);
+
+		// Contar los tickets abiertos (estado id = 1) del nuevo empleado
+		long ticketsAbiertos = nuevoEmpleado.getTickets().stream()
+				.filter(ticket -> ticket.getEstado().getIdEstado() == 1).count();
+
+		if (ticketsAbiertos >= 4) {
+			throw new EmpleadoConMuchosTicketsException("El empleado no puede recibir más tickets en este momento");
 		}
-		
-	    Ticket ticket = this.getById(idTicket);
 
-	    ticket.setEmpleado(nuevoEmpleado);
+		Ticket ticket = this.getById(idTicket);
 
-	    return ticketRepository.save(ticket);
+		ticket.setEmpleado(nuevoEmpleado);
+
+		return ticketRepository.save(ticket);
 	}
 	
-	@Override
-	public List<Ticket> getAll() {
-		return ticketRepository.findAll();
+	public TicketResponseDTO convertirADTO(Ticket ticket) {
+	    return mapper.toDTO(ticket);
+	}
+
+	public List<TicketResponseDTO> mostrarTickets() {
+
+		List<TicketResponseDTO> tickets = new ArrayList<>();
+
+		for (Ticket t : ticketRepository.findAll()) {
+			tickets.add(mapper.toDTO(t));
+		}
+		return tickets;
 	}
 
 	@Override

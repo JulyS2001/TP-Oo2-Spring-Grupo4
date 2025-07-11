@@ -70,15 +70,18 @@
 					<td
 						th:text="${ticket.fechaCierre != null ? #temporals.format(ticket.fechaCierre, 'dd/MM/yyyy HH:mm') : '---'}">
 					</td>
-					<td th:text="${ticket.prioridad.tipo}"></td>
-					<td th:text="${ticket.tipoDeTicket.tipo}"></td>
-					<td th:text="${ticket.estado.tipo}" th:classappend="${
-			                (ticket.estado.tipo == 'Abierto') ? 'estado-abierto' :
-			                (ticket.estado.tipo == 'Cerrado') ? 'estado-cerrado' :
-			                'estado-otro'
-			            }">
+					<td th:text="${ticket.prioridad}"></td>
+					<td th:text="${ticket.tipoDeTicket}"></td>
+					<td th:text="${ticket.estado}"
+						th:classappend="${
+							ticket.estado == 'Abierto' ? 'estado-abierto' :
+							ticket.estado == 'Cerrado' ? 'estado-cerrado' :
+							'estado-otro'
+						}">
 					</td>
-					<td th:text="${ticket.empleado != null ? ticket.empleado.nombre : 'No asignado'}"></td>
+
+					</td>
+					<td th:text="${ticket.nombreEmpleado != null ? ticket.nombreEmpleado : 'No asignado'}"></td>
 					<td>
 						<!-- Acciones -->
 						<form th:action="@{/eliminarTicket(idTicket=${ticket.idTicket})}" method="post"

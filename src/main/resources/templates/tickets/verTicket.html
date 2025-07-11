@@ -49,17 +49,17 @@
 				<span
 					th:text="${ticket.fechaCierre != null ? #temporals.format(ticket.fechaCierre, 'dd/MM/yyyy HH:mm') : '---'}"></span>
 			</p>
-			<p><strong>Prioridad:</strong> <span th:text="${ticket.prioridad.tipo}"></span></p>
-			<p><strong>Tipo:</strong> <span th:text="${ticket.tipoDeTicket.tipo}"></span></p>
-			<p><strong>Estado:</strong> <span th:text="${ticket.estado.tipo}"></span></p>
-			<p><strong>Empleado Asignado:</strong>
-				<span th:text="${ticket.empleado != null ? ticket.empleado.nombre : 'No asignado'}"></span>
+			<p><strong>Prioridad:</strong><span th:text="${ticket.prioridad}"></span></p>
+			<p><strong>Tipo de ticket:</strong><span th:text="${ticket.tipoDeTicket}"></span></p>
+			<p><strong>Estado:</strong><span th:text="${ticket.estado}"></span></p>
+			<p><strong>Empleado:</strong><span th:text="${ticket.nombreEmpleado != null ? ticket.nombreEmpleado : 'No asignado'}"></span>
+
 			</p>
 		</div>
 
 		<div class="acciones">
 			<form th:action="@{/editarTicket}" method="get">
-				<input type="hidden" name="idTicket" th:value="${ticket.idTicket}" />
+				<input type="hidden" name="idTicket" th:value="${ticket.idTicket}" />	
 				<button type="submit" class="btn">Editar Ticket</button>
 			</form>
 			<a th:href="@{/listaTickets}" class="btn">Volver al listado</a>

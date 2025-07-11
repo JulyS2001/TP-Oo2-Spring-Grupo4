@@ -15,6 +15,9 @@ import com.oo2.grupo4.mapper.IEmpleadoMapper;
 import com.oo2.grupo4.repositories.IEmpleadoRepository;
 import com.oo2.grupo4.repositories.ITicketRepository;
 import com.oo2.grupo4.services.interfaces.IEmpleadoService;
+import com.oo2.grupo4.dto.TicketResponseDTO;
+import com.oo2.grupo4.mapper.ITicketMapper;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +31,7 @@ public class EmpleadoService implements IEmpleadoService {
 	private final IEmpleadoRepository empleadoRepository;
 	private final ITicketRepository ticketRepository;
     private final IEmpleadoMapper empleadoMapper;
+    private final ITicketMapper ticketMapper;
 	
 
     //METODOS PARA MODELANDVIEW
@@ -123,18 +127,15 @@ public class EmpleadoService implements IEmpleadoService {
 	}
 	
 	
-	@Override
-	public List<Ticket> getAllByEmpleadoId(int idEmpleado){
-		List<Ticket> tickets = new ArrayList<>();
-		
-		for(Ticket t : ticketRepository.findAll()) {
-			 if(t.getEmpleado() != null && t.getEmpleado().getIdPersona() == idEmpleado) {
-			        tickets.add(t);
-			    }
-		}
-		
-		return tickets;
-	}
+
+@Override
+public List<TicketResponseDTO> getAllByEmpleadoId(int idEmpleado) {
+	return ticketRepository.findAll().stream()
+		.filter(t -> t.getEmpleado() != null && t.getEmpleado().getIdPersona() == idEmpleado)
+		.map(ticketMapper::toDTO)
+		.collect(Collectors.toList());
+}
+
 
 	@Override
 	public void delete(int idPersona) {

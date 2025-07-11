@@ -3,19 +3,16 @@ package com.oo2.grupo4.services.interfaces;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.oo2.grupo4.dto.TicketResponseDTO;
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Ticket;
 
 
 public interface ITicketService {
 
-	Ticket crearTicket(String titulo, String descripcion, int idTipoDeTicket, Integer idCliente);
-
 	public Ticket cambiarEmpleado(int idTicket, int idEmpleado);
-	
-	public int modificarTicket(int idTicket, Integer idTipoDeTicket, Integer idPrioridad, Integer idEstado);
 
-	List<Ticket> getAll();
+	public TicketResponseDTO convertirADTO(Ticket ticket);
 
 	Ticket getById(int id);
 
