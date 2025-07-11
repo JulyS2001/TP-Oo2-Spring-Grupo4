@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.oo2.grupo4.dto.EmpleadoCreateDTO;
 import com.oo2.grupo4.dto.EmpleadoUpdateDTO;
+import com.oo2.grupo4.dto.LoginCreateDTO;
 import com.oo2.grupo4.dto.TicketModificarDTO;
 import com.oo2.grupo4.dto.TicketResponseDTO;
 import com.oo2.grupo4.dto.EmpleadoDTO;
@@ -129,7 +130,10 @@ public class AdminController {
 		if (loginService.existsByCorreo(correo)) {
 			throw new MailExistente("El correo ingresado ya esta en uso.");
 		}
-		loginService.crearLogin(correo, contrasenia, empleado);
+		
+		LoginCreateDTO dtoNuevo = new LoginCreateDTO(correo, contrasenia);
+		
+		loginService.crearLogin(dtoNuevo, empleado);
 		contactoService.crearContacto(telefono, correo, empleado);
 
 		return new ModelAndView("redirect:/listaUsuarios");

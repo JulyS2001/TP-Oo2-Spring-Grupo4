@@ -1,4 +1,3 @@
-
 package com.oo2.grupo4.controllers;
 
 import org.springframework.stereotype.Controller;
@@ -8,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.oo2.grupo4.dto.ActualizacionCreateDTO;
 import com.oo2.grupo4.dto.ClienteCreateDTO;
+import com.oo2.grupo4.dto.LoginCreateDTO;
 import com.oo2.grupo4.entities.Cliente;
 import com.oo2.grupo4.entities.Persona;
 import com.oo2.grupo4.exceptions.DniExistente;
@@ -18,6 +17,7 @@ import com.oo2.grupo4.services.implementation.ClienteService;
 import com.oo2.grupo4.services.implementation.ContactoService;
 import com.oo2.grupo4.services.implementation.LoginService;
 import com.oo2.grupo4.services.implementation.PersonaService;
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -29,6 +29,8 @@ public class AuthController {
 	private final ClienteService clienteService;
 	private final ContactoService contactoService;
 
+	//cliente
+	
 	@GetMapping("/registro")
 	public ModelAndView vistaRegistro(@RequestParam(required = false) String mensaje) {
 		ModelAndView mav = new ModelAndView("registro/registroCliente");
@@ -52,6 +54,8 @@ public class AuthController {
 		return new ModelAndView("redirect:/completarContacto?idPersona=" + cliente.getIdPersona());
 	}
 
+	//log in
+	
 	@GetMapping("/completarContacto")
 	public ModelAndView completarContacto(@RequestParam int idPersona, @RequestParam(required = false) String mensaje) {
 		ModelAndView mav = new ModelAndView("registro/completarContacto");
@@ -61,23 +65,25 @@ public class AuthController {
 	}
 
 	@PostMapping("/completarContacto")
-	public ModelAndView completarRegistro(@RequestParam int idPersona, @RequestParam String telefono,
-			@RequestParam String correo, @RequestParam String contrasenia) {
-
-		Persona persona = personaService.traerPorId(idPersona);
+	public ModelAndView completarRegistro(@RequestParam int idPersona, @RequestParam String telefono, LoginCreateDTO dto) {
 		
-		
-		if(loginService.existsByCorreo(correo)) {
+		if(loginService.existsByCorreo(dto.correo())) {
 			throw new MailExistente("El correo ingresado ya esta en uso.");
 		}
 		
-		loginService.crearLogin(correo, contrasenia, persona);
+		Persona persona = personaService.traerPorId(idPersona);
+		
+		//LoginCreateDTO dtoNuevo = new LoginCreateDTO(dto.correo(), dto.contrasenia());
+		
+		loginService.crearLogin(dto, persona);
 
-		contactoService.crearContacto(telefono, correo, persona);
+		contactoService.crearContacto(telefono, dto.correo(), persona);
 
 		return new ModelAndView("redirect:/login");
 	}
 
+	//sign in
+	
 	@GetMapping("/login")
 	public ModelAndView mostrarLogin(@RequestParam(required = false) String error,
 			@RequestParam(required = false) String logout) {

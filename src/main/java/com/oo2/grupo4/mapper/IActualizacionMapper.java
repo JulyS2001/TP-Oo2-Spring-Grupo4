@@ -16,6 +16,9 @@ public  interface IActualizacionMapper {
 	ActualizacionResponseDTO toDTO ( Actualizacion actualizacion);
 	
 	@Mapping(target = "ticket.idTicket", source = "idTicket")
+	@Mapping(target = "empleado", ignore = true)
+	@Mapping(target = "fechaActualizacion", ignore = true)
+	@Mapping(target = "idActualizacion", ignore = true)
 	Actualizacion toEntity (ActualizacionCreateDTO actualizacionCreateDTO);
 	
 }
