@@ -4,14 +4,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.oo2.grupo4.dto.LoginCreateDTO;
-import com.oo2.grupo4.dto.LoginResponseDTO;
 import com.oo2.grupo4.entities.Login;
 
 @Mapper(componentModel = "spring")
 public interface ILoginMapper {
 
-	LoginResponseDTO toDTO ( Login login);
-	
 	@Mapping(target = "idLogin", ignore = true)
 	@Mapping(target = "persona", ignore = true)
 	Login toEntity (LoginCreateDTO loginCreateDTO);
