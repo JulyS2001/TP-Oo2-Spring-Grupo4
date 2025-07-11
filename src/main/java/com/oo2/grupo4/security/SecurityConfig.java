@@ -37,6 +37,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/",
+                		"/api/login",
                 		"/registro",
                 		"/completarContacto",
                 		"/login",
