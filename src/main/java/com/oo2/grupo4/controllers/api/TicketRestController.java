@@ -36,8 +36,7 @@ public class TicketRestController {
 
 	@Operation(summary = "Obtener todos los tickets")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Lista de tickets obtenida correctamente") 
-			})
+			@ApiResponse(responseCode = "200", description = "Lista de tickets obtenida correctamente")})
 	@GetMapping("/listaTickets")
 	public ResponseEntity<List<TicketResponseDTO>> getAllTicketResponseDTOs() {
 		return ResponseEntity.ok(ticketService.mostrarTickets());
