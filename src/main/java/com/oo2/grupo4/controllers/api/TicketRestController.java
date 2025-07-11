@@ -27,39 +27,40 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/tickets")
-@Tag(name = "Administración", description = "Endpoints para gestión de Tickets")
+@RequestMapping("/api/ticket")
+@Tag(name = "Administración de Ticket", description = "Endpoints para gestión de Tickets")
 
 public class TicketRestController {
 	private final TicketService ticketService;
-    private final ITicketMapper ticketMapper;
-    
-    @Operation(summary = "Obtener todos los tickets")
-    @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Lista de tickets obtenida correctamente")
-    })
-    @GetMapping
-    public ResponseEntity<List<TicketResponseDTO>>getAllTicketResponseDTOs() {
-        return ResponseEntity.ok(ticketService.mostrarTickets());
-    }
-    
-    @Operation(summary = "Crear un nuevo ticket")
-    @ApiResponse(responseCode = "201", description = "Ticket creado exitosamente")
-        @PostMapping("/crearTicket")
-        public ResponseEntity<TicketResponseDTO> crearTicket(@Valid @RequestBody TicketCreateDTO dto) {
-            TicketResponseDTO creado = ticketMapper.toDTO(ticketService.crearTicket(dto));
-            return ResponseEntity.status(HttpStatus.CREATED).body(creado);
-        }
+	private final ITicketMapper ticketMapper;
 
-        @Operation(summary = "Modificar un ticket existente")
-        @ApiResponse(responseCode = "200", description = "Ticket modificado exitosamente")
-        @PutMapping("/modificar/{idTicket}")
-        public ResponseEntity<TicketResponseDTO> modificarTicket(@PathVariable int idTicket, @RequestBody TicketModificarDTO dto) {
-            if (dto.idTicket() != idTicket) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); 
-            }
-            TicketResponseDTO actualizado =ticketMapper.toDTO(ticketService.modificarTicket(dto));
-            return ResponseEntity.ok(actualizado);
-        }
+	@Operation(summary = "Obtener todos los tickets")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Lista de tickets obtenida correctamente") 
+			})
+	@GetMapping("/listaTickets")
+	public ResponseEntity<List<TicketResponseDTO>> getAllTicketResponseDTOs() {
+		return ResponseEntity.ok(ticketService.mostrarTickets());
+	}
+
+	@Operation(summary = "Crear un nuevo ticket")
+	@ApiResponse(responseCode = "201", description = "Ticket creado exitosamente")
+	@PostMapping("/crearTicket")
+	public ResponseEntity<TicketResponseDTO> crearTicket(@Valid @RequestBody TicketCreateDTO dto) {
+		TicketResponseDTO creado = ticketMapper.toDTO(ticketService.crearTicket(dto));
+		return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+	}
+
+	@Operation(summary = "Modificar un ticket existente")
+	@ApiResponse(responseCode = "200", description = "Ticket modificado exitosamente")
+	@PutMapping("/modificar/{idTicket}")
+	public ResponseEntity<TicketResponseDTO> modificarTicket(@PathVariable int idTicket,
+			@RequestBody TicketModificarDTO dto) {
+		if (dto.idTicket() != idTicket) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+		TicketResponseDTO actualizado = ticketMapper.toDTO(ticketService.modificarTicket(dto));
+		return ResponseEntity.ok(actualizado);
+	}
 
 }

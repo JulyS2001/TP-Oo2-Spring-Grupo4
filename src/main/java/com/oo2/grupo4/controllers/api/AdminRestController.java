@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/empleados")
-@Tag(name = "Administración", description = "Endpoints para gestión de empleados")
+@Tag(name = "Acciones de Administrador", description = "Endpoints para gestión de empleados")
 public class AdminRestController {
 
     private final EmpleadoService empleadoService;
@@ -30,7 +30,7 @@ public class AdminRestController {
 
     @Operation(summary = "Obtener todos los empleados")
     @ApiResponse(responseCode = "200", description = "Lista de empleados obtenida correctamente")
-    @GetMapping
+    @GetMapping("/listaPersonas")
     public ResponseEntity<List<EmpleadoDTO>> getAllEmpleados() {
         return ResponseEntity.ok(empleadoService.getAllDTOs());
     }
@@ -45,7 +45,7 @@ public class AdminRestController {
 
     @Operation(summary = "Actualizar un empleado existente")
     @ApiResponse(responseCode = "200", description = "Empleado actualizado exitosamente")
-    @PutMapping("/actualizar/{idEmpleado}")
+    @PutMapping("/modificar/{idEmpleado}")
     public ResponseEntity<EmpleadoDTO> actualizarEmpleado(@PathVariable int idEmpleado, @RequestBody EmpleadoUpdateDTO dto) {
         if (dto.idPersona() != idEmpleado) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // Validación opcional

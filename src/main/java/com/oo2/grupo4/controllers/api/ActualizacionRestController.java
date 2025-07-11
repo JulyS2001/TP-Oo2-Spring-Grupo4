@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oo2.grupo4.dto.ActualizacionCreateDTO;
@@ -17,10 +18,14 @@ import com.oo2.grupo4.security.UserDetailsImpl;
 import com.oo2.grupo4.services.implementation.ActualizacionService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/actualizacion")
+@Tag(name = "Administración de Actualizaciones de Ticket", description = "Endpoints para gestión de Tickets")
+
 public class ActualizacionRestController {
 
 	private final ActualizacionService actualizacionService;
