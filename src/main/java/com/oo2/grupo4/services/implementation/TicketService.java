@@ -64,7 +64,7 @@ public class TicketService implements ITicketService {
 
 	}
 
-	public int modificarTicket(TicketModificarDTO dto) {
+	public Ticket modificarTicket(TicketModificarDTO dto) {
 		Ticket ticket = this.getById(dto.idTicket());
 
 		TipoDeTicket tipoDeTicket = tipoDeTicketService.findById(dto.idTipoDeTicket());
@@ -83,7 +83,7 @@ public class TicketService implements ITicketService {
 		ticket.setEstado(estado);
 		ticket.setTipoDeTicket(tipoDeTicket);
 
-		return ticketRepository.save(ticket).getIdTicket();
+		return ticketRepository.save(ticket);
 
 	}
 
