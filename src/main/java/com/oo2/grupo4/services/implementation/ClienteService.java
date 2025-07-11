@@ -1,22 +1,19 @@
 package com.oo2.grupo4.services.implementation;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.oo2.grupo4.entities.Actualizacion;
+import com.oo2.grupo4.dto.ClienteCreateDTO;
+import com.oo2.grupo4.dto.ClienteResponseDTO;
+import com.oo2.grupo4.dto.TicketResponseDTO;
 import com.oo2.grupo4.entities.Cliente;
-import com.oo2.grupo4.entities.Ticket;
+import com.oo2.grupo4.mapper.IClienteMapper;
+import com.oo2.grupo4.mapper.ITicketMapper;
 import com.oo2.grupo4.repositories.IClienteRepository;
 import com.oo2.grupo4.repositories.ITicketRepository;
 import com.oo2.grupo4.services.interfaces.IClienteService;
-import com.oo2.grupo4.dto.TicketResponseDTO;
-import com.oo2.grupo4.mapper.ITicketMapper;
-
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,6 +25,8 @@ public class ClienteService implements IClienteService {
 	private final PersonaService personaService;
 	private final ITicketRepository ticketRepository;
 	private final ITicketMapper ticketMapper;
+
+	private final IClienteMapper clienteMapper;
 
 
 	@Override
@@ -67,5 +66,32 @@ public class ClienteService implements IClienteService {
 		return ticketRepository.findAll().stream().filter(t -> t.getCliente() != null && t.getCliente().getIdPersona() ==idCliente)
 				.map(ticketMapper::toDTO).collect(Collectors.toList());
 	}
+	
+	//METODOS PARA REST 
+	
+	public List<ClienteResponseDTO> getAllDTOs() {
+        return clienteRepository.findAll()
+                .stream()
+                .map(clienteMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public ClienteResponseDTO getDTOById(int id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+        return clienteMapper.toDTO(cliente);
+    }
+
+	
+	public Cliente crearClienteDTO(ClienteCreateDTO dto) {
+        personaService.validarDniNoExiste(dto.dni());
+        Cliente cliente = clienteMapper.toEntity(dto);
+        return clienteRepository.save(cliente);
+    }
+	
+	
+	
+	
+	
 
 }
