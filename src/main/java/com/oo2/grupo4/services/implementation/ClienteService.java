@@ -4,12 +4,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.oo2.grupo4.dto.ClienteCreateDTO;
+import com.oo2.grupo4.dto.ClienteResponseDTO;
+import com.oo2.grupo4.dto.EmpleadoCreateDTO;
+import com.oo2.grupo4.dto.EmpleadoDTO;
 import com.oo2.grupo4.entities.Actualizacion;
 import com.oo2.grupo4.entities.Cliente;
+import com.oo2.grupo4.entities.Empleado;
 import com.oo2.grupo4.entities.Ticket;
+import com.oo2.grupo4.mapper.IClienteMapper;
 import com.oo2.grupo4.repositories.IClienteRepository;
 import com.oo2.grupo4.repositories.ITicketRepository;
 import com.oo2.grupo4.services.interfaces.IClienteService;
@@ -23,6 +30,7 @@ public class ClienteService implements IClienteService {
 	private final IClienteRepository clienteRepository;
 	private final PersonaService personaService;
 	private final ITicketRepository ticketRepository;
+	private final IClienteMapper clienteMapper;
 
 	@Override
 	public Cliente crearCliente(String nombre, String apellido, Long dni, String nroCliente) {
@@ -68,5 +76,32 @@ public class ClienteService implements IClienteService {
 		
 		return tickets;
 	}
+	
+	//METODOS PARA REST 
+	
+	public List<ClienteResponseDTO> getAllDTOs() {
+        return clienteRepository.findAll()
+                .stream()
+                .map(clienteMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public ClienteResponseDTO getDTOById(int id) {
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+        return clienteMapper.toDTO(cliente);
+    }
+
+	
+	public Cliente crearClienteDTO(ClienteCreateDTO dto) {
+        personaService.validarDniNoExiste(dto.dni());
+        Cliente cliente = clienteMapper.toEntity(dto);
+        return clienteRepository.save(cliente);
+    }
+	
+	
+	
+	
+	
 
 }
