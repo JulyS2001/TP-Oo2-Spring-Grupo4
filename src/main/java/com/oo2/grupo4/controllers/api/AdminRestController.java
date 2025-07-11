@@ -15,7 +15,9 @@ import com.oo2.grupo4.services.implementation.EmpleadoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -38,7 +40,14 @@ public class AdminRestController {
     @Operation(summary = "Crear un nuevo empleado")
     @ApiResponse(responseCode = "201", description = "Empleado creado exitosamente")
     @PostMapping("/crear")
-    public ResponseEntity<EmpleadoDTO> crearEmpleado(@Valid @RequestBody EmpleadoCreateDTO dto) {
+    public ResponseEntity<EmpleadoDTO> crearEmpleado(
+        @RequestBody(
+            description = "Datos para crear un empleado",
+            required = true,
+            content = @Content(schema = @Schema(implementation = EmpleadoCreateDTO.class))
+        )
+        @Valid @org.springframework.web.bind.annotation.RequestBody EmpleadoCreateDTO dto) {
+
         EmpleadoDTO creado = empleadoMapper.toDTO(empleadoService.crearEmpleado(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(creado);
     }
@@ -46,9 +55,15 @@ public class AdminRestController {
     @Operation(summary = "Actualizar un empleado existente")
     @ApiResponse(responseCode = "200", description = "Empleado actualizado exitosamente")
     @PutMapping("/modificar/{idEmpleado}")
-    public ResponseEntity<EmpleadoDTO> actualizarEmpleado(@PathVariable int idEmpleado, @RequestBody EmpleadoUpdateDTO dto) {
+    public ResponseEntity<EmpleadoDTO> actualizarEmpleado(
+            @PathVariable int idEmpleado,
+            @RequestBody(description = "Datos para actualizar un empleado",
+                         required = true,
+                         content = @Content(schema = @Schema(implementation = EmpleadoUpdateDTO.class)))
+            @Valid @org.springframework.web.bind.annotation.RequestBody EmpleadoUpdateDTO dto) {
+        
         if (dto.idPersona() != idEmpleado) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // Validación opcional
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         EmpleadoDTO actualizado = empleadoMapper.toDTO(empleadoService.actualizarEmpleado(dto));
         return ResponseEntity.ok(actualizado);
